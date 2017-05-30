@@ -16,6 +16,10 @@
     <%= form.text_field :username, id: :user_username %>
   </div>
 
+  <div class="field">
+    <%= form.select :user_type_id, ['admin', 'professor', 'student']%>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
