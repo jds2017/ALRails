@@ -7,12 +7,12 @@
 
 <p>
   <strong>Start:</strong>
-  <%= @course.start %>
+  <%= @course.start.strftime("%I:%M%p") %>
 </p>
 
 <p>
   <strong>End:</strong>
-  <%= @course.end %>
+  <%= @course.end.strftime("%I:%M%p") %>
 </p>
 
 <p>

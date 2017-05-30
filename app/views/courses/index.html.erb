@@ -17,8 +17,8 @@
     <% @courses.each do |course| %>
       <tr>
         <td><%= course.title %></td>
-        <td><%= course.start %></td>
-        <td><%= course.end %></td>
+        <td><%= course.start.strftime("%I:%M%p") %></td>
+        <td><%= course.end.strftime("%I:%M%p") %></td>
         <td><%= course.user.username %></td>
         <td><%= link_to 'Show', course %></td>
         <td><%= link_to 'Edit', edit_course_path(course) %></td>
