@@ -6,8 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-UserType.create user_type: 'professor'
-UserType.create user_type: 'admin'
-UserType.create user_type: 'student'
-id = UserType.find_by_user_type('admin').id
-User.create username: 'john', user_type_id: id
+User.create username: 'jtompkins8', user_type: 'admin'
