@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530011854) do
+ActiveRecord::Schema.define(version: 20170530012044) do
 
   create_table "user_types", force: :cascade do |t|
     t.string "type"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20170530011854) do
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_type_id"
+    t.index ["user_type_id"], name: "index_users_on_user_type_id"
   end
 
 end
