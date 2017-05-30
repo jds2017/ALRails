@@ -27,8 +27,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :course_user_id %>
+    <%= form.label :professor %>
+    <%= form.collection_select :user_id, User.where(user_type: 'professor'), :id, :username %>
   </div>
 
   <div class="actions">
