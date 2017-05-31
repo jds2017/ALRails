@@ -3,6 +3,7 @@ require 'test_helper'
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @registration = registrations(:one)
+    @registration.role = 'STUDENT'
   end
 
   test "should get index" do
