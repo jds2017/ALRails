@@ -9,3 +9,7 @@ User.create username: 'smaer', fname: 'sally', lname: 'maer', is_admin: false
 
 
 Registration.create role: 'student', user: User.where(username: 'smaer').first, course: Course.where(name: 'CS 2200').first
+
+Tag.create tag: 'malloc'
+Tag.create tag: 'circuit'
+Tag.create tag: 'register allocation'
