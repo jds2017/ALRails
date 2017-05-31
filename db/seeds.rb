@@ -8,7 +8,7 @@ User.create username: 'rkalhan4', fname: 'robert', lname: 'kalhan', is_admin: fa
 User.create username: 'smaer', fname: 'sally', lname: 'maer', is_admin: false
 
 
-Registration.create role: 'student', user: User.where(username: 'smaer').first, course: Course.where(name: 'CS 2200').first
+Registration.create role: 'STUDENT', user: User.where(username: 'smaer').first, course: Course.where(name: 'CS 2200').first
 
 Tag.create tag: 'malloc'
 Tag.create tag: 'circuit'
