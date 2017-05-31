@@ -13,3 +13,7 @@ Registration.create role: 'STUDENT', user: User.where(username: 'smaer').first, 
 Tag.create tag: 'malloc'
 Tag.create tag: 'circuit'
 Tag.create tag: 'register allocation'
+
+Question.create body: 'an implementation of malloc can be found in glibc'
+Question.create body: 'register allocation is NP hard'
+Question.create body: 'in logisim, you should backup your work periodically'
