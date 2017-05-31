@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if current_user.nil?
-      session[:username] = User.first.username
+      session[:username] = 'jtompkins8'
     end
   end
 end
