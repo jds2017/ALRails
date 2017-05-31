@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  fname: MyString
+  lname: MyString
+  is_admin: false
+
+two:
+  username: MyString
+  fname: MyString
+  lname: MyString
+  is_admin: false

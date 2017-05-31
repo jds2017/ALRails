@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-      #User.where(username: session[:username]).first
+      User.where(username: session[:username]).first
   end
 
   def require_login
     if current_user.nil?
-      session[:username] = 'jtompkins8'
+      session[:username] = User.first.username
     end
   end
 end
