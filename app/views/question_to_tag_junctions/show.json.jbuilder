@@ -1,0 +1,1 @@
+json.partial! "question_to_tag_junctions/question_to_tag_junction", question_to_tag_junction: @question_to_tag_junction

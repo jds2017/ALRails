@@ -12,13 +12,15 @@ Registration.create role: 'STUDENT', user: User.where(username: 'smaer').first, 
 Registration.create role: 'ASSISTANT', user: User.where(username: 'rkalhan4').first, course: Course.where(name: 'CS 4240').first
 
 
-Tag.create tag: 'malloc'
+tag = Tag.create tag: 'malloc'
 Tag.create tag: 'circuit'
 Tag.create tag: 'register allocation'
 
 q1 = Question.create body: 'an implementation of malloc can be found in glibc'
 q2 = Question.create body: 'register allocation is NP hard'
 q3 = Question.create body: 'in logisim, you should backup your work periodically'
+
+QuestionToTagJunction.create question: q1, tag: tag
 
 Answer.create answer: 'true', is_correct: true, question: q1
 Answer.create answer: 'false', is_correct: false, question: q1

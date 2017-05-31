@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :question_to_tag_junctions
   resources :course_to_lecture_junctions
   resources :lectures
   resources :question_set_junctions
