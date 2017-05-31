@@ -14,5 +14,5 @@ Tag.create tag: 'malloc'
 Tag.create tag: 'circuit'
 Tag.create tag: 'register allocation'
 
-Answer.create answer: 'A'
-Answer.create answer: 'false'
+Answer.create answer: 'A', is_correct: false
+Answer.create answer: 'false', is_correct: true
