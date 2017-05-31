@@ -13,6 +13,3 @@ Registration.create role: 'STUDENT', user: User.where(username: 'smaer').first, 
 Tag.create tag: 'malloc'
 Tag.create tag: 'circuit'
 Tag.create tag: 'register allocation'
-
-Answer.create answer: 'A'
-Answer.create answer: 'false'
