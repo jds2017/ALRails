@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531015909) do
+ActiveRecord::Schema.define(version: 20170531025709) do
 
   create_table "answers", force: :cascade do |t|
     t.string "answer"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20170531015909) do
     t.string "semester"
     t.string "name"
     t.string "student_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "question_sets", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_readonly"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

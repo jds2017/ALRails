@@ -20,3 +20,5 @@ q3 = Question.create body: 'in logisim, you should backup your work periodically
 
 Answer.create answer: 'true', is_correct: true, question: q1
 Answer.create answer: 'false', is_correct: false, question: q1
+
+QuestionSet.create name: 'my first question set', is_readonly: true

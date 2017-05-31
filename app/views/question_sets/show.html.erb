@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @question_set.name %>
+</p>
+
+<p>
+  <strong>Is readonly:</strong>
+  <%= @question_set.is_readonly %>
+</p>
+
+<%= link_to 'Edit', edit_question_set_path(@question_set) %> |
+<%= link_to 'Back', question_sets_path %>
