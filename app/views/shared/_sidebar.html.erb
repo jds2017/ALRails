@@ -2,8 +2,6 @@
     <h3>Active Learning</h3>
     <%= link_to "Courses", :controller => :courses, :action => :index %>
     <br>
-    <%= link_to "users", :controller => :users, :action => :index %>
-    <br>
     <%= link_to "registrations", :controller => :registrations, :action => :index %>
     <br>
     <%= link_to "tags", :controller => :tags, :action => :index %>
@@ -14,13 +12,17 @@
     <br>
     <%= link_to "question sets", :controller => :question_sets, :action => :index %>
     <br>
-    <%= link_to "question to set junction", :controller => :question_set_junctions, :action => :index %>
-    <br>
     <%= link_to "lectures", :controller => :lectures, :action => :index %>
     <br>
-    <%= link_to "course to lecture junction", :controller => :course_to_lecture_junctions, :action => :index %>
-    <br>
-    <%= link_to "question to tag junction", :controller => :question_to_tag_junctions, :action => :index %>
-    <br>
     <%= link_to "responses", :controller => :responses, :action => :index %>
+    <% if current_user.is_admin %>
+        <%= link_to "users", :controller => :users, :action => :index %>
+        <br>
+        <%= link_to "course to lecture junction", :controller => :course_to_lecture_junctions, :action => :index %>
+        <br>
+        <%= link_to "question to tag junction", :controller => :question_to_tag_junctions, :action => :index %>
+        <br>
+        <%= link_to "question to set junction", :controller => :question_set_junctions, :action => :index %>
+        <br>
+    <% end %>
 </div>
