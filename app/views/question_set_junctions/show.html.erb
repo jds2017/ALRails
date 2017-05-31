@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @question_set_junction.question %>
+</p>
+
+<p>
+  <strong>Question set:</strong>
+  <%= @question_set_junction.question_set %>
+</p>
+
+<%= link_to 'Edit', edit_question_set_junction_path(@question_set_junction) %> |
+<%= link_to 'Back', question_set_junctions_path %>
