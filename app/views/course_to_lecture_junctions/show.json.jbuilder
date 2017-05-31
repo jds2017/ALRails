@@ -1,0 +1,1 @@
+json.partial! "course_to_lecture_junctions/course_to_lecture_junction", course_to_lecture_junction: @course_to_lecture_junction

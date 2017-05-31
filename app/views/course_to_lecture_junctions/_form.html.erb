@@ -1,0 +1,27 @@
+<%= form_with(model: course_to_lecture_junction, local: true) do |form| %>
+  <% if course_to_lecture_junction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(course_to_lecture_junction.errors.count, "error") %> prohibited this course_to_lecture_junction from being saved:</h2>
+
+      <ul>
+      <% course_to_lecture_junction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :course_id %>
+    <%= form.text_field :course_id, id: :course_to_lecture_junction_course_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lecture_id %>
+    <%= form.text_field :lecture_id, id: :course_to_lecture_junction_lecture_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
