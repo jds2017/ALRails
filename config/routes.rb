@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :lectures
   resources :question_set_junctions
   resources :question_sets
   resources :answers
