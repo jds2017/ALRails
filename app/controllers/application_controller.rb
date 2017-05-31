@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    if params['un'].first
+    if params['un']
       session[:username] = params['un']
       return
     end
