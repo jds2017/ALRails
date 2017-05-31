@@ -3,6 +3,12 @@ node {
         checkout scm
     }
 
+    stage('Install Dependencies') {
+      sh '''
+        bundle install
+      '''
+    }
+
     stage('Test') {
         sh '''
           rails test
