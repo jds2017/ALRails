@@ -6,6 +6,7 @@ node {
     stage('Install Dependencies') {
       sh '''#!/bin/bash --login
         . /usr/local/rvm/scripts/rvm
+        echo $USER
         bundle install
       '''
     }
