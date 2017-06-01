@@ -4,16 +4,14 @@ node {
     }
 
     stage('Install Dependencies') {
-      sh '''
-        #!/bin/bash --login
+      sh '''#!/bin/bash --login
         . /usr/local/rvm/scripts/rvm
         bundle install
       '''
     }
 
     stage('Test') {
-        sh '''
-          #!/bin/bash --login
+        sh '''#!/bin/bash --login
           . /usr/local/rvm/scripts/rvm
           rails test
         '''
@@ -21,8 +19,7 @@ node {
 
     stage('Deploy') {
         if (env.BRANCH_NAME == 'master') {
-          sh '''
-            #!/bin/bash --login
+          sh '''#!/bin/bash --login
             . /usr/local/rvm/scripts/rvm
             rails db:migrate
             rails db:reset
