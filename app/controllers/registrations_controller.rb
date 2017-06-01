@@ -1,10 +1,16 @@
 class RegistrationsController < ApplicationController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
+  before_action :validate_read, only: [:show, :edit]
+  before_action :validate_modify, only: [:create, :destroy, :update]
 
   # GET /registrations
   # GET /registrations.json
   def index
-    @registrations = Registration.all
+    if current_user.is_admin
+      @registrations = Registration.all
+    else
+      @registrations = current_user.registrations
+    end
   end
 
   # GET /registrations/1
@@ -62,6 +68,17 @@ class RegistrationsController < ApplicationController
   end
 
   private
+    def validate_read
+      raise unless current_user.is_admin ||
+        current_user.courses.include?(@registration.course)
+    end
+
+    def validate_modify
+      raise unless current_user.is_admin ||
+        current_user.courses_as_professor.include?(@registration.course) ||
+        (current_user.courses_as_assistant.include?(@registration.course) && @registration.role == 'STUDENT')
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_registration
       @registration = Registration.find(params[:id])
