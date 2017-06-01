@@ -11,6 +11,8 @@ class RegistrationsController < ApplicationController
       @registrations = Registration.all
     else
       @registrations = current_user.registrations
+      current_user.courses_as_instructor.each { |c| @registrations += c.registrations }
+      @registrations = @registrations.uniq { |r| r.id }
     end
   end
 
@@ -74,8 +76,8 @@ class RegistrationsController < ApplicationController
 
     def validate_modify
       raise unless current_user.is_admin ||
-        current_user.courses_as_professor.include?(@registration.course) ||
-        (current_user.courses_as_assistant.include?(@registration.course) && @registration.role == 'STUDENT')
+        current_user.courses_as_instructor.include?(@registration.course) ||
+        (!current_user.is_professor && current_user.courses_as_instructor.include?(@registration.course) && @registration.role == 'STUDENT')
     end
 
     # Use callbacks to share common setup or constraints between actions.

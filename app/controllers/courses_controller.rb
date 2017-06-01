@@ -33,6 +33,9 @@ class CoursesController < ApplicationController
   def create
     respond_to do |format|
       if @course.save
+        if current_user.is_professor
+          Registration.create! user: current_user, course: @course, role: 'ASSISTANT'
+        end
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
