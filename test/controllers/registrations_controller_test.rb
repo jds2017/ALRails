@@ -2,6 +2,7 @@ require 'test_helper'
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    get '/courses?un=john'
     @registration = registrations(:one)
     @registration.role = 'STUDENT'
   end

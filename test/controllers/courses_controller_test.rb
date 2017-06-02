@@ -2,8 +2,9 @@ require 'test_helper'
 
 class CoursesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    get '/courses?un=john'
     @course = courses(:one)
-    @course.semester = 'SUMMER' 
+    @course.semester = 'SUMMER'
   end
 
   test "should get index" do

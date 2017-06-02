@@ -2,6 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
+    get '/courses?un=john'
     @user = users(:one)
   end
 
