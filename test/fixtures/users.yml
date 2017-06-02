@@ -1,13 +1,30 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  username: MyString
-  fname: MyString
-  lname: MyString
-  is_admin: false
+  username: john
+  fname: john
+  lname: tompkins
+  is_admin: true
+  is_professor: false
 
 two:
-  username: MyString
+  username: leahy
   fname: MyString
   lname: MyString
   is_admin: false
+  is_professor: false
+
+three:
+  username: jonathan
+  fname: MyString
+  lname: MyString
+  is_admin: false
+  is_professor: false
+
+
+four:
+  username: astudent
+  fname: MyString
+  lname: MyString
+  is_admin: false
+  is_professor: false

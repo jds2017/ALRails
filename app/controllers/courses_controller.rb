@@ -1,10 +1,17 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :find_course, only: [:show, :edit, :update, :destroy]
+  before_action :new_course, only: [:create]
+  before_action :validate_read, only: [:show, :edit]
+  before_action :validate_modify, only: [:create, :destroy, :update]
 
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    if current_user.is_admin
+      @courses = Course.all
+    else
+      @courses = current_user.courses
+    end
   end
 
   # GET /courses/1
@@ -24,10 +31,11 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params)
-
     respond_to do |format|
       if @course.save
+        if current_user.is_professor
+          Registration.create! user: current_user, course: @course, role: 'ASSISTANT'
+        end
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
@@ -62,9 +70,21 @@ class CoursesController < ApplicationController
   end
 
   private
+    def validate_read
+      raise unless current_user.is_admin || current_user.courses.include?(@course)
+    end
+
+    def validate_modify
+      raise unless current_user.is_admin || current_user.is_professor
+    end
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_course
+    def find_course
       @course = Course.find(params[:id])
+    end
+
+    def new_course
+      @course = Course.new(course_params)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

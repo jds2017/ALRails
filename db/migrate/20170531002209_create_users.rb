@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :fname
       t.string :lname
       t.boolean :is_admin
+      t.boolean :is_professor
 
       t.timestamps
     end

@@ -20,5 +20,10 @@
   <%= @user.is_admin %>
 </p>
 
+<p>
+  <strong>Is professor:</strong>
+  <%= @user.is_professor %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

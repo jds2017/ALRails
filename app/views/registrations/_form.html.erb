@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :registration_user_id %>
+    <%= form.select(:user_id, User.all.map {|a| [a, a.id]}) %>
   </div>
 
   <div class="field">
     <%= form.label :course_id %>
-    <%= form.text_field :course_id, id: :registration_course_id %>
+    <%= form.select(:course_id, Course.all.map {|a| [a, a.id]}) %>
   </div>
 
   <div class="actions">

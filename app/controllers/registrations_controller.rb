@@ -1,10 +1,19 @@
 class RegistrationsController < ApplicationController
-  before_action :set_registration, only: [:show, :edit, :update, :destroy]
+  before_action :find_registration, only: [:show, :edit, :update, :destroy]
+  before_action :new_registration, only: [:create]
+  before_action :validate_read, only: [:show, :edit]
+  before_action :validate_modify, only: [:create, :destroy, :update]
 
   # GET /registrations
   # GET /registrations.json
   def index
-    @registrations = Registration.all
+    if current_user.is_admin
+      @registrations = Registration.all
+    else
+      @registrations = current_user.registrations
+      current_user.courses_as_instructor.each { |c| @registrations += c.registrations }
+      @registrations = @registrations.uniq { |r| r.id }
+    end
   end
 
   # GET /registrations/1
@@ -24,8 +33,6 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.json
   def create
-    @registration = Registration.new(registration_params)
-
     respond_to do |format|
       if @registration.save
         format.html { redirect_to @registration, notice: 'Registration was successfully created.' }
@@ -62,9 +69,24 @@ class RegistrationsController < ApplicationController
   end
 
   private
+    def validate_read
+      raise unless current_user.is_admin ||
+        current_user.courses.include?(@registration.course)
+    end
+
+    def validate_modify
+      raise unless current_user.is_admin ||
+        current_user.courses_as_instructor.include?(@registration.course) ||
+        (!current_user.is_professor && current_user.courses_as_instructor.include?(@registration.course) && @registration.role == 'STUDENT')
+    end
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_registration
+    def find_registration
       @registration = Registration.find(params[:id])
+    end
+
+    def new_registration
+      @registration = Registration.new(registration_params)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
