@@ -1,7 +1,7 @@
 require "application_system_test_case"
 
 class RegistrationsTest < ApplicationSystemTestCase
-  test 'admin make a professor' do
+  test 'walkthrough for first demo' do
     assert !User.where(username: 'leahy').first.is_professor
     visit '/users?un=john'
     assert_text 'leahy'
