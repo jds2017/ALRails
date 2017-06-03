@@ -6,15 +6,14 @@ node {
     stage('Install Dependencies') {
       sh '''#!/bin/bash --login
         . /usr/local/rvm/scripts/rvm
-        echo $USER
-        bundle install
+        bundle install --without development
       '''
     }
 
     stage('Test') {
         sh '''#!/bin/bash --login
           . /usr/local/rvm/scripts/rvm
-          rails test
+          bundle exec rails test
         '''
     }
 
@@ -25,7 +24,7 @@ node {
             rails db:migrate
             rails db:reset
             pkill screen
-            screen -dmSL jds rails server
+            screen -dmSL jds bundle exec rails server
           '''
         }
     }
