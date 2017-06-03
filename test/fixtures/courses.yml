@@ -3,11 +3,11 @@
 one:
   year: 1
   semester: MyString
-  name: MyString
+  name: CourseOne
   student_key: MyString
 
 two:
   year: 1
   semester: MyString
-  name: MyString
+  name: CourseTwo
   student_key: MyString
