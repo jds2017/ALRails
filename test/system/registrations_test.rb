@@ -2,14 +2,14 @@ require "application_system_test_case"
 
 class RegistrationsTest < ApplicationSystemTestCase
   test 'walkthrough for first demo' do
-    assert !User.where(username: 'leahy').first.is_professor
+    assert !User.find_by(username: 'leahy').is_professor
     visit '/users?un=john'
     assert_text 'leahy'
     page.all('a', text: 'Edit')[2].click
     check 'Is professor'
     click_button 'Update User'
     click_on 'Back'
-    assert User.where(username: 'leahy').first.is_professor
+    assert User.find_by(username: 'leahy').is_professor
 
     visit '/courses?un=leahy'
     click_on 'New Course'
