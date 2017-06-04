@@ -16,6 +16,17 @@
     <%= form.text_field :body, id: :question_body %>
   </div>
 
+  <%= form.fields_for :answers do |answer_form| %>
+    <%= answer_form.label :answer %>
+    <%= answer_form.text_field :answer %>
+
+    <%= answer_form.label :is_correct %>
+    <%= answer_form.check_box :is_correct %>
+
+    <%= answer_form.label :delete %>
+    <%= answer_form.check_box :_destroy %>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
