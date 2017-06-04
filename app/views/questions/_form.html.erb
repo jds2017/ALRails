@@ -16,16 +16,23 @@
     <%= form.text_field :body, id: :question_body %>
   </div>
 
-  <%= form.fields_for :answers do |answer_form| %>
-    <%= answer_form.label :answer %>
-    <%= answer_form.text_field :answer %>
+  <table>
+    <tr>
+      <th>Answer</th>
+      <th>Correct?</th>
+      <th>Delete?</th>
+    </tr>
+    <%= form.fields_for :answers do |answer_form| %>
+      <tr>
+        <td><%= answer_form.text_field :answer %></td>
+        <td><%= answer_form.check_box :is_correct %></td>
+        <td><%= answer_form.check_box :_destroy %></td>
+      </tr>
+    <% end %>
+  </table>
 
-    <%= answer_form.label :is_correct %>
-    <%= answer_form.check_box :is_correct %>
-
-    <%= answer_form.label :delete %>
-    <%= answer_form.check_box :_destroy %>
-  <% end %>
+  <br>
+  <%= button_tag "Add another answer", type: 'button', onclick: '' %>
 
   <div class="actions">
     <%= form.submit %>
