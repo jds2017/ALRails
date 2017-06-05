@@ -2,6 +2,8 @@
 
 one:
   body: MyString
+  course_name: CourseOne
 
 two:
   body: MyString
+  course_name: CourseOne
