@@ -4,7 +4,11 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    #just ones I have access to
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
+    @questions = Question.all() if current_user.is_admin
   end
 
   # GET /questions/1

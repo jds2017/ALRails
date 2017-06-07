@@ -22,4 +22,11 @@ class QuestionsTest < ApplicationSystemTestCase
     assert_equal 'no', Question.find_by(body: 'yesorno').correct_answers.first.answer
     assert_equal 5, Question.find_by(body: 'yesorno').answers.size
   end
+
+  test "question not visible by student" do
+    visit '/questions?un=john'
+    assert_text 'qtwo'
+    visit '/questions?un=astudent'
+    assert_no_text 'qtwo'
+  end
 end
