@@ -15,6 +15,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = Question.new
+    5.times { @question.answers.build }
   end
 
   # GET /questions/1/edit
@@ -65,6 +66,7 @@ class QuestionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
+      (5 - @question.answers().size()).times { @question.answers.build }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

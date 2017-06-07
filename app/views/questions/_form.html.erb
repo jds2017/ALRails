@@ -1,19 +1,3 @@
-<script>
-  //http://guides.rubyonrails.org/form_helpers.html#adding-fields-on-the-fly
-  window.onload = function () {
-    $('#myBtn').click(function() {
-      var table = document.getElementById("myTable");
-      var row = table.insertRow(-1);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      var cell3 = row.insertCell(2);
-      cell1.innerHTML = '<input type="text"></input>';
-      cell2.innerHTML = '<input type="checkbox"></input>';
-      cell3.innerHTML = '<input type="checkbox" disabled></input>';
-    });
-  }
-</script>
-
 <%= form_with(model: question, local: true) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
@@ -32,23 +16,18 @@
     <%= form.text_field :body, id: :question_body %>
   </div>
 
-  <table id="myTable">
-    <tr>
-      <th>Answer</th>
-      <th>Correct?</th>
-      <th>Delete?</th>
-    </tr>
-    <%= form.fields_for :answers do |answer_form| %>
-      <tr>
-        <td><%= answer_form.text_field :answer %></td>
-        <td><%= answer_form.check_box :is_correct %></td>
-        <td><%= answer_form.check_box :_destroy %></td>
-      </tr>
-    <% end %>
-  </table>
+  <%= form.fields_for :answers do |answer_form| %>
+    <%= answer_form.label :answer %>
+    <%= answer_form.text_field :answer %>
+
+    <%= answer_form.label :is_correct %>
+    <%= answer_form.check_box :is_correct %>
+
+    <%= answer_form.label :_destroy %>
+    <%= answer_form.check_box :_destroy %>
+  <% end %>
 
   <br>
-  <%= button_tag "Add another answer", id: 'myBtn', type: 'button', onclick: '' %>
 
   <div class="actions">
     <%= form.submit %>
