@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: MyString
+  body: qone
   course_name: CourseOne
 
 two:
-  body: MyString
+  body: qtwo
   course_name: CourseOne

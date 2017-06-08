@@ -4,7 +4,10 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
+    @questions = Question.all() if current_user.is_admin
   end
 
   # GET /questions/1
@@ -15,6 +18,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = Question.new
+    5.times { @question.answers.build }
   end
 
   # GET /questions/1/edit
@@ -65,10 +69,11 @@ class QuestionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
+      (5 - @question.answers().size()).times { @question.answers.build }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:body)
+      params.require(:question).permit(:body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
     end
 end

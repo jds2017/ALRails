@@ -2,10 +2,15 @@
 
 one:
   answer: MyString
-  is_correct: false
+  is_correct: true
   question: one
 
 two:
   answer: MyString
   is_correct: false
   question: two
+
+three:
+  answer: MyString
+  is_correct: false
+  question: one

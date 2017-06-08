@@ -3,6 +3,14 @@
 <p>
   <strong>Body:</strong>
   <%= @question.body %>
+  <% @question.answers.each do |a| %>
+    <br>
+    <% if a.is_correct %>
+      <b><%= a %></b>
+    <% else %>
+      <%= a %>
+    <% end %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
