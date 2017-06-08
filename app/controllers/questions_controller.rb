@@ -4,7 +4,6 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    #just ones I have access to
     @questions = []
     current_user.courses_as_instructor.each {|c| @questions.push c.questions}
     @questions.flatten!
@@ -32,7 +31,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     respond_to do |format|
-      if @question.save
+      if @question.save!
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -75,6 +74,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:body, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
+      params.require(:question).permit(:body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
     end
 end

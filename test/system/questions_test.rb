@@ -8,6 +8,7 @@ class QuestionsTest < ApplicationSystemTestCase
     find('#question_answers_attributes_0_answer').set 'yes'
     find('#question_answers_attributes_1_answer').set 'no'
     find('#question_answers_attributes_0_is_correct').set(true)
+    select('CourseTwo', :from => 'question[course_name]')
     click_on 'Create Question'
     assert_text 'Question was successfully created.'
     click_on 'Edit'
