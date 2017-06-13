@@ -91,9 +91,4 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:year, :semester, :name, :student_key)
     end
-
-    #
-    def generate_key
-        self.student_key = SecureRandom.uuid
-    end
 end
