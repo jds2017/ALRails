@@ -1,6 +1,9 @@
 # ALRails
+
 Active Learning on Rails
 
+Installation:
+-------
 First ensure that you have a newer version (> 2.4) of ruby installed.
 `bundle install` will install the necessary dependencies for the project to run.
 
@@ -9,6 +12,8 @@ Database:
 `rails db:migrate` will update the tables in the database. This is necessary when setting up, or when you add migrations to the project.
 
 `rails db:reset` will dump all the data out of the tables and then execute the `db/seeds.rb` file to populate the tables. This is useful when doing testing locally. When the state of the database is modified, use this command to rollback.
+
+`bundle exec erd` will generate an ER diagram to erd.pdf.
 
 Starting the application:
 -------
