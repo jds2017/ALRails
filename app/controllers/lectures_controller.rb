@@ -12,7 +12,7 @@ class LecturesController < ApplicationController
   # GET /lectures/1
   # GET /lectures/1.json
   def show
-    @livelecture_uri = '/livelecture/start'
+    @livelecture_uri = URI.encode "/livelecture/start?lecture=#{params[:id]}"
   end
 
   # GET /lectures/new

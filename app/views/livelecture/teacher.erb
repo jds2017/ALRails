@@ -1,19 +1,22 @@
-<p>Hello teacher, welcome to live</p>
+<p>Hello <%= current_user  %>, welcome to <%= @lecture.title %></p>
 You are currently <p id='connection-status'>disconnected</p>
-<p>pause</p>
-websocket
-
-
 
 
 <script>
-App.cable.subscriptions.create({
+var question_set = {};
+App.lectureChannel = App.cable.subscriptions.create({
   channel: "LectureChannel",
-  lecture: "xxxx",
-  teacher: "xxxx"
+  lecture: "<%= @lecture.id %>",
+  teacher: "<%= current_user.id %>"
 }, {
   connected: function() {
     $('#connection-status').text("connected");
+    App.lectureChannel.send({msg: "hello"});
+  },
+  received: function(data) {
+    question_set = data;
+    console.log(data);
   }
-})
+});
+
 </script>

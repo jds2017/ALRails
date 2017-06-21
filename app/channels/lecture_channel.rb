@@ -1,9 +1,15 @@
 class LectureChannel < ApplicationCable::Channel
-  teacher = nil
-  lecture = nil
-  
+  @teacher = nil
+  @lecture = nil
+
   def subscribed
-    teacher = params[:lecture]
-    lecture = params[:teacher]
+    @teacher = User.find(params[:teacher])
+    @lecture = Lecture.find(params[:lecture])
+    stream_for @teacher
+    stream_for @lecture
+  end
+
+  def receive(data)
+    LectureChannel.broadcast_to(@lecture, "helpme")
   end
 end
