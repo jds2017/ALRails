@@ -12,12 +12,9 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if params['un']
+      cookies.signed[:username] = params['un']
       session[:username] = params['un']
       return
-    end
-
-    if current_user.nil?
-      session[:username] = User.first.username
     end
   end
 end

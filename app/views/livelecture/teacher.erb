@@ -1,4 +1,19 @@
 <p>Hello teacher, welcome to live</p>
-
+You are currently <p id='connection-status'>disconnected</p>
 <p>pause</p>
 websocket
+
+
+
+
+<script>
+App.cable.subscriptions.create({
+  channel: "LectureChannel",
+  lecture: "xxxx",
+  teacher: "xxxx"
+}, {
+  connected: function() {
+    $('#connection-status').text("connected");
+  }
+})
+</script>
