@@ -56,13 +56,13 @@
                     <ul class="nav" id="side-menu">
                         <% if current_user.is_admin %>
                             <li>
+                                <%= link_to "Users", :controller => :users, :action => :index %>
+                            </li>
+                            <!-- <li>
                                 <%= link_to "Registrations", :controller => :registrations, :action => :index %>
                             </li>
                             <li>
                                 <%= link_to "Tags", :controller => :tags, :action => :index %>
-                            </li>
-                            <li>
-                                <%= link_to "Users", :controller => :users, :action => :index %>
                             </li>
                             <li>
                                 <%= link_to "Answers", :controller => :answers, :action => :index %>
@@ -84,7 +84,8 @@
                             </li>
                             <li>
                                 <%= link_to "Question to set junction", :controller => :question_set_junctions, :action => :index %>
-                            </li>
+                            </li> -->
+                        <% else %>
                             <li>
                                 <%= link_to "Courses", :controller => :courses, :action => :index %>
                             </li>
