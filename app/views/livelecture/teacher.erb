@@ -4,6 +4,9 @@ You are currently <p id='connection-status'>disconnected</p>
 
 <script>
 var question_set = {};
+var requestQuestionSet = function() {
+  App.lectureChannel.send({msg: 'requestQuestionSet'});
+}
 App.lectureChannel = App.cable.subscriptions.create({
   channel: "LectureChannel",
   lecture: "<%= @lecture.id %>",
@@ -11,11 +14,12 @@ App.lectureChannel = App.cable.subscriptions.create({
 }, {
   connected: function() {
     $('#connection-status').text("connected");
-    App.lectureChannel.send({msg: "hello"});
+    requestQuestionSet();
   },
   received: function(data) {
-    question_set = data;
-    console.log(data);
+    if(data.msg == 'helpme') {
+      console.log('help is on the way');
+    }
   }
 });
 
