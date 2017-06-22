@@ -5,6 +5,7 @@ class LivelectureController < ApplicationController
   end
 
   def join
+    @lecture = Lecture.find_by(id: params[:lecture])
     render "student"
   end
 end
