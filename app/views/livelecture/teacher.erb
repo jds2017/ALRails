@@ -18,7 +18,8 @@ App.lectureChannel = App.cable.subscriptions.create({
   },
   received: function(data) {
     if(data.msg == 'helpme') {
-      console.log('help is on the way');
+      question_set = data.qs;
+      console.log(question_set);
     }
   }
 });

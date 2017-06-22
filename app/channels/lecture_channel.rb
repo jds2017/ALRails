@@ -11,7 +11,7 @@ class LectureChannel < ApplicationCable::Channel
 
   def receive(data)
     if ("requestQuestionSet" == data['msg'])
-      LectureChannel.broadcast_to(@lecture, {'msg' => 'helpme'})
+      LectureChannel.broadcast_to(@lecture, {'msg' => 'helpme', 'qs' => @lecture.question_set})
     end
   end
 end
