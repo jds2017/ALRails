@@ -27,6 +27,8 @@ wrong = Answer.create answer: 'false', is_correct: false, question: q1
 
 set = QuestionSet.create name: 'my first question set', is_readonly: true
 QuestionSetJunction.create question: q1, question_set: set
+QuestionSetJunction.create question: q2, question_set: set
+QuestionSetJunction.create question: q3, question_set: set
 
 lecture = Lecture.create title: 'compilers first lecture', date_of_use: 'June-3-2017', question_set: set
 
