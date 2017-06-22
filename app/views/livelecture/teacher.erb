@@ -1,9 +1,17 @@
 <p>Hello <%= current_user  %>, welcome to <%= @lecture.title %></p>
 You are currently <p id='connection-status'>disconnected</p>
 
+Current Question:
+<p id='question-text'></p>
+
 
 <script>
 var question_set = {};
+var question_index = 0;
+var displayNextQuestion = function() {
+  $('#question-text').text(question_set.questions[question_index].body);
+  question_index++;
+}
 var requestQuestionSet = function() {
   App.lectureChannel.send({msg: 'requestQuestionSet'});
 }
@@ -20,6 +28,7 @@ App.lectureChannel = App.cable.subscriptions.create({
     if(data.msg == 'helpme') {
       question_set = data.qs;
       console.log(question_set);
+      displayNextQuestion();
     }
   }
 });
