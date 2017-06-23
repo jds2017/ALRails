@@ -9,7 +9,7 @@ class LectureChannel < ApplicationCable::Channel
 
   def receive(data)
     if ("requestQuestionSet" == data['msg'])
-      LectureChannel.broadcast_to(@lecture, {'msg' => 'helpme', 'qs' => @lecture.question_set.as_json(include: { questions: {include: :answers}})})
+      LectureChannel.broadcast_to(@lecture, {'msg' => 'helpme', 'qs' => @lecture.question_set.as_json(include: { questions: {include: {answers: {except: :is_correct}}}})})
     end
     if ("join" == data['msg'])
       LectureChannel.broadcast_to(@lecture, {'msg' => 'join', 'user' => data['user']})
