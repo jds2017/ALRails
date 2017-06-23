@@ -17,5 +17,8 @@ class LectureChannel < ApplicationCable::Channel
     if ("question" == data['msg'])
       LectureChannel.broadcast_to(@lecture, {'msg' => 'question', 'body' => data['body']})
     end
+    if ("response" == data['msg'])
+      #todo record response data.answer ^ data.question ^ current_user
+    end
   end
 end

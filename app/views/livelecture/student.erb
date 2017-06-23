@@ -21,8 +21,13 @@ var display_new_question = function(q) {
   $('#question-text').text(q.body);
   $('#answers').empty();
   for (var i in q.answers) {
-    $('#answers').append('<li>' + q.answers[i].answer + '</li>');
+    $('#answers').append('<li><button class="answer-button" id=' + q.answers[i].id + '>Answer</button>' + q.answers[i].answer + '</li>');
   }
+  $('.answer-button').click(function() {
+    $('.answer-button').prop('disabled', true).css('opacity',0.5);
+    var answer_id = this.id
+    App.lectureChannel.send({msg: 'response', question: 'todo', answer: this.id });
+  });
 }
 var question_seconds = 5;
 var timer = $("#countdown").countdown360({
