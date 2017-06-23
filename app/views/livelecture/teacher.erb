@@ -34,6 +34,7 @@ var displayNextQuestion = function() {
   if(question_index === question_set.questions.length) {
     return;
   }
+  App.lectureChannel.send({msg: 'question', body: question_set.questions[question_index].body})
   timer.start();
   $('#question-text').text(question_set.questions[question_index].body);
   question_index++;

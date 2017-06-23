@@ -13,6 +13,10 @@ Current Question:
 var alert_presence = function() {
   App.lectureChannel.send({msg: 'join', user: '<%= current_user %>'});
 }
+var display_new_question = function(q) {
+  timer.start();
+  $('#question-text').text(q);
+}
 var question_seconds = 5;
 var timer = $("#countdown").countdown360({
     radius: 60,
@@ -30,8 +34,8 @@ App.lectureChannel = App.cable.subscriptions.create({
   },
   received: function(data) {
     console.log(data);
-    if(data.msg == 'new_question') {
-      //render the question, setup a new timer etc
+    if(data.msg == 'question') {
+      display_new_question(data.body);
     }
   }
 });
