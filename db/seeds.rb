@@ -25,6 +25,11 @@ QuestionToTagJunction.create question: q1, tag: tag
 Answer.create answer: 'true', is_correct: true, question: q1
 wrong = Answer.create answer: 'false', is_correct: false, question: q1
 
+Answer.create answer: 'only on a tuesday', is_correct: false, question: q2
+Answer.create answer: 'false', is_correct: true, question: q2
+Answer.create answer: 'false, you should use a hdl', is_correct: true, question: q3
+Answer.create answer: 'git is handy for logisim backups', is_correct: false, question: q3
+
 set = QuestionSet.create name: 'my first question set', is_readonly: true
 QuestionSetJunction.create question: q1, question_set: set
 QuestionSetJunction.create question: q2, question_set: set

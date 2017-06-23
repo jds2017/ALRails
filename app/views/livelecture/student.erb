@@ -4,6 +4,9 @@ You are currently <p id='connection-status'>disconnected</p>
 Current Question:
 <p id='question-text'></p>
 
+Answers:
+<ul id="answers">
+</ul>
 
 <div id="countdown"></div>
 
@@ -15,7 +18,11 @@ var alert_presence = function() {
 }
 var display_new_question = function(q) {
   timer.start();
-  $('#question-text').text(q);
+  $('#question-text').text(q.body);
+  $('#answers').empty();
+  for (var i in q.answers) {
+    $('#answers').append('<li>' + q.answers[i].answer + '</li>');
+  }
 }
 var question_seconds = 5;
 var timer = $("#countdown").countdown360({

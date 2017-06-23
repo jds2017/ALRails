@@ -8,6 +8,10 @@ Connected Users:
 <ul id="list">
 </ul>
 
+Answers:
+<ul id="answers">
+</ul>
+
 <div id="countdown"></div>
 
 <script>
@@ -34,9 +38,15 @@ var displayNextQuestion = function() {
   if(question_index === question_set.questions.length) {
     return;
   }
-  App.lectureChannel.send({msg: 'question', body: question_set.questions[question_index].body})
+  var question = question_set.questions[question_index];
+  var answers = question.answers;
+  App.lectureChannel.send({msg: 'question', body: question })
   timer.start();
-  $('#question-text').text(question_set.questions[question_index].body);
+  $('#question-text').text(question.body);
+  $('#answers').empty();
+  for (var i in answers) {
+    $('#answers').append('<li>' + answers[i].answer + '</li>');
+  }
   question_index++;
 }
 var startLecture = function() {
