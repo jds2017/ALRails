@@ -45,7 +45,7 @@ var displayNextQuestion = function() {
   $('#question-text').text(question.body);
   $('#answers').empty();
   for (var i in answers) {
-    $('#answers').append('<li>' + answers[i].answer + '</li>');
+    $('#answers').append('<li>' + answers[i].answer + '<p id=' + answers[i].id + '>0</p></li>');
   }
   question_index++;
 }
@@ -73,6 +73,11 @@ App.lectureChannel = App.cable.subscriptions.create({
     if(data.msg == 'helpme') {
       question_set = data.qs;
       startLecture();
+    }
+    if(data.msg == 'answer') {
+      answer = data.answer;
+      nextvalue = 1 + parseInt($('#' + answer).text());
+      $('#' + answer).text('' + nextvalue);
     }
   }
 });
