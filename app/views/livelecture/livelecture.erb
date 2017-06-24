@@ -4,6 +4,10 @@ You are currently <p id='connection-status'>disconnected</p>
 Current Question:
 <p id='question-text'></p>
 
+Connected Users:
+<ul id="list">
+</ul>
+
 Answers:
 <ul id="answers">
 </ul>
@@ -11,5 +15,10 @@ Answers:
 <div id="countdown"></div>
 
 <script>
-create_join_lecture("<%= @lecture.id %>");
+<% if params[:action] == 'start' %>
+  create_start_lecture("<%= @lecture.id %>");
+<% end %>
+<% if params[:action] == 'join' %>
+  create_join_lecture("<%= @lecture.id %>");
+<% end %>
 </script>

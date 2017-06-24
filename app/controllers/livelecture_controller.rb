@@ -1,11 +1,11 @@
 class LivelectureController < ApplicationController
   def start
     @lecture = Lecture.find_by(id: params[:lecture])
-    render "teacher"
+    render "livelecture"
   end
 
   def join
     @lecture = Lecture.find_by(id: params[:lecture])
-    render "student"
+    render "livelecture"
   end
 end
