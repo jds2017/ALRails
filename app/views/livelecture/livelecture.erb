@@ -15,10 +15,9 @@ Answers:
 <div id="countdown"></div>
 
 <script>
-<% if params[:action] == 'start' %>
+<% if current_user.is_professor %>
   create_start_lecture("<%= @lecture.id %>");
-<% end %>
-<% if params[:action] == 'join' %>
+<% else %>
   create_join_lecture("<%= @lecture.id %>");
 <% end %>
 </script>

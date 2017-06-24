@@ -13,6 +13,5 @@ Rails.application.routes.draw do
   resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get 'livelecture/start', to: 'livelecture#start'
-  get 'livelecture/join', to: 'livelecture#join'
+  get 'livelecture/show', to: 'livelecture#show'
 end

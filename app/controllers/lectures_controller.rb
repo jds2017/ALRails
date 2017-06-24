@@ -12,11 +12,7 @@ class LecturesController < ApplicationController
   # GET /lectures/1
   # GET /lectures/1.json
   def show
-    if current_user.is_professor
-      @livelecture_uri = URI.encode "/livelecture/start?lecture=#{params[:id]}"
-    else
-      @livelecture_uri = URI.encode "/livelecture/join?lecture=#{params[:id]}"
-    end
+    @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
   end
 
   # GET /lectures/new
