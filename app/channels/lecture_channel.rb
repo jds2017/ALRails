@@ -19,6 +19,7 @@ class LectureChannel < ApplicationCable::Channel
     end
     if ("response" == data['msg'])
       #todo record response data.answer ^ data.question ^ current_user
+      Response.create! lecture: @lecture, user: current_user, question_id: data['question'].to_i, answer_id: data['answer'].to_i
     end
   end
 end

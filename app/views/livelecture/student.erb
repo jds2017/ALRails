@@ -26,7 +26,7 @@ var display_new_question = function(q) {
   $('.answer-button').click(function() {
     $('.answer-button').prop('disabled', true).css('opacity',0.5);
     var answer_id = this.id
-    App.lectureChannel.send({msg: 'response', question: 'todo', answer: this.id });
+    App.lectureChannel.send({msg: 'response', question: q.id, answer: this.id });
   });
 }
 var question_seconds = 5;
