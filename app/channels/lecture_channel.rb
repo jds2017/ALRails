@@ -7,9 +7,12 @@ class LectureChannel < ApplicationCable::Channel
     stream_for @lecture
   end
 
+  def unsubscribed
+    LectureChannel.broadcast_to(@lecture, {'msg' => 'exit', 'user' => current_user.to_s})
+  end
+
   def receive(data)
     if ("requestQuestionSet" == data['msg'])
-      LectureChannel.broadcast_to(@lecture, {'msg' => 'helpme', 'qs' => @lecture.question_set.as_json(include: { questions: {include: {answers: {except: :is_correct}}}})})
     end
     if ("join" == data['msg'])
       LectureChannel.broadcast_to(@lecture, {'msg' => 'join', 'user' => data['user']})

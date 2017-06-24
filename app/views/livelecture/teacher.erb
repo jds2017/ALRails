@@ -31,7 +31,9 @@ var question_index = 0;
 var populateConnectedUsers = function() {
   $('#list').empty();
   for (var user in connected_users) {
-    $('#list').append('<li>' + user + '</li>');
+    if (connected_users[user] == 'connected') {
+      $('#list').append('<li>' + user + '</li>');
+    }
   }
 }
 var displayNextQuestion = function() {
@@ -68,6 +70,10 @@ App.lectureChannel = App.cable.subscriptions.create({
     console.log(data);
     if(data.msg == 'join') {
       connected_users[data.user] = 'connected';
+      populateConnectedUsers();
+    }
+    if(data.msg == 'exit') {
+      connected_users[data.user] = 'disconnected';
       populateConnectedUsers();
     }
     if(data.msg == 'helpme') {
