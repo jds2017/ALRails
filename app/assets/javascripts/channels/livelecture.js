@@ -4,6 +4,33 @@ var question_set = {};
 var question_index = 0;
 var timer;
 
+var create_join_lecture = function(lecture_id) {
+  if(App.lectureChannel && JSON.parse(App.lectureChannel.identifier).lecture === lecture_id) {
+    console.log("lecture channel already exists");
+    return;
+  }
+  if(App.lectureChannel && JSON.parse(App.lectureChannel.identifier).lecture !== lecture_id) {
+    console.log("killing lecture channel that is in progress");
+    App.cable.subscriptions.remove(App.lectureChannel);
+  }
+  App.lectureChannel = App.cable.subscriptions.create({
+    channel: "LectureChannel",
+    lecture: lecture_id
+  }, {
+    connected: function() {
+      create_timer();
+      $('#connection-status').text("connected");
+      alert_presence();
+    },
+    received: function(data) {
+      console.log(data);
+      if(data.msg == 'question') {
+        display_new_question(data.body);
+      }
+    }
+  });
+}
+
 var create_start_lecture = function(lecture_id) {
   if(App.lectureChannel && JSON.parse(App.lectureChannel.identifier).lecture === lecture_id) {
     console.log("lecture channel already exists");
@@ -63,6 +90,20 @@ var populateConnectedUsers = function() {
   }
 }
 
+var display_new_question = function(q) {
+  timer.start();
+  $('#question-text').text(q.body);
+  $('#answers').empty();
+  for (var i in q.answers) {
+    $('#answers').append('<li><button class="answer-button" id=' + q.answers[i].id + '>Answer</button>' + q.answers[i].answer + '</li>');
+  }
+  $('.answer-button').click(function() {
+    $('.answer-button').prop('disabled', true).css('opacity',0.5);
+    var answer_id = this.id
+    App.lectureChannel.send({msg: 'response', question: q.id, answer: this.id });
+  });
+}
+
 var displayNextQuestion = function() {
   if(question_index === question_set.questions.length) {
     return;
@@ -86,4 +127,8 @@ var startLecture = function() {
 
 var requestQuestionSet = function() {
   App.lectureChannel.send({msg: 'requestQuestionSet'});
+}
+
+var alert_presence = function() {
+  App.lectureChannel.send({msg: 'join', user: '<%= current_user %>'});
 }
