@@ -25,3 +25,16 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<!-- <div class="field"> -->
+<%= form_tag(tags_path, method: "get", id:"search-form") do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag("Search") %>
+<% end %>
+  <!-- </div> -->
+<!-- <% if @tags.present? %>
+  <%= render @tags %>
+<% else %>
+  <p>There are no tags containing the term(s) <%= params[:search] %>.</p>
+<% end %> -->

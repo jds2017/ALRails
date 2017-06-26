@@ -5,6 +5,9 @@ class TagsController < ApplicationController
   # GET /tags.json
   def index
     @tags = Tag.all
+    if params[:search]
+      @tags = Tag.search(params[:search])
+    end
   end
 
   # GET /tags/1
