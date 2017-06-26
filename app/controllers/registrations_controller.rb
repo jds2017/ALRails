@@ -2,7 +2,8 @@ class RegistrationsController < ApplicationController
   before_action :find_registration, only: [:show, :edit, :update, :destroy]
   before_action :new_registration, only: [:create]
   before_action :validate_read, only: [:show, :edit]
-  before_action :validate_modify, only: [:create, :destroy, :update]
+  before_action :validate_modify, only: [:destroy, :update]
+  before_action :validate_student_key, only: [:create]
 
   # GET /registrations
   # GET /registrations.json
@@ -78,6 +79,11 @@ class RegistrationsController < ApplicationController
       raise unless current_user.is_admin ||
         current_user.courses_as_instructor.include?(@registration.course) ||
         (!current_user.is_professor && current_user.courses_as_instructor.include?(@registration.course) && @registration.role == 'STUDENT')
+    end
+
+    def validate_student_key
+        # query for course with key
+        # if valid set the user, course, and student role the create
     end
 
     # Use callbacks to share common setup or constraints between actions.
