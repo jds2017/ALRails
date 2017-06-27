@@ -17,6 +17,7 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    session[:course_id] = @course.id
     @course_to_lecture_junctions = CourseToLectureJunction.all
     @lectures = []
     CourseToLectureJunction.all.each do |clj|
