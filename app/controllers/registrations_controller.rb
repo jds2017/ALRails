@@ -32,7 +32,7 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.json
   def create
-      @registration = new_registration
+    @registration = new_registration
     respond_to do |format|
       if @registration.save
         format.html { redirect_to @registration, notice: 'Registration was successfully created.' }
@@ -48,7 +48,7 @@ class RegistrationsController < ApplicationController
   # PATCH/PUT /registrations/1.json
   def update
     respond_to do |format|
-      if @registration.update(registration_params)
+      if @registration.update(update_params)
         format.html { redirect_to @registration, notice: 'Registration was successfully updated.' }
         format.json { render :show, status: :ok, location: @registration }
       else
@@ -70,14 +70,11 @@ class RegistrationsController < ApplicationController
 
   private
     def validate_read
-      raise unless current_user.is_admin ||
-        current_user.courses.include?(@registration.course)
+      raise unless current_user.courses.include?(@registration.course)
     end
 
     def validate_modify
-      raise unless current_user.is_admin ||
-        current_user.courses_as_instructor.include?(@registration.course) ||
-        (!current_user.is_professor && current_user.courses_as_instructor.include?(@registration.course) && @registration.role == 'STUDENT')
+      raise unless current_user.courses_as_instructor.include?(@registration.course)
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -86,13 +83,17 @@ class RegistrationsController < ApplicationController
     end
 
     def new_registration
-        course = Course.where(student_key: registration_params[:student_key])
-        @registration = Registration.new({user: current_user, course: course[0], role: "STUDENT"})
-        return @registration
+      course = Course.where(student_key: registration_params[:student_key])
+      @registration = Registration.new({user: current_user, course: course[0], role: "STUDENT"})
+      return @registration
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def registration_params
       params.require(:registration).permit(:student_key)
+    end
+
+    def update_params
+      params.require(:registration).permit(:role)
     end
 end
