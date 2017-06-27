@@ -25,7 +25,6 @@ class QuestionSetJunctionsController < ApplicationController
   # POST /question_set_junctions.json
   def create
     @question_set_junction = QuestionSetJunction.new(question_set_junction_params)
-
     respond_to do |format|
       if @question_set_junction.save
         format.html { redirect_to @question_set_junction, notice: 'Question set junction was successfully created.' }

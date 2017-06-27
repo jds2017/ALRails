@@ -15,6 +15,15 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/new
   def new
     @question_set = QuestionSet.new
+
+    # get all available questions
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
+    @questions = Question.all() if current_user.is_admin
+    # save all checked questions
+    # save associated tags
+
   end
 
   # GET /question_sets/1/edit
@@ -25,11 +34,19 @@ class QuestionSetsController < ApplicationController
   # POST /question_sets.json
   def create
     @question_set = QuestionSet.new(question_set_params)
+    # for each question, add to junction table
 
     respond_to do |format|
       if @question_set.save
-        format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
-        format.json { render :show, status: :created, location: @question_set }
+        # add entries in question set table
+        @question_set.name = @question_set_name
+        @question_set.is_readonly = @question_set_is_readonly
+        params[:question_ids].each do |id|
+          # add entries in junction table (set id, question id)
+          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+          format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
+          format.json { render :show, status: :created, location: @question_set }
+        end
       else
         format.html { render :new }
         format.json { render json: @question_set.errors, status: :unprocessable_entity }
