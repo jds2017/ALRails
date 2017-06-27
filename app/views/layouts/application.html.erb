@@ -87,10 +87,33 @@
                             </li> -->
                         <% else %>
                             <li>
-                                <%= link_to "Courses", :controller => :courses, :action => :index %>
+                                <a href="#"></i>Courses<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <% current_user.courses.each do |course| %>
+                                        <li>
+                                            <%= link_to course.name, course, { method: :get, controller: :course} %>
+                                        </li>
+                                    <% end %>
+                                    <% if current_user.is_professor %>
+                                        <li>
+                                            <!--<i class="fa fa-edit fa-fw"></i>-->
+                                            <%= link_to "Create New Course", new_course_path, {method: :get, controller: :course} %>
+                                        </li>
+                                    <% end %>
+                                </ul>
+                            <!-- /.nav-second-level -->
                             </li>
                             <li>
                                 <%= link_to "Questions", :controller => :questions, :action => :index %>
+                            </li>
+                            <li>
+                                <%= link_to "Course to lecture junction", :controller => :course_to_lecture_junctions, :action => :index %>
+                            </li>
+                            <li>
+                                <%= link_to "Lectures", :controller => :lectures, :action => :index %>
+                            </li>
+                            <li>
+                                <%= link_to "Registrations", :controller => :registrations, :action => :index %>
                             </li>
                         <% end %>
                     </ul>

@@ -17,6 +17,13 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @course_to_lecture_junctions = CourseToLectureJunction.all
+    @lectures = []
+    CourseToLectureJunction.all.each do |clj|
+      if @course == Course.find(clj.course_id)
+        @lectures.push(Lecture.find(clj.lecture_id))
+      end
+    end
   end
 
   # GET /courses/new
@@ -69,6 +76,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def lecture_for_current_course(lecture, course)
+    @lecture_course = course_to_lecture_junctions.find(lecture)
+    return lecture_course.course == course
+  end
+  
   private
     def validate_read
       raise unless current_user.is_admin || current_user.courses.include?(@course)

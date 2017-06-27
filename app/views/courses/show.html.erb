@@ -1,24 +1,61 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Year:</strong>
-  <%= @course.year %>
-</p>
+<div class="row">
+    <h1 class="page-header"><%= @course.name %>
+    </h1>
+</div>
+<div class="col-xs-9">
+    <div class="col-xs-3" style="font-size:12px">
+        <strong>Year:</strong>
+        <%= @course.year %>
+    </div>
+    <div class="col-xs-3" style="font-size:12px">
+        <strong>Semester:</strong>
+        <%= @course.semester %>
+    </div>
+    <div class="col-xs-3" style="font-size:12px">
+        <strong>Student key:</strong>
+        <%= @course.student_key %>
+    </div>
+</div>
+<%= button_to "Edit Course Information", edit_course_path(@course), {class: "btn btn-primary", method: :get} %>
 
-<p>
-  <strong>Semester:</strong>
-  <%= @course.semester %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
-
-<p>
-  <strong>Student key:</strong>
-  <%= @course.student_key %>
-</p>
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<div class="col-lg-12" style="margin-top:10px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1>Lectures</h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <% @lectures.each do |lecture| %>
+                    <div class="col-xs-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <%= lecture.title %>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>Date:</strong><p>
+                                <p><strong>Number of Questions:</strong><p>
+                                <p><strong>Tags:</strong><p>
+                            </div>
+                            <div class="panel-footer">
+                                Link to Lecture
+                            </div>
+                        </div>
+                     </div>
+                <% end %>
+                <div class="col-xs-3">
+                    <%= button_to "Create New Lecture", new_lecture_path, {method: :get, controller: :lecture, class: "btn btn-default"}%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div style="float:left;margin-left:5px">
+        <%= button_to "Course Questions", @course, {method: :get, class: "btn btn-primary"}%>
+    </div>
+    <div style="float:left;margin-left:5px">
+        <%= button_to "Student Breakdown", @course, {method: :get, class: "btn btn-primary"}%>
+    </div>
+</div>
