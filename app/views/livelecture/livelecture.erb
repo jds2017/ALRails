@@ -7,6 +7,10 @@ You are currently <p id='connection-status'>disconnected</p>
 
 <div id="countdown"></div>
 
+<% if current_user.is_professor %>
+  <button id='question-release'>Release next question</button>
+<% end %>
+
 <script>
 <% if current_user.is_professor %>
   create_start_lecture("<%= @lecture.id %>");

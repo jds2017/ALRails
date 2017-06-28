@@ -31,8 +31,13 @@ var displayNextQuestion = function() {
 }
 
 var startLecture = function() {
-  displayNextQuestion();
-  window.setInterval(displayNextQuestion, 1000*question_seconds);
+  $('#question-release').click(function() {
+    displayNextQuestion();
+    $('#question-release').prop('disabled', true).css('opacity',0.5);
+    setTimeout(function() {
+      $('#question-release').prop('disabled', false).css('opacity',1.0);
+    }, 1000*question_seconds);
+  });
 }
 
 var requestSetSize = function() {
