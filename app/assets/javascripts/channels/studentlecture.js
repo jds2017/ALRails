@@ -14,7 +14,6 @@ var create_join_lecture = function(lecture_id, username) {
     connected: function() {
       create_timer();
       $('#connection-status').text("connected");
-      alert_presence(username);
     },
     received: function(data) {
       console.log(data);

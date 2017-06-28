@@ -51,6 +51,14 @@ var requestQuestionSet = function() {
   App.lectureChannel.send({msg: 'requestQuestionSet'});
 }
 
-var alert_presence = function(username) {
-  App.lectureChannel.send({msg: 'join', user: username});
+var requestConnectedUsers = function() {
+  App.lectureChannel.send({msg: 'requestConnectedUsers'})
+}
+
+var user_enter = function(user) {
+  App.lectureChannel.perform("enter", {user: user})
+}
+
+var user_leave = function(user) {
+  App.lectureChannel.perform("exit", {user: user})
 }

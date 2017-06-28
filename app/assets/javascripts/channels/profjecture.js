@@ -15,6 +15,7 @@ var create_start_lecture = function(lecture_id) {
       create_timer();
       $('#connection-status').text("connected");
       requestQuestionSet();
+      requestConnectedUsers();
     },
     received: function(data) {
       console.log(data);
@@ -29,6 +30,12 @@ var create_start_lecture = function(lecture_id) {
       }
       if(data.msg == 'userlist') {
         $('#userlist').html(data.view);
+      }
+      if(data.msg == 'enter') {
+        user_enter(data.user);
+      }
+      if(data.msg == 'exit') {
+        user_leave(data.user);
       }
     }
   });
