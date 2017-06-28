@@ -1,7 +1,9 @@
 class LectureChannel < ApplicationCable::Channel
   @lecture = nil
+  @users = nil
 
   def subscribed
+    @users = {}
     @lecture = Lecture.find(params[:lecture])
     stream_for @lecture
     if current_user.is_professor
@@ -10,7 +12,7 @@ class LectureChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    LectureChannel.broadcast_to(@lecture, {'msg' => 'exit', 'user' => current_user.to_s})
+    LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'resync'})
   end
 
   def receive(data)
@@ -18,7 +20,9 @@ class LectureChannel < ApplicationCable::Channel
       LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'helpme', 'qs' => @lecture.question_set.as_json(include: { questions: {include: {answers: {except: :is_correct}}}})})
     end
     if ("join" == data['msg'])
-      LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'join', 'user' => data['user']})
+      @users[data['user']] = 'connected'
+      user_fragment = ApplicationController.renderer.render(partial: 'livelecture/connected_users', locals: {users: @users})
+      LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'userlist', 'view' => user_fragment})
     end
     if ("question" == data['msg'])
       LectureChannel.broadcast_to(@lecture, {'msg' => 'question', 'body' => data['body']})

@@ -1,4 +1,4 @@
-var create_join_lecture = function(lecture_id) {
+var create_join_lecture = function(lecture_id, username) {
   if(App.lectureChannel && JSON.parse(App.lectureChannel.identifier).lecture === lecture_id) {
     console.log("lecture channel already exists");
     return;
@@ -14,7 +14,7 @@ var create_join_lecture = function(lecture_id) {
     connected: function() {
       create_timer();
       $('#connection-status').text("connected");
-      alert_presence();
+      alert_presence(username);
     },
     received: function(data) {
       console.log(data);

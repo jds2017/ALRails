@@ -18,14 +18,6 @@ var create_start_lecture = function(lecture_id) {
     },
     received: function(data) {
       console.log(data);
-      if(data.msg == 'join') {
-        connected_users[data.user] = 'connected';
-        populateConnectedUsers();
-      }
-      if(data.msg == 'exit') {
-        connected_users[data.user] = 'disconnected';
-        populateConnectedUsers();
-      }
       if(data.msg == 'helpme') {
         question_set = data.qs;
         startLecture();
@@ -34,6 +26,9 @@ var create_start_lecture = function(lecture_id) {
         answer = data.answer;
         nextvalue = 1 + parseInt($('#' + answer).text());
         $('#' + answer).text('' + nextvalue);
+      }
+      if(data.msg == 'userlist') {
+        $('#userlist').html(data.view);
       }
     }
   });

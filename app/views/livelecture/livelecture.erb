@@ -4,9 +4,7 @@ You are currently <p id='connection-status'>disconnected</p>
 Current Question:
 <p id='question-text'></p>
 
-Connected Users:
-<ul id="list">
-</ul>
+<div id="userlist"></div>
 
 Answers:
 <ul id="answers">
@@ -18,6 +16,6 @@ Answers:
 <% if current_user.is_professor %>
   create_start_lecture("<%= @lecture.id %>");
 <% else %>
-  create_join_lecture("<%= @lecture.id %>");
+  create_join_lecture("<%= @lecture.id %>", "<%= current_user.username %>");
 <% end %>
 </script>
