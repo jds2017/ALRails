@@ -18,7 +18,10 @@ var create_join_lecture = function(lecture_id, username) {
     received: function(data) {
       console.log(data);
       if(data.msg == 'question') {
-        display_new_question(data.body);
+        display_new_question(data.view);
+      }
+      if(data.msg == 'leaderEnter') {
+        App.lectureChannel.perform('announce_presence')
       }
     }
   });

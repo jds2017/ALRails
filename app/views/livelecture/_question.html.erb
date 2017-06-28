@@ -1,0 +1,9 @@
+Current Question:
+<p><%= question.body %></p>
+
+Answers:
+<ul id="answers">
+  <% question.answers.each do |answer| %>
+    <li><button class="answer-button" id='<%= answer.id %>'>Answer</button><%= answer.answer %></li>
+  <% end %>
+</ul>

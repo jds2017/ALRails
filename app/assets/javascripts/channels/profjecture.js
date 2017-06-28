@@ -14,14 +14,17 @@ var create_start_lecture = function(lecture_id) {
     connected: function() {
       create_timer();
       $('#connection-status').text("connected");
-      requestQuestionSet();
+      requestSetSize();
       requestConnectedUsers();
     },
     received: function(data) {
       console.log(data);
-      if(data.msg == 'helpme') {
-        question_set = data.qs;
+      if(data.msg == 'setSize') {
+        question_set_size = data.size;
         startLecture();
+      }
+      if(data.msg == 'question') {
+        display_new_question(data.view);
       }
       if(data.msg == 'answer') {
         answer = data.answer;

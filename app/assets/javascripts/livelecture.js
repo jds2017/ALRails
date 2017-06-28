@@ -1,5 +1,5 @@
 var question_seconds = 5;
-var question_set = {};
+var question_set_size = -1;
 var question_index = 0;
 var timer;
 
@@ -12,13 +12,9 @@ var create_timer = function() {
   });
 }
 
-var display_new_question = function(q) {
+var display_new_question = function(view) {
   timer.start();
-  $('#question-text').text(q.body);
-  $('#answers').empty();
-  for (var i in q.answers) {
-    $('#answers').append('<li><button class="answer-button" id=' + q.answers[i].id + '>Answer</button>' + q.answers[i].answer + '</li>');
-  }
+  $('#current-question').html(view);
   $('.answer-button').click(function() {
     $('.answer-button').prop('disabled', true).css('opacity',0.5);
     var answer_id = this.id
@@ -27,18 +23,11 @@ var display_new_question = function(q) {
 }
 
 var displayNextQuestion = function() {
-  if(question_index === question_set.questions.length) {
-    return;
+  if(question_index === question_set_size) {
+    return; // lecture is over
   }
-  var question = question_set.questions[question_index];
-  var answers = question.answers;
-  App.lectureChannel.send({msg: 'question', body: question })
+  App.lectureChannel.send({msg: 'question', id: question_index })
   timer.start();
-  $('#question-text').text(question.body);
-  $('#answers').empty();
-  for (var i in answers) {
-    $('#answers').append('<li>' + answers[i].answer + '<p id=' + answers[i].id + '>0</p></li>');
-  }
   question_index++;
 }
 
@@ -47,8 +36,8 @@ var startLecture = function() {
   window.setInterval(displayNextQuestion, 1000*question_seconds);
 }
 
-var requestQuestionSet = function() {
-  App.lectureChannel.send({msg: 'requestQuestionSet'});
+var requestSetSize = function() {
+  App.lectureChannel.send({msg: 'requestSetSize'});
 }
 
 var requestConnectedUsers = function() {
