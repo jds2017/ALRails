@@ -21,7 +21,7 @@ var create_join_lecture = function(lecture_id, username) {
         display_new_question(data.view);
       }
       if(data.msg == 'leaderEnter') {
-        App.lectureChannel.perform('announce_presence')
+        announce_presence();
       }
     }
   });

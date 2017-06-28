@@ -1,6 +1,4 @@
 class LectureChannel < ApplicationCable::Channel
-  @lecture = nil
-  @users = nil
 
   def subscribed
     @users = {current_user.username => :connected }
@@ -18,25 +16,28 @@ class LectureChannel < ApplicationCable::Channel
     LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'exit', user: current_user.username })
   end
 
-  def receive(data)
-    if ("requestConnectedUsers" == data['msg'])
-      send_users
-    end
-    if ("requestSetSize" == data['msg'])
-      size = @lecture.question_set.questions.length
-      LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'setSize', 'size' => size })
-    end
-    if ("question" == data['msg'])
-      question = @questions[data['id']]
-      question_fragment = ApplicationController.renderer.render(partial: 'livelecture/question', locals: {question: question })
-      LectureChannel.broadcast_to(@lecture, {'msg' => 'question', 'view' => question_fragment })
-      question_fragment = ApplicationController.renderer.render(partial: 'livelecture/leader_question', locals: {question: question })
-      LectureChannel.broadcast_to(@lecture, {'msg' => 'leaderQuestion', 'view' => question_fragment })
-    end
-    if ("response" == data['msg'])
-      Response.create! lecture: @lecture, user: current_user, question_id: data['question'].to_i, answer_id: data['answer'].to_i
-      LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'answer', 'answer' => data['answer']})
-    end
+  def response(data)
+    question_id = data['question_id']
+    answer_id = data['answer_id']
+    Response.create! lecture: @lecture, user: current_user, question_id: question_id.to_i, answer_id: answer_id.to_i
+    LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'answer', 'answer' => answer_id})
+  end
+
+  def question(data)
+    question = @questions[data['index']]
+    question_fragment = ApplicationController.renderer.render(partial: 'livelecture/question', locals: {question: question })
+    LectureChannel.broadcast_to(@lecture, {'msg' => 'question', 'view' => question_fragment })
+    question_fragment = ApplicationController.renderer.render(partial: 'livelecture/leader_question', locals: {question: question })
+    LectureChannel.broadcast_to(@lecture, {'msg' => 'leaderQuestion', 'view' => question_fragment })
+  end
+
+  def request_set_size
+    size = @lecture.question_set.questions.length
+    LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'setSize', 'size' => size })
+  end
+
+  def request_connected_users
+    send_users
   end
 
   def announce_presence
@@ -44,12 +45,12 @@ class LectureChannel < ApplicationCable::Channel
   end
 
   def enter(data)
-    @users[data['user']] = :connected
+    @users[data['username']] = :connected
     send_users
   end
 
   def exit(data)
-    @users[data['user']] = :disconnected
+    @users[data['username']] = :disconnected
     send_users
   end
 

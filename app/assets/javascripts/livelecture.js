@@ -17,15 +17,18 @@ var display_new_question = function(view) {
   $('#current-question').html(view);
   $('.answer-button').click(function() {
     $('.answer-button').prop('disabled', true).css('opacity',0.5);
-    App.lectureChannel.send({msg: 'response', question: $(this).data('qid'), answer: $(this).data('id') });
+    App.lectureChannel.perform('response', {
+      question_id: $(this).data('qid'),
+      answer_id: $(this).data('id')
+    });
   });
 }
 
 var displayNextQuestion = function() {
   if(question_index === question_set_size) {
-    return; // lecture is over
+    return;
   }
-  App.lectureChannel.send({msg: 'question', id: question_index })
+  App.lectureChannel.perform('question', {index: question_index});
   timer.start();
   question_index++;
 }
@@ -41,17 +44,21 @@ var startLecture = function() {
 }
 
 var requestSetSize = function() {
-  App.lectureChannel.send({msg: 'requestSetSize'});
+  App.lectureChannel.perform('request_set_size')
 }
 
 var requestConnectedUsers = function() {
-  App.lectureChannel.send({msg: 'requestConnectedUsers'})
+  App.lectureChannel.perform('request_connected_users');
 }
 
 var user_enter = function(user) {
-  App.lectureChannel.perform("enter", {user: user})
+  App.lectureChannel.perform("enter", {username: user});
 }
 
 var user_leave = function(user) {
-  App.lectureChannel.perform("exit", {user: user})
+  App.lectureChannel.perform("exit", {username: user});
+}
+
+var announce_presence = function() {
+  App.lectureChannel.perform('announce_presence');
 }
