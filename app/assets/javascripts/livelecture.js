@@ -17,8 +17,7 @@ var display_new_question = function(view) {
   $('#current-question').html(view);
   $('.answer-button').click(function() {
     $('.answer-button').prop('disabled', true).css('opacity',0.5);
-    var answer_id = this.id
-    App.lectureChannel.send({msg: 'response', question: q.id, answer: this.id });
+    App.lectureChannel.send({msg: 'response', question: $(this).data('qid'), answer: $(this).data('id') });
   });
 }
 

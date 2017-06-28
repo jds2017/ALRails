@@ -30,6 +30,8 @@ class LectureChannel < ApplicationCable::Channel
       question = @questions[data['id']]
       question_fragment = ApplicationController.renderer.render(partial: 'livelecture/question', locals: {question: question })
       LectureChannel.broadcast_to(@lecture, {'msg' => 'question', 'view' => question_fragment })
+      question_fragment = ApplicationController.renderer.render(partial: 'livelecture/leader_question', locals: {question: question })
+      LectureChannel.broadcast_to(@lecture, {'msg' => 'leaderQuestion', 'view' => question_fragment })
     end
     if ("response" == data['msg'])
       Response.create! lecture: @lecture, user: current_user, question_id: data['question'].to_i, answer_id: data['answer'].to_i

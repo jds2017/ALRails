@@ -23,13 +23,13 @@ var create_start_lecture = function(lecture_id) {
         question_set_size = data.size;
         startLecture();
       }
-      if(data.msg == 'question') {
+      if(data.msg == 'leaderQuestion') {
         display_new_question(data.view);
       }
       if(data.msg == 'answer') {
         answer = data.answer;
-        nextvalue = 1 + parseInt($('#' + answer).text());
-        $('#' + answer).text('' + nextvalue);
+        nextvalue = 1 + parseInt($('#answer-ctr-' + answer).text());
+        $('#answer-ctr-' + answer).text('' + nextvalue);
       }
       if(data.msg == 'userlist') {
         $('#userlist').html(data.view);
