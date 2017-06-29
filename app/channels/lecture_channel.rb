@@ -4,7 +4,7 @@ class LectureChannel < ApplicationCable::Channel
     @users = {current_user.username => :connected }
     @lecture = Lecture.find(params[:lecture])
     stream_for @lecture
-    if current_user.is_professor
+    if current_user.courses_as_instructor.include? @lecture.question_set.questions[0].course
       stream_for "leader_#{@lecture.id}"
       LectureChannel.broadcast_to(@lecture, {'msg' => 'leader_enter' })
       @questions = @lecture.question_set.questions
