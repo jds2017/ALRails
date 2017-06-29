@@ -12,4 +12,8 @@ class Question < ApplicationRecord
   def correct_answers
     answers.find_all { |a| a.is_correct }
   end
+
+  def course
+    Course.find_by(name: self.course_name)
+  end
 end
