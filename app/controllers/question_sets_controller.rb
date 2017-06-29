@@ -15,6 +15,9 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/new
   def new
     @question_set = QuestionSet.new
+    if params[:search]
+      @tags = Tag.search(params[:search])
+    end
   end
 
   # GET /question_sets/1/edit

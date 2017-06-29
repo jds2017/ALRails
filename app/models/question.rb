@@ -4,6 +4,9 @@ class Question < ApplicationRecord
 
   has_many :question_set_junctions
 
+  has_many :question_to_tag_junctions
+  has_many :tags, through: :question_to_tag_junctions
+  
   validates :course_name, presence: true
 
   def correct_answers

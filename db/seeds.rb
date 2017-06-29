@@ -6,21 +6,25 @@ Course.create year: 2014, semester: 'SPRING', name: 'CS 2200', student_key: '4jk
 User.create username: 'jtompkins8', fname: 'john', lname: 'tompkins', is_admin: true
 User.create username: 'rkalhan4', fname: 'robert', lname: 'kalhan', is_admin: false
 student = User.create username: 'smaer', fname: 'sally', lname: 'maer', is_admin: false
-
+prof = User.create username: 'testprof', fname: 'test', lname: 'prof', is_admin: false, is_professor: true
 
 Registration.create role: 'STUDENT', user: student, course: Course.where(name: 'CS 4240').first
 Registration.create role: 'ASSISTANT', user: User.where(username: 'rkalhan4').first, course: Course.where(name: 'CS 4240').first
-
+Registration.create role: 'INSTRUCTOR', user: prof, course: compilers
 
 tag = Tag.create tag: 'malloc'
-Tag.create tag: 'circuit'
-Tag.create tag: 'register allocation'
+tag2 = Tag.create tag: 'circuit'
+tag3 = Tag.create tag: 'register allocation'
+tag4 = Tag.create tag: 'logisim'
 
 q1 = Question.create body: 'an implementation of malloc can be found in glibc', course_name: 'CS 4240'
 q2 = Question.create body: 'register allocation is NP hard', course_name: 'CS 4240'
 q3 = Question.create body: 'in logisim, you should backup your work periodically', course_name: 'CS 2200'
 
 QuestionToTagJunction.create question: q1, tag: tag
+QuestionToTagJunction.create question: q2, tag: tag3
+QuestionToTagJunction.create question: q3, tag: tag2
+QuestionToTagJunction.create question: q3, tag: tag4
 
 Answer.create answer: 'true', is_correct: true, question: q1
 wrong = Answer.create answer: 'false', is_correct: false, question: q1

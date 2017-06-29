@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/question_sets_new" => 'question_sets#new'
   resources :responses
   resources :question_to_tag_junctions
   resources :course_to_lecture_junctions

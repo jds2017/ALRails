@@ -4,4 +4,8 @@ class QuestionSet < ApplicationRecord
 
   has_many :question_to_tag_junctions
   has_many :tags, through: :question_to_tag_junctions
+
+  def self.search(search)
+  	where("tag LIKE ?", "%#{search}%")
+  end
 end

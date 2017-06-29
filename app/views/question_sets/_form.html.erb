@@ -21,20 +21,28 @@
     <%= form.check_box :is_readonly, id: :question_set_is_readonly %>
   </div>
 
+  <table border="1">
+    <tr>
+      <th>Question</th>
+      <th>Tags</th>
+    </tr>
+    <% Question.all.each do |q| %>
+      <tr>
+        <td><%= q.body %></td>
+        <td><%= q.tags.join(", ") %></td>
+      </tr>
+    <% end %>
+  </table>
+
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
 
-<!-- <div class="field"> -->
+<!-- <div class="field"> 
 <%= form_tag(tags_path, method: "get", id:"search-form") do %>
   <%= label_tag(:search, "Search for:") %>
   <%= text_field_tag(:search, params[:search]) %>
   <%= submit_tag("Search") %>
 <% end %>
-  <!-- </div> -->
-<!-- <% if @tags.present? %>
-  <%= render @tags %>
-<% else %>
-  <p>There are no tags containing the term(s) <%= params[:search] %>.</p>
-<% end %> -->
+  </div> -->
