@@ -15,19 +15,22 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/new
   def new
     @question_set = QuestionSet.new
-
     # get all available questions
     @questions = []
     current_user.courses_as_instructor.each {|c| @questions.push c.questions}
     @questions.flatten!
-    @questions = Question.all() if current_user.is_admin
-    # save all checked questions
-    # save associated tags
-
+    @unselected_questions = []
+    @unselected_questions = @questions - @question_set.questions
   end
 
   # GET /question_sets/1/edit
   def edit
+    # get all available questions
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
+    @unselected_questions = []
+    @unselected_questions = @questions - @question_set.questions
   end
 
   # POST /question_sets
