@@ -1,8 +1,7 @@
 <h1>New Lecture</h1>
-
-<%= render 'form', lecture: @lecture %>
-
-<%= link_to 'Back', lectures_path %>
 <div>
-    <%= @course_id %>
+<%= render 'form', lecture: @lecture %>
+<div>
+<%= button_to "Back", @course, {class: 'btn btn-primary', method: :get} %>
+</div>
 </div>
