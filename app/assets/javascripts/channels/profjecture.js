@@ -1,9 +1,5 @@
 var create_start_lecture = function(lecture_id) {
-  if(App.lectureChannel && JSON.parse(App.lectureChannel.identifier).lecture === lecture_id) {
-    console.log("lecture channel already exists");
-    return;
-  }
-  if(App.lectureChannel && JSON.parse(App.lectureChannel.identifier).lecture !== lecture_id) {
+  if(App.lectureChannel) {
     console.log("killing lecture channel that is in progress");
     App.cable.subscriptions.remove(App.lectureChannel);
   }
