@@ -6,9 +6,11 @@ Course.create year: 2014, semester: 'SPRING', name: 'CS 2200', student_key: '4jk
 User.create username: 'jtompkins8', fname: 'john', lname: 'tompkins', is_admin: true
 User.create username: 'rkalhan4', fname: 'robert', lname: 'kalhan', is_admin: false, is_professor: true
 student = User.create username: 'smaer', fname: 'sally', lname: 'maer', is_admin: false
+student2 = User.create username: 'srunner', fname: 'steve', lname: 'runner', is_admin: false
 
 
 Registration.create role: 'STUDENT', user: student, course: Course.where(name: 'CS 4240').first
+Registration.create role: 'STUDENT', user: student2, course: Course.where(name: 'CS 4240').first
 Registration.create role: 'ASSISTANT', user: User.where(username: 'rkalhan4').first, course: Course.where(name: 'CS 4240').first
 
 
