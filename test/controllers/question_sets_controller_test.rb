@@ -34,7 +34,7 @@ class QuestionSetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update question_set" do
-    patch question_set_url(@question_set), params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name } }
+    patch question_set_url(@question_set), params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name }, question_ids: ['1'] }
     assert_redirected_to question_set_url(@question_set)
   end
 

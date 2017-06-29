@@ -59,7 +59,17 @@ class QuestionSetsController < ApplicationController
   # PATCH/PUT /question_sets/1.json
   def update
     respond_to do |format|
+      @question_set.name = :name
+      @question_set.is_readonly = :is_readonly
       if @question_set.update(question_set_params)
+         # delete all from junction table
+        QuestionSetJunction.where(question_set_id: @question_set.id).delete_all
+        # re-add desired questions
+        params[:question_ids].each do |id|
+          # add entries in junction table (set id, question id)
+          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+          @j.save
+        end
         format.html { redirect_to @question_set, notice: 'Question set was successfully updated.' }
         format.json { render :show, status: :ok, location: @question_set }
       else
