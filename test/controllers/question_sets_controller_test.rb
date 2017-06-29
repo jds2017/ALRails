@@ -17,7 +17,7 @@ class QuestionSetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create question_set" do
     assert_difference('QuestionSet.count') do
-      post question_sets_url, params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name } }
+      post question_sets_url, params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name }, question_ids: ['1'] }
     end
 
     assert_redirected_to question_set_url(QuestionSet.last)
