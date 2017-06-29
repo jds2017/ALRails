@@ -44,6 +44,7 @@ class QuestionSetsController < ApplicationController
         params[:question_ids].each do |id|
           # add entries in junction table (set id, question id)
           @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+          @j.save
           format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
           format.json { render :show, status: :created, location: @question_set }
         end
