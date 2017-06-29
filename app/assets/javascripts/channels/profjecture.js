@@ -19,11 +19,11 @@ var create_start_lecture = function(lecture_id) {
     },
     received: function(data) {
       console.log(data);
-      if(data.msg == 'setSize') {
+      if(data.msg == 'set_size') {
         question_set_size = data.size;
         startLecture();
       }
-      if(data.msg == 'leaderQuestion') {
+      if(data.msg == 'leader_question') {
         display_new_question(data.view);
       }
       if(data.msg == 'answer') {

@@ -20,7 +20,7 @@ var create_join_lecture = function(lecture_id, username) {
       if(data.msg === 'question') {
         display_new_question(data.view);
       }
-      if(data.msg === 'leaderEnter') {
+      if(data.msg === 'leader_enter') {
         announce_presence();
       }
       if(data.msg === 'correct_answer') {
