@@ -27,16 +27,12 @@
     <!-- add "search bar" for tags and filter questions shown based on
           tag entered -->
 
-    <%= form_tag('question_sets_new_path', method: "get", id:"search-form", remote: true) do %>
-      <%= label_tag(:search, "Find Questions by Tag:") %>
-      <%= text_field_tag(:search, params[:search]) %>
-      <%= submit_tag("Search") %>
-    <% end %>
+    <input type="text" id="tagSearchInput" onkeyup="qSetQTagSearch()" placeholder="Search for question tags...">
 
-    <table border="1">
+    <table id="questionTagTable" border="1">
       <tr>
         <th></th>
-        <th>Question</th>
+        <th>Body</th>
         <th>Tags</th>
       </tr>
       <!-- loop thru questions from controller
@@ -60,10 +56,27 @@
   </div>
 <% end %>
 
-<!-- <div class="field"> 
-<%= form_tag(tags_path, method: "get", id:"search-form") do %>
-  <%= label_tag(:search, "Search for:") %>
-  <%= text_field_tag(:search, params[:search]) %>
-  <%= submit_tag("Search") %>
-<% end %>
-  </div> -->
+<script>
+//NOTE: Only searches for one term with no additional spaces or punctuation.
+function qSetQTagSearch() {
+  //declare variables: serach input, table to search, filter for input, and table rows.
+  var input, filter, table, tr
+  input = document.getElementById("tagSearchInput");
+  filter = input.value.toLowerCase();
+  table = document.getElementById("questionTagTable");
+  tr = table.getElementsByTagName("tr");
+
+  //loop thru all table rows, and hide those that don't match the search input.
+  for (i = 0; i < tr.length; i++) {
+    //get tags column for this row
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display= "none";
+      }
+    }
+  }
+}
+</script>
