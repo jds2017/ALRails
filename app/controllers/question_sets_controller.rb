@@ -37,13 +37,10 @@ class QuestionSetsController < ApplicationController
   # POST /question_sets.json
   def create
     @question_set = QuestionSet.new(question_set_params)
-    # for each question, add to junction table
+    @question_set.is_readonly = false
 
     respond_to do |format|
       if @question_set.save
-        # add entries in question set table
-        @question_set.name = @question_set_name
-        @question_set.is_readonly = @question_set_is_readonly
         params[:question_ids].each do |id|
           # add entries in junction table (set id, question id)
           @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
