@@ -25,7 +25,7 @@ var display_new_question = function(view) {
   });
 }
 
-var displayNextQuestion = function() {
+var display_next_question = function() {
   if(question_index === question_set_size) {
     return;
   }
@@ -41,9 +41,9 @@ var display_answer = function() {
   }, 1000*answer_seconds);
 }
 
-var startLecture = function() {
+var start_lecture = function() {
   $('#question-release').click(function() {
-    displayNextQuestion();
+    display_next_question();
     $('#question-release').prop('disabled', true).css('opacity',0.5);
     setTimeout(function() {
       display_answer();
@@ -51,11 +51,11 @@ var startLecture = function() {
   });
 }
 
-var requestSetSize = function() {
+var request_set_size = function() {
   App.lectureChannel.perform('request_set_size')
 }
 
-var requestConnectedUsers = function() {
+var request_connected_users = function() {
   App.lectureChannel.perform('request_connected_users');
 }
 
