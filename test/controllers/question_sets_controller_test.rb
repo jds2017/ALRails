@@ -17,7 +17,7 @@ class QuestionSetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create question_set" do
     assert_difference('QuestionSet.count') do
-      post question_sets_url, params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name }, question_ids: ['1'] }
+      post question_sets_url, params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name } }
     end
 
     assert_redirected_to question_set_url(QuestionSet.last)
@@ -34,7 +34,7 @@ class QuestionSetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update question_set" do
-    patch question_set_url(@question_set), params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name }, question_ids: ['1'] }
+    patch question_set_url(@question_set), params: { question_set: { is_readonly: @question_set.is_readonly, name: @question_set.name } }
     assert_redirected_to question_set_url(@question_set)
   end
 

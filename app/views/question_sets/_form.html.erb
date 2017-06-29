@@ -16,7 +16,10 @@
     <%= form.text_field :name, id: :question_set_name %>
   </div>
 
-  
+  <div class="field">
+    <%= form.label :is_readonly %>
+    <%= form.check_box :is_readonly, id: :question_set_is_readonly %>
+  </div>
 
   <!-- check if current_user's courses have any questions
         and allow user to filter those questions by searching tags.-->
@@ -52,3 +55,28 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<script>
+//NOTE: Only searches for one term with no additional spaces or punctuation.
+function qSetQTagSearch() {
+  //declare variables: serach input, table to search, filter for input, and table rows.
+  var input, filter, table, tr
+  input = document.getElementById("tagSearchInput");
+  filter = input.value.toLowerCase();
+  table = document.getElementById("questionTagTable");
+  tr = table.getElementsByTagName("tr");
+
+  //loop thru all table rows, and hide those that don't match the search input.
+  for (i = 0; i < tr.length; i++) {
+    //get tags column for this row
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display= "none";
+      }
+    }
+  }
+}
+</script>
