@@ -27,6 +27,7 @@ var display_new_question = function(view) {
 
 var display_next_question = function() {
   if(question_index === question_set_size) {
+    App.lectureChannel.perform('end_of_lecture');
     return;
   }
   App.lectureChannel.perform('question', {index: question_index});

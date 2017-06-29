@@ -60,6 +60,10 @@ class LectureChannel < ApplicationCable::Channel
     send_users
   end
 
+  def end_of_lecture
+    LectureChannel.broadcast_to(@lecture, {'msg' => 'end_of_lecture'})
+  end
+
   def send_users
     user_fragment = ApplicationController.renderer.render(partial: 'livelecture/connected_users', locals: {users: @users})
     LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'userlist', 'view' => user_fragment})

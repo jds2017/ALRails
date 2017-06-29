@@ -25,6 +25,10 @@ var create_join_lecture = function(lecture_id, username) {
       if(data.msg === 'correct_answer') {
         show_correct_answer(data.answer);
       }
+      if(data.msg === 'end_of_lecture') {
+        $('#countdown').empty();
+        $('#current-question').empty();
+      }
     }
   });
 }
