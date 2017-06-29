@@ -3,9 +3,6 @@ class Tag < ApplicationRecord
   has_many :questions, through: :question_to_tag_junctions
 
   def to_s
-  	self.tag
+    self.tag
   end
-  # def self.search(search)
-  # 	where("tag LIKE ?", "%#{search}%")
-  # end
 end
