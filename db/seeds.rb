@@ -10,7 +10,7 @@ prof = User.create username: 'testprof', fname: 'test', lname: 'prof', is_admin:
 
 Registration.create role: 'STUDENT', user: student, course: Course.where(name: 'CS 4240').first
 Registration.create role: 'ASSISTANT', user: User.where(username: 'rkalhan4').first, course: Course.where(name: 'CS 4240').first
-Registration.create role: 'INSTRUCTOR', user: prof, course: compilers
+Registration.create role: 'INSTRUCTOR', user: prof, course: Course.where(name: "CS 2200").first
 
 tag = Tag.create tag: 'malloc'
 tag2 = Tag.create tag: 'circuit'

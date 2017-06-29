@@ -21,18 +21,39 @@
     <%= form.check_box :is_readonly, id: :question_set_is_readonly %>
   </div>
 
-  <table border="1">
-    <tr>
-      <th>Question</th>
-      <th>Tags</th>
-    </tr>
-    <% Question.all.each do |q| %>
-      <tr>
-        <td><%= q.body %></td>
-        <td><%= q.tags.join(", ") %></td>
-      </tr>
+  <!-- check if current_user's courses have any questions
+        and allow user to filter those questions by searching tags.-->
+  <% if @questions.present? %>
+    <!-- add "search bar" for tags and filter questions shown based on
+          tag entered -->
+
+    <%= form_tag('question_sets_new_path', method: "get", id:"search-form", remote: true) do %>
+      <%= label_tag(:search, "Find Questions by Tag:") %>
+      <%= text_field_tag(:search, params[:search]) %>
+      <%= submit_tag("Search") %>
     <% end %>
-  </table>
+
+    <table border="1">
+      <tr>
+        <th></th>
+        <th>Question</th>
+        <th>Tags</th>
+      </tr>
+      <!-- loop thru questions from controller
+            (questions associated with courses the current_user is
+            a professor or assistant for) -->
+      <% @questions.each do |q| %>
+        <tr>
+          <td><%= check_box_tag 'question_ids[]', q.id, false, :id => 'question_ids_#{q.id}' %>
+          <td><%= q.body %></td>
+          <td><%= q.tags.join(", ") %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <!-- current_user's courses do not have any questions -->
+    <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

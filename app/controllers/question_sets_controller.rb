@@ -15,13 +15,30 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/new
   def new
     @question_set = QuestionSet.new
-    if params[:search]
-      @tags = Tag.search(params[:search])
-    end
+    
+    #Get available questions for courses the user is an instructor for. 
+    #Checkboxes allow the user to select questions
+    #for their new question set.
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
+
+    #TODO: save all checked questions
+    #TODO: save associated tags
+
   end
 
   # GET /question_sets/1/edit
   def edit
+
+    @question_set = QuestionSet.new
+    
+    #Get available questions for courses the user is an instructor for. 
+    #Checkboxes allow the user to select questions
+    #for their new question set.
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
   end
 
   # POST /question_sets
