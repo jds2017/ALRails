@@ -15,6 +15,7 @@ class LecturesController < ApplicationController
   # GET /lectures/new
   def new
     @lecture = Lecture.new
+    @course_id = params[:course_id]
   end
 
   # GET /lectures/1/edit
@@ -25,12 +26,11 @@ class LecturesController < ApplicationController
   # POST /lectures.json
   def create
     @lecture = Lecture.new(lecture_params)
-    @course = Course.find(session[:course_id])
     
     respond_to do |format|
       if @lecture.save
         # find new lecture_id and course_id, then add to junction table
-        @clj = CourseToLectureJunction.new(:course_id => @course.id, :lecture_id => @lecture.id)
+        @clj = CourseToLectureJunction.new(:course_id => params[:course_id], :lecture_id => @lecture.id)
         @clj.save
         format.html { redirect_to @lecture, notice: 'Lecture was successfully created.' }
         format.json { render :show, status: :created, location: @lecture }

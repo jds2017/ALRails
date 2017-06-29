@@ -25,6 +25,9 @@
     <%= form.label :question_set_id %>
     <%= form.text_field :question_set_id, id: :lecture_question_set_id %>
   </div>
+  
+  <%= hidden_field_tag 'course_id', @course_id %> 
+  
     <%= form.submit %>
   </div>
 <% end %>
