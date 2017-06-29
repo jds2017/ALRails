@@ -15,7 +15,7 @@
 
   <div class="field">
     <%= form.label :role %>
-    <%= form.text_field :role, id: :role %>
+    <%= form.select(:role, [['ASSISTANT', 'ASSISTANT'], ['STUDENT', 'STUDENT']]) %>
   </div>
 
   <div class="actions">
