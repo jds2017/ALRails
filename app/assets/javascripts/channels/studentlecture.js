@@ -11,6 +11,9 @@ var create_join_lecture = function(lecture_id, username) {
     channel: "LectureChannel",
     lecture: lecture_id
   }, {
+    disconnected: function() {
+      $('#connection-status').text("disconnected");
+    },
     connected: function() {
       create_timer();
       $('#connection-status').text("connected");

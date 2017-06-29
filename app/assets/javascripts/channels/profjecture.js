@@ -11,6 +11,9 @@ var create_start_lecture = function(lecture_id) {
     channel: "LectureChannel",
     lecture: lecture_id
   }, {
+    disconnected: function() {
+      $('#connection-status').text("disconnected");
+    },
     connected: function() {
       create_timer();
       $('#connection-status').text("connected");
