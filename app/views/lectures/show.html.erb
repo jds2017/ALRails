@@ -15,5 +15,10 @@
   <%= @lecture.question_set %>
 </p>
 
+<p>
+  <strong>Start This Lecture:</strong>
+  <%= link_to 'Start', @livelecture_uri %>
+</p>
+
 <%= link_to 'Edit', edit_lecture_path(@lecture) %> |
 <%= link_to 'Back', lectures_path %>
