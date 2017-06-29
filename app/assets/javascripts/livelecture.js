@@ -1,4 +1,5 @@
 var question_seconds = 5;
+var answer_seconds = 5;
 var question_set_size = -1;
 var question_index = 0;
 var timer;
@@ -30,7 +31,14 @@ var displayNextQuestion = function() {
   }
   App.lectureChannel.perform('question', {index: question_index});
   timer.start();
-  question_index++;
+}
+
+var display_answer = function() {
+  App.lectureChannel.perform('release_answer', {index: question_index});
+  setTimeout(function() {
+    $('#question-release').prop('disabled', false).css('opacity',1.0);
+    question_index++;
+  }, 1000*answer_seconds);
 }
 
 var startLecture = function() {
@@ -38,7 +46,7 @@ var startLecture = function() {
     displayNextQuestion();
     $('#question-release').prop('disabled', true).css('opacity',0.5);
     setTimeout(function() {
-      $('#question-release').prop('disabled', false).css('opacity',1.0);
+      display_answer();
     }, 1000*question_seconds);
   });
 }
@@ -61,4 +69,8 @@ var user_leave = function(user) {
 
 var announce_presence = function() {
   App.lectureChannel.perform('announce_presence');
+}
+
+var show_correct_answer = function(id) {
+  $('#answer-' + id).text($('#answer-' + id).text() + "CORRECT");
 }

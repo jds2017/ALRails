@@ -4,6 +4,6 @@ Current Question:
 Answers:
 <ul id="answers">
   <% question.answers.each do |answer| %>
-    <li><button class="answer-button" data-qid='<%= question.id %>' data-id='<%= answer.id %>'>Answer</button><%= answer.answer %></li>
+    <li><button class="answer-button" data-qid='<%= question.id %>' data-id='<%= answer.id %>'>Answer</button><div id='answer-<%= answer.id %>'><%= answer.answer %></div></li>
   <% end %>
 </ul>

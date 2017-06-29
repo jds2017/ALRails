@@ -28,12 +28,18 @@ class LectureChannel < ApplicationCable::Channel
     question_fragment = ApplicationController.renderer.render(partial: 'livelecture/question', locals: {question: question })
     LectureChannel.broadcast_to(@lecture, {'msg' => 'question', 'view' => question_fragment })
     question_fragment = ApplicationController.renderer.render(partial: 'livelecture/leader_question', locals: {question: question })
-    LectureChannel.broadcast_to(@lecture, {'msg' => 'leaderQuestion', 'view' => question_fragment })
+    LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'leaderQuestion', 'view' => question_fragment })
   end
 
   def request_set_size
     size = @lecture.question_set.questions.length
     LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'setSize', 'size' => size })
+  end
+
+  def release_answer(data)
+    question = @questions[data['index']]
+    correct_answer = question.correct_answers[0]
+    LectureChannel.broadcast_to(@lecture, {'msg' => 'correct_answer', 'answer' => correct_answer.id })
   end
 
   def request_connected_users

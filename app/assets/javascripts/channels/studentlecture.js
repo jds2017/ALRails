@@ -17,11 +17,14 @@ var create_join_lecture = function(lecture_id, username) {
     },
     received: function(data) {
       console.log(data);
-      if(data.msg == 'question') {
+      if(data.msg === 'question') {
         display_new_question(data.view);
       }
-      if(data.msg == 'leaderEnter') {
+      if(data.msg === 'leaderEnter') {
         announce_presence();
+      }
+      if(data.msg === 'correct_answer') {
+        show_correct_answer(data.answer);
       }
     }
   });
