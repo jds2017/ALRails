@@ -5,18 +5,16 @@
         and allow user to filter those questions by searching tags.-->
 <% if @questions.present? %>
 
-  <script type="text/javascript" src="question_search.js"></script>
-
   <input type="text" id="tagSearchInput" onkeyup="questionsTableTagSearch()" placeholder="Search for question tags...">
 
   <table id="questionTagTable">
-    
+
     <tr>
       <th style="min-width:250px">Body</th>
       <th style="min-width:100px">Tags</th>
       <th colspan="3"></th>
     </tr>
-    
+
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.body %></td>
@@ -26,7 +24,7 @@
         <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-   
+
   </table>
 <% else %>
   <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
