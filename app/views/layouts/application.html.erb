@@ -30,22 +30,16 @@
       <div class="navbar-header">
         <table>
           <tr>
-            <td width="5%" style="text-align:right;background-color:transparent"><img src="/images/Logo.png" alt="Logo" width=50 height=50></td>
-            <td width="105%" style="text-align:left">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+            <td width="5%" style="text-align:right;background-color:transparent"><img src="/images/Logo.png" alt="Logo" width=50 height=50 ></td>
+            <td width="90%" style="text-align:left">
               <a class="navbar-brand">Active Learning</a>
             </td>
-            <td width="10%" style="text-align:right">
+            <td width="3%" style="text-align:right;right-margin:10px">
               <%= current_user.username %>
                 <%= current_user.is_admin ? ' [admin]' : '' %>
                   <%= current_user.is_professor ? ' [professor]' : '' %>
             </td>
-            <td width="10%" style="text-align:right">
+            <td width="2%" style="text-align:right;right-margin:10px">
               <button type="button" class="btn btn-default">Log Out</button>
             </td>
           </tr>
@@ -73,6 +67,10 @@
                   <li>
                   <!--<i class="fa fa-edit fa-fw"></i>-->
                     <%= link_to "Create New Course", new_course_path, {method: :get, controller: :course} %>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= link_to "Register New Course", :controller => :registrations, :action => :new %>
                   </li>
                 <% end %>
               </ul>
