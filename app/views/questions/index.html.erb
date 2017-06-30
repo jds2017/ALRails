@@ -1,26 +1,63 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Questions</h1>
+<!-- check if current_user's courses have any questions
+        and allow user to filter those questions by searching tags.-->
+<% if @questions.present? %>
 
-<table>
-  <thead>
+  <input type="text" id="tagSearchInput" onkeyup="qTagSearch()" placeholder="Search for question tags...">
+
+  <table id="questionTagTable">
+    
     <tr>
-      <th>Body</th>
+      <th style="min-width:250px">Question</th>
+      <th style="min-width:100px">Tags</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
-
-  <tbody>
+    
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.body %></td>
+        <td><%= question.tags.join(", ") %></td>
         <td><%= link_to 'Show', question %></td>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
         <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+   
+  </table>
+<% else %>
+  <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
+<% end %>
+
+<script>
+//NOTE: Only searches for one term with no additional spaces or punctuation.
+function qTagSearch() {
+  //declare variables: serach input, table to search, filter for input, and table rows.
+  var input, filter, table, tr
+  input = document.getElementById("tagSearchInput");
+  filter = input.value.toLowerCase();
+  table = document.getElementById("questionTagTable");
+  tr = table.getElementsByTagName("tr");
+
+  //loop thru all table rows, and hide those that don't match the search input.
+  var hiddenCount = 0;
+  for (i = 0; i < tr.length; i++) {
+    //get tags column for this row
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        hiddenCount = hiddenCount + 1;
+      } else {
+        tr[i].style.display= "none";
+      }
+    }
+  }
+
+}
+</script>
+
 
 <br>
 

@@ -12,8 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :student_key %>
-    <%= form.text_field :student_key, id: :student_key %>
+    <%= form.label :role %>
+    <%= form.text_field :role, id: :registration_role %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.select(:user_id, User.all.map {|a| [a, a.id]}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :course_id %>
+    <%= form.select(:course_id, Course.all.map {|a| [a, a.id]}) %>
   </div>
 
   <div class="actions">

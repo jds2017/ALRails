@@ -1,5 +1,3 @@
-require 'uri'
-
 class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy]
 
@@ -12,7 +10,6 @@ class LecturesController < ApplicationController
   # GET /lectures/1
   # GET /lectures/1.json
   def show
-    @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
   end
 
   # GET /lectures/new

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/question_sets_new" => 'question_sets#new'
   resources :responses
   resources :question_to_tag_junctions
   resources :course_to_lecture_junctions
@@ -12,6 +13,4 @@ Rails.application.routes.draw do
   resources :courses
   resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
-  get 'livelecture/show', to: 'livelecture#show'
 end
