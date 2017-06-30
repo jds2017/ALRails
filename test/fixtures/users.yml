@@ -12,7 +12,7 @@ two:
   fname: MyString
   lname: MyString
   is_admin: false
-  is_professor: false
+  is_professor: true
 
 three:
   username: jonathan
