@@ -47,14 +47,16 @@ class QuestionSetsController < ApplicationController
     @question_set.is_readonly = false
 
     respond_to do |format|
-      if @question_set.save && params[:question_ids]
-        params[:question_ids].each do |id|
-          # add entries in junction table (set id, question id)
-          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
-          @j.save
-          format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
-          format.json { render :show, status: :created, location: @question_set }
+      if @question_set.save
+        if params[:question_ids]
+          params[:question_ids].each do |id|
+            # add entries in junction table (set id, question id)
+            @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+            @j.save
+          end
         end
+        format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
+        format.json { render :show, status: :created, location: @question_set }
       else
         format.html { render :new }
         format.json { render json: @question_set.errors, status: :unprocessable_entity }
