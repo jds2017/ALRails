@@ -16,23 +16,15 @@
     <%= form.text_field :name, id: :question_set_name %>
   </div>
 
-  <strong>Available Questions:</strong>
-  <div>
-    <% @questions.each do |question|%>
-        <p>
-          <%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%>
-          <%= question.body -%>
-        </p>
-    <% end %>
-  </div>
-
   <!-- check if current_user's courses have any questions
         and allow user to filter those questions by searching tags.-->
+  <strong>Available Questions:</strong>
+  <div>
   <% if @questions.present? %>
     <!-- add "search bar" for tags and filter questions shown based on
           tag entered -->
-
-    <input type="text" id="tagSearchInput" onkeyup="qSetQTagSearch()" placeholder="Search for question tags...">
+    <script type="text/javascript" src="question_search.js"></script>
+    <input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" placeholder="Search for question tags...">
 
     <table id="questionTagTable" border="1">
       <tr>
@@ -43,11 +35,11 @@
       <!-- loop thru questions from controller
             (questions associated with courses the current_user is
             a professor or assistant for) -->
-      <% @questions.each do |q| %>
+      <% @questions.each do |question| %>
         <tr>
-          <td><%= check_box_tag 'question_ids[]', q.id, false, :id => 'question_ids_#{q.id}' %>
-          <td><%= q.body %></td>
-          <td><%= q.tags.join(", ") %></td>
+          <td><%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%></td>
+          <td><%= question.body %></td>
+          <td><%= question.tags.join(", ") %></td>
         </tr>
       <% end %>
     </table>
@@ -55,33 +47,9 @@
     <!-- current_user's courses do not have any questions -->
     <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
   <% end %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
-
-<script>
-//NOTE: Only searches for one term with no additional spaces or punctuation.
-function qSetQTagSearch() {
-  //declare variables: serach input, table to search, filter for input, and table rows.
-  var input, filter, table, tr
-  input = document.getElementById("tagSearchInput");
-  filter = input.value.toLowerCase();
-  table = document.getElementById("questionTagTable");
-  tr = table.getElementsByTagName("tr");
-
-  //loop thru all table rows, and hide those that don't match the search input.
-  for (i = 0; i < tr.length; i++) {
-    //get tags column for this row
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display= "none";
-      }
-    }
-  }
-}
-</script>
