@@ -1,0 +1,9 @@
+Current Question:
+<p><%= question.body %></p>
+
+Answers:
+<ul id="answers">
+  <% question.answers.each do |answer| %>
+    <li><%= answer.answer %> - <div id="answer-ctr-<%= answer.id %>">0</div></li>
+  <% end %>
+</ul>
