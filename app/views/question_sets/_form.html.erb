@@ -16,9 +16,14 @@
     <%= form.text_field :name, id: :question_set_name %>
   </div>
 
-  <div class="field">
-    <%= form.label :is_readonly %>
-    <%= form.check_box :is_readonly, id: :question_set_is_readonly %>
+  <strong>Available Questions:</strong>
+  <div>
+    <% @questions.each do |question|%>
+        <p>
+          <%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%>
+          <%= question.body -%>
+        </p>
+    <% end %>
   </div>
 
   <div class="actions">
