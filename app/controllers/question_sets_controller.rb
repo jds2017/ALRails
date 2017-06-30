@@ -15,8 +15,8 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/new
   def new
     @question_set = QuestionSet.new
-    
-    #Get available questions for courses the user is an instructor for. 
+
+    #Get available questions for courses the user is an instructor for.
     #Checkboxes allow the user to select questions
     #for their new question set.
     @questions = []
@@ -29,8 +29,8 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/1/edit
   def edit
 
-       
-    #Get available questions for courses the user is an instructor for. 
+
+    #Get available questions for courses the user is an instructor for.
     #Checkboxes allow the user to select questions
     #for their new question set.
     @questions = []
@@ -47,7 +47,7 @@ class QuestionSetsController < ApplicationController
     @question_set.is_readonly = false
 
     respond_to do |format|
-      if @question_set.save
+      if @question_set.save && params[:question_ids]
         params[:question_ids].each do |id|
           # add entries in junction table (set id, question id)
           @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
@@ -72,10 +72,12 @@ class QuestionSetsController < ApplicationController
          # delete all from junction table
         QuestionSetJunction.where(question_set_id: @question_set.id).delete_all
         # re-add desired questions
-        params[:question_ids].each do |id|
-          # add entries in junction table (set id, question id)
-          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
-          @j.save
+        if params[:question_ids]
+          params[:question_ids].each do |id|
+            # add entries in junction table (set id, question id)
+            @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+            @j.save
+          end
         end
         format.html { redirect_to @question_set, notice: 'Question set was successfully updated.' }
         format.json { render :show, status: :ok, location: @question_set }
