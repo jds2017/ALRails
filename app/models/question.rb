@@ -6,10 +6,14 @@ class Question < ApplicationRecord
 
   has_many :question_to_tag_junctions
   has_many :tags, through: :question_to_tag_junctions
-  
+
   validates :course_name, presence: true
 
   def correct_answers
     answers.find_all { |a| a.is_correct }
+  end
+
+  def course
+    Course.find_by(name: self.course_name)
   end
 end
