@@ -19,7 +19,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create registration" do
     assert_difference('Registration.count') do
-      post registrations_url, params: { registration: { course_id: @registration.course_id, role: @registration.role, user_id: @registration.user_id } }
+      post registrations_url, params: { registration: { student_key: courses(:one).student_key } }
     end
 
     assert_redirected_to registration_url(Registration.last)
@@ -36,13 +36,14 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update registration" do
-    patch registration_url(@registration), params: { registration: { course_id: @registration.course_id, role: @registration.role, user_id: @registration.user_id } }
+    controller.session[:username] = 'comeon'
+    patch registration_url(@registration), params: { un: 'leahy', registration: {role: 'ASSISTANT'} }
     assert_redirected_to registration_url(@registration)
   end
 
   test "should destroy registration" do
     assert_difference('Registration.count', -1) do
-      delete registration_url(@registration)
+      delete registration_url(@registration), params: {un: 'leahy'}
     end
 
     assert_redirected_to registrations_url
