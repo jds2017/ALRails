@@ -15,7 +15,10 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/new
   def new
     @question_set = QuestionSet.new
-    # get all available questions
+    
+    #Get available questions for courses the user is an instructor for. 
+    #Checkboxes allow the user to select questions
+    #for their new question set.
     @questions = []
     current_user.courses_as_instructor.each {|c| @questions.push c.questions}
     @questions.flatten!
@@ -25,7 +28,11 @@ class QuestionSetsController < ApplicationController
 
   # GET /question_sets/1/edit
   def edit
-    # get all available questions
+
+       
+    #Get available questions for courses the user is an instructor for. 
+    #Checkboxes allow the user to select questions
+    #for their new question set.
     @questions = []
     current_user.courses_as_instructor.each {|c| @questions.push c.questions}
     @questions.flatten!
