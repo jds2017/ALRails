@@ -15,21 +15,39 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/new
   def new
     @question_set = QuestionSet.new
+    # get all available questions
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
+    @unselected_questions = []
+    @unselected_questions = @questions - @question_set.questions
   end
 
   # GET /question_sets/1/edit
   def edit
+    # get all available questions
+    @questions = []
+    current_user.courses_as_instructor.each {|c| @questions.push c.questions}
+    @questions.flatten!
+    @unselected_questions = []
+    @unselected_questions = @questions - @question_set.questions
   end
 
   # POST /question_sets
   # POST /question_sets.json
   def create
     @question_set = QuestionSet.new(question_set_params)
+    @question_set.is_readonly = false
 
     respond_to do |format|
       if @question_set.save
-        format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
-        format.json { render :show, status: :created, location: @question_set }
+        params[:question_ids].each do |id|
+          # add entries in junction table (set id, question id)
+          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+          @j.save
+          format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
+          format.json { render :show, status: :created, location: @question_set }
+        end
       else
         format.html { render :new }
         format.json { render json: @question_set.errors, status: :unprocessable_entity }
@@ -41,7 +59,17 @@ class QuestionSetsController < ApplicationController
   # PATCH/PUT /question_sets/1.json
   def update
     respond_to do |format|
+      @question_set.name = :name
+      @question_set.is_readonly = :is_readonly
       if @question_set.update(question_set_params)
+         # delete all from junction table
+        QuestionSetJunction.where(question_set_id: @question_set.id).delete_all
+        # re-add desired questions
+        params[:question_ids].each do |id|
+          # add entries in junction table (set id, question id)
+          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+          @j.save
+        end
         format.html { redirect_to @question_set, notice: 'Question set was successfully updated.' }
         format.json { render :show, status: :ok, location: @question_set }
       else
