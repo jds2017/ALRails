@@ -13,30 +13,30 @@
 
   <div class="field">
     <%= form.label :username %>
-    <%= form.text_field :username, id: :user_username %>
+    <%= form.text_field :username, id: :user_username, class:"form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :fname %>
-    <%= form.text_field :fname, id: :user_fname %>
+    <%= form.label "First Name" %>
+    <%= form.text_field :fname, id: :user_fname, class:"form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :lname %>
-    <%= form.text_field :lname, id: :user_lname %>
+    <%= form.label "Last Name" %>
+    <%= form.text_field :lname, id: :user_lname, class:"form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :is_admin %>
-    <%= form.check_box :is_admin, id: :user_is_admin %>
+    <%= form.label :is_admin, "isAdmin" %>
+    <%= form.check_box :is_admin, id: :user_is_admin, class:"checkbox" %>
   </div>
 
   <div class="field">
-    <%= form.label :is_professor %>
-    <%= form.check_box :is_professor, id: :user_is_professor %>
+    <%= form.label :is_professor, "isProfessor" %>
+    <%= form.check_box :is_professor, id: :user_is_professor, class:"checkbox" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :class => "btn btn-default" %>
   </div>
 <% end %>

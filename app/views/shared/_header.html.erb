@@ -1,1 +1,8 @@
-Welcome, <%= current_user.username %> <%= current_user.is_admin ? ' [admin]' : '' %> <%= current_user.is_professor ? ' [professor]' : '' %>
+<table style="width:100%">
+    <tr>
+        <td width="5%" style="text-align:right;background-color:transparent"><img src="/images/Logo.png" alt="Logo" width=50 height=50></td>
+        <td width="75%" style="text-align:left"><h2>Active Learning</h2></td>
+        <td width="10%"><%= current_user.username %> <%= current_user.is_admin ? ' [admin]' : '' %> <%= current_user.is_professor ? ' [professor]' : '' %></td>
+        <td width="10%">Logout button here</td>
+    </tr>
+</table>

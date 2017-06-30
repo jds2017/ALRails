@@ -13,20 +13,20 @@
 
   <div class="field">
     <%= form.label :year %>
-    <%= form.number_field :year, id: :course_year %>
+    <%= form.number_field :year, id: :course_year, class:"form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :semester %>
-    <%= form.text_field :semester, id: :course_semester %>
+    <%= form.text_field :semester, id: :course_semester, class:"form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :course_name %>
+    <%= form.text_field :name, id: :course_name, class:"form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :class => "btn btn-default" %>
   </div>
 <% end %>
