@@ -7,7 +7,7 @@ class Lecture < ApplicationRecord
     @responses = Response.where(question: q)
     @answers = Answer.where(question: q)
     @total = @responses.length
-    hash = Hash.new(0)
+    hash = Hash.new()
     @answers.each{|key| hash[key.id] = 0}
     @responses.each{|key| hash[key.answer_id] += 1}
     hash.each {|key, value| hash[key] = (value.to_f / @total) }
