@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_answers, only: [:edit]
 
   # GET /questions
   # GET /questions.json
@@ -68,7 +69,10 @@ class QuestionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
-      (5 - @question.answers().size()).times { @question.answers.build }
+    end
+
+    def set_answers
+      (5 - @question.answers().count).times { @question.answers.build }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
