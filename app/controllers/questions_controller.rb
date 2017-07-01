@@ -7,7 +7,6 @@ class QuestionsController < ApplicationController
     @questions = []
     current_user.courses_as_instructor.each {|c| @questions.push c.questions}
     @questions.flatten!
-    @questions = Question.all() if current_user.is_admin
   end
 
   # GET /questions/1

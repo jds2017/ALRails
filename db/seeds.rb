@@ -19,9 +19,9 @@ tag2 = Tag.create tag: 'circuit'
 tag3 = Tag.create tag: 'register allocation'
 tag4 = Tag.create tag: 'logisim'
 
-q1 = Question.create body: 'an implementation of malloc can be found in glibc', course_name: 'CS 4240'
-q2 = Question.create body: 'register allocation is NP hard', course_name: 'CS 4240'
-q3 = Question.create body: 'in logisim, you should backup your work periodically', course_name: 'CS 2200'
+q1 = Question.create body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}', course_name: 'CS 4240'
+q2 = Question.create body: '{"ops":[{"insert":"register allocation is NP hard\n"}]}', course_name: 'CS 4240'
+q3 = Question.create body: '{"ops":[{"insert":"in logisim, you should backup your work periodically\n"}]}', course_name: 'CS 2200'
 
 QuestionToTagJunction.create question: q1, tag: tag
 QuestionToTagJunction.create question: q2, tag: tag3

@@ -1,3 +1,5 @@
+require 'json'
+
 class Question < ApplicationRecord
   has_many :answers
   accepts_nested_attributes_for :answers, allow_destroy: true
@@ -16,4 +18,14 @@ class Question < ApplicationRecord
   def course
     Course.find_by(name: self.course_name)
   end
+
+  def body_as_text
+    delta = JSON.parse(self.body)
+    text = delta['ops'].select{|i| i['insert'].class == String }
+    text = text.map { |n| n['insert'] }
+    text = text.join()
+  end
 end
+
+# Body: {"ops":[{"insert":"hello \n\nSomething"},{"attributes":{"code-block":true},"insert":"\n\n"},{"insert":"\nelse\n"}]}
+# [{"insert":"hello \n\nSomething"},{"attributes":{"code-block":true},"insert":"\n\n"},{"insert":"\nelse\n"}]}

@@ -21,7 +21,7 @@
 
   <div class="field">
     <%= form.label :for_course %>
-    <%= form.select(:course_name, current_user.courses_as_instructor.map { |c| [c.name, c.id] } ) %>
+    <%= form.select(:course_name, current_user.courses_as_instructor.map { |c| [c.name, c.name] } ) %>
   </div>
 
   <%= form.fields_for :answers do |answer_form| %>

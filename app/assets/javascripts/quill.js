@@ -13,12 +13,11 @@ var initialize_question_form = function() {
     theme: 'snow'
   });
 
-  //put the thing in the input, into quill
-  console.log($('#question_body').val());
-  quill.setContents(JSON.parse($('#question_body').val()));
-
-
-  //intercept form to add the contents in
+  try {
+    quill.setContents(JSON.parse($('#question_body').val()));
+  } catch(e) {
+    console.log("invalid json");
+  }
   $('#form').submit(function(e) {
     $('#question_body').val(JSON.stringify(quill.getContents()));
     return true;
