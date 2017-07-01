@@ -16,6 +16,7 @@ var create_timer = function() {
 var display_new_question = function(view) {
   timer.start();
   $('#current-question').html(view);
+  initialize_question_view();
   $('.answer-button').click(function() {
     $('.answer-button').prop('disabled', true).css('opacity',0.5);
     App.lectureChannel.perform('response', {
