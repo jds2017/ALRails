@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :responses
 
   def courses_as_instructor
-    Registration.where(user: self, role: 'ASSISTANT').map { |r| r.course }
+    Registration.where(user: self, role: 'INSTRUCTOR').map { |r| r.course }
   end
 
   def to_s

@@ -6,6 +6,6 @@ one:
   course: one
 
 two:
-  role: ASSISTANT
+  role: INSTRUCTOR
   user: two
   course: one
