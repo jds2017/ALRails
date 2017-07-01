@@ -23,3 +23,14 @@ var initialize_question_form = function() {
     return true;
   });
 }
+
+var initialize_question_view = function() {
+  quill = new Quill('#editor-container', {
+    modules: {
+      toolbar: null
+    },
+    readOnly: true,
+    theme: 'snow'
+  });
+  quill.setContents(JSON.parse($('#question-body').text()));
+}
