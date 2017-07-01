@@ -26,6 +26,3 @@ class Question < ApplicationRecord
     text = text.join()
   end
 end
-
-# Body: {"ops":[{"insert":"hello \n\nSomething"},{"attributes":{"code-block":true},"insert":"\n\n"},{"insert":"\nelse\n"}]}
-# [{"insert":"hello \n\nSomething"},{"attributes":{"code-block":true},"insert":"\n\n"},{"insert":"\nelse\n"}]}
