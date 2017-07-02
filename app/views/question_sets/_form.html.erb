@@ -16,9 +16,36 @@
     <%= form.text_field :name, id: :question_set_name %>
   </div>
 
-  <div class="field">
-    <%= form.label :is_readonly %>
-    <%= form.check_box :is_readonly, id: :question_set_is_readonly %>
+  <!-- check if current_user's courses have any questions
+        and allow user to filter those questions by searching tags.-->
+  <strong>Available Questions:</strong>
+  <div>
+  <% if @questions.present? %>
+    <!-- add "search bar" for tags and filter questions shown based on
+          tag entered -->
+    <input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" placeholder="Search for question tags...">
+
+    <table id="questionTagTable" border="1">
+      <tr>
+        <th></th>
+        <th style="min-width:250px">Body</th>
+        <th style="min-width:100px">Tags</th>
+      </tr>
+      <!-- loop thru questions from controller
+            (questions associated with courses the current_user is
+            a professor or assistant for) -->
+      <% @questions.each do |question| %>
+        <tr>
+          <td><%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%></td>
+          <td><%= question.body %></td>
+          <td><%= question.tags.join(", ") %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <!-- current_user's courses do not have any questions -->
+    <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
+  <% end %>
   </div>
 
   <div class="actions">

@@ -1,35 +1,59 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Users</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Users</h1>
+    </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Fname</th>
-      <th>Lname</th>
-      <th>Is admin</th>
-      <th>Is professor</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    isAdmin
+                </th>
+                <th>
+                    isProfessor
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.username %></td>
-        <td><%= user.fname %></td>
-        <td><%= user.lname %></td>
-        <td><%= user.is_admin %></td>
-        <td><%= user.is_professor %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <tbody>
+            <% @users.each do |user| %>
+                <tr>
+                    <td><%= user.username %></td>
+                    <td><%= user.fname %></td>
+                    <td><%= user.lname %></td>
+                    <td><%= user.is_admin %></td>
+                    <td><%= user.is_professor %></td>
+                    <td>
+                        <div>
+                            <div style="float:left;margin-left:5px">
+                                <%= button_to "Show", user, {class: 'btn btn-primary', method: :get} %>
+                            </div>
+                            <div style="float:left;margin-left:5px">
+                                <%= button_to "Edit", edit_user_path(user), {class: 'btn btn-primary', method: :get} %>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
 
 <br>
-
-<%= link_to 'New User', new_user_path %>
+<%= button_to "Create New User", new_user_path, {class: 'btn btn-primary', method: :get} %>

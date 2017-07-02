@@ -1,6 +1,9 @@
-<h1>Editing Course</h1>
-
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Editing Course</h1>
+    </div>
+</div>
 <%= render 'form', course: @course %>
-
-<%= link_to 'Show', @course %> |
-<%= link_to 'Back', courses_path %>
+<div style="float:left">
+    <%= button_to "Back", @course, {class: 'btn btn-primary', method: :get} %>
+</div>

@@ -10,5 +10,18 @@
   <%= @question_set.is_readonly %>
 </p>
 
+<table>
+  <tr>
+  	<th><strong>Questions:</strong></th>
+  	<th><strong>Tags:</strong></th>
+  </tr>
+   <% @question_set.questions.each do |question|%>
+   	<tr>
+        <td><%= question.body -%></td>
+        <td><%= question.tags.join(", ") -%></td>
+    </tr>
+    <% end %>
+</table>
+
 <%= link_to 'Edit', edit_question_set_path(@question_set) %> |
 <%= link_to 'Back', question_sets_path %>

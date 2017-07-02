@@ -1,0 +1,20 @@
+<p>Hello <%= current_user  %>, welcome to <%= @lecture.title %></p>
+You are currently <p id='connection-status'>disconnected</p>
+
+<div id="current-question"></div>
+
+<div id="userlist"></div>
+
+<div id="countdown"></div>
+
+<% if current_user.is_professor %>
+  <button id='question-release'>Release next question</button>
+<% end %>
+
+<script>
+<% if current_user.courses_as_instructor.include? @lecture.question_set.questions[0].course %>
+  create_start_lecture("<%= @lecture.id %>");
+<% else %>
+  create_join_lecture("<%= @lecture.id %>", "<%= current_user.username %>");
+<% end %>
+</script>
