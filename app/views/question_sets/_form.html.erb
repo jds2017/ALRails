@@ -23,7 +23,9 @@
   <% if @questions.present? %>
     <!-- add "search bar" for tags and filter questions shown based on
           tag entered -->
-    <input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" class="form-control" placeholder="Search for question tags...">
+    <div class="form-group input-group">
+      <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span><input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" class="form-control" placeholder="Search for question tags...">
+    </div>
 
     <table id="questionTagTable" class="table">
       <tr>
@@ -49,6 +51,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit class: "btn btn-default" %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
