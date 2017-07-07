@@ -37,7 +37,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update registration" do
     controller.session[:username] = 'comeon'
-    patch registration_url(@registration), params: { un: 'leahy', registration: {role: 'ASSISTANT'} }
+    patch registration_url(@registration), params: { un: 'leahy', registration: {role: 'INSTRUCTOR'} }
     assert_redirected_to registration_url(@registration)
   end
 

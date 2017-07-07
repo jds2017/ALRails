@@ -23,7 +23,7 @@ class RegistrationsTest < ApplicationSystemTestCase
 
     click_on 'registrations'
     click_on 'New Registration'
-    fill_in 'Role', with: 'ASSISTANT'
+    fill_in 'Role', with: 'INSTRUCTOR'
     select('jonathan', :from => 'registration[user_id]')
     select('CS2110', :from => 'registration[course_id]')
     click_on 'Create Registration'
