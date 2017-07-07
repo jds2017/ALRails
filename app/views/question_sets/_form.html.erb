@@ -37,7 +37,7 @@
       <% @questions.each do |question| %>
         <tr>
           <td><%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%></td>
-          <td><%= question.body %></td>
+          <td><%= question.body_as_text %></td>
           <td><%= question.tags.join(", ") %></td>
         </tr>
       <% end %>
