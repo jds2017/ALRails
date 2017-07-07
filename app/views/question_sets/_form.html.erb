@@ -18,37 +18,42 @@
 
   <!-- check if current_user's courses have any questions
         and allow user to filter those questions by searching tags.-->
-  <strong>Available Questions:</strong>
-  <div>
-  <% if @questions.present? %>
-    <!-- add "search bar" for tags and filter questions shown based on
-          tag entered -->
-    <div class="form-group input-group">
-      <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span><input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" class="form-control" placeholder="Search for question tags...">
-    </div>
+  <br>
+  <div class="well">
+    <strong>Available Questions:</strong>
+    <div>
+    <% if @questions.present? %>
+      <!-- add "search bar" for tags and filter questions shown based on
+            tag entered -->
+      <div class="form-group input-group" >
+        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+        <input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" class="form-control" placeholder="Search for question tags...">
+      </div>
 
-    <table id="questionTagTable" class="table">
-      <tr>
-        <th></th>
-        <th style="min-width:250px">Body</th>
-        <th style="min-width:100px">Tags</th>
-      </tr>
-      <!-- loop thru questions from controller
-            (questions associated with courses the current_user is
-            a professor or assistant for) -->
-      <% @questions.each do |question| %>
+      <table id="questionTagTable" class="table">
         <tr>
-          <td><%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%></td>
-          <td><%= question.body_as_text %></td>
-          <td><%= question.tags.join(", ") %></td>
+          <th></th>
+          <th style="min-width:250px">Body</th>
+          <th style="min-width:100px">Tags</th>
         </tr>
-      <% end %>
-    </table>
-  <% else %>
-    <!-- current_user's courses do not have any questions -->
-    <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
-  <% end %>
+        <!-- loop thru questions from controller
+              (questions associated with courses the current_user is
+              a professor or assistant for) -->
+        <% @questions.each do |question| %>
+          <tr>
+            <td><%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%></td>
+            <td><%= question.body_as_text %></td>
+            <td><%= question.tags.join(", ") %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <!-- current_user's courses do not have any questions -->
+      <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
+    <% end %>
+    </div>
   </div>
+
 
   <div class="actions">
     <%= form.submit class: "btn btn-primary" %>
