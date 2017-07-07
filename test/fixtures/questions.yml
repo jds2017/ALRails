@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: qone
+  body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}'
   course_name: CourseOne
 
 two:
-  body: qtwo
+  body: '{"ops":[{"insert":"Who am i?\n"}]}'
   course_name: CourseOne
