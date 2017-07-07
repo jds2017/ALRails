@@ -1,6 +1,8 @@
+require 'json'
+
 class Question < ApplicationRecord
   has_many :answers
-  accepts_nested_attributes_for :answers, allow_destroy: true
+  accepts_nested_attributes_for :answers, allow_destroy: true, :reject_if => proc { |a| a[:answer].blank? }
 
   has_many :question_set_junctions
 
@@ -15,5 +17,12 @@ class Question < ApplicationRecord
 
   def course
     Course.find_by(name: self.course_name)
+  end
+
+  def body_as_text
+    delta = JSON.parse(self.body)
+    text = delta['ops'].select{|i| i['insert'].class == String }
+    text = text.map { |n| n['insert'] }
+    text = text.join()
   end
 end

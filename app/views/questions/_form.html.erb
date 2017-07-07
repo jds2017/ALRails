@@ -1,4 +1,4 @@
-<%= form_with(model: question, local: true) do |form| %>
+<%= form_with(model: question, local: true, id: :form) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -11,14 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field hidden">
     <%= form.label :body %>
     <%= form.text_field :body, id: :question_body %>
   </div>
 
+
+  <div id="editor-container"></div>
+
   <div class="field">
     <%= form.label :for_course %>
-    <%= form.select(:course_name, Course.all.map { |c| [c.name, c.id] } ) %>
+    <%= form.select(:course_name, current_user.courses_as_instructor.map { |c| [c.name, c.name] } ) %>
   </div>
 
   <%= form.fields_for :answers do |answer_form| %>
@@ -38,3 +41,4 @@
     <%= form.submit %>
   </div>
 <% end %>
+<script>initialize_question_form()</script>

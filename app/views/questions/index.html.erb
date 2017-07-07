@@ -17,7 +17,7 @@
 
     <% @questions.each do |question| %>
       <tr>
-        <td><%= question.body %></td>
+        <td><%= question.body_as_text %></td>
         <td><%= question.tags.join(", ") %></td>
         <td><%= link_to 'Show', question %></td>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
