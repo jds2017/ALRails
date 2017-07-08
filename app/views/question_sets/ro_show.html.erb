@@ -1,0 +1,20 @@
+Questions and answers here! Will need to render quills here
+
+<br>
+<br>
+<table>
+
+<table class="table">
+  <tr>
+  	<th><strong>Questions:</strong></th>
+  	<th><strong>Answer:</strong></th>
+  </tr>
+   <% @question_set.questions.each do |question| %>
+   	  <tr>
+        <td><div class="quill-container" hidden><%= question.body_as_text %></div></td>
+        <td><%= question.answers.select { |a| a.is_correct }[0].answer %></td>
+      </tr>
+    <% end %>
+</table>
+
+<script>showQuills();</script>

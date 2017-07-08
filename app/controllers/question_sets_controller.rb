@@ -4,17 +4,22 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets
   # GET /question_sets.json
   def index
+    # show only those with access
     @question_sets = QuestionSet.all
   end
 
   # GET /question_sets/1
   # GET /question_sets/1.json
   def show
+    if @question_set.is_readonly
+      render :template => "question_sets/ro_show"
+    end
   end
 
   # GET /question_sets/new
   def new
-    @question_set = QuestionSet.new
+    # is this needed?
+    @questionrkalhan4_set = QuestionSet.new
 
     #Get available questions for courses the user is an instructor for.
     #Checkboxes allow the user to select questions
