@@ -41,7 +41,12 @@ var show_quills = function() {
     var text = $(this).text();
     console.log(text);
     $(this).text("");
-    var quill = new Quill(this);
+    var quill = new Quill(this, {
+      modules: {
+        toolbar: null
+      },
+      readOnly: true,
+    });
     quill.setContents(JSON.parse(text));
     $(this).show();
   });
