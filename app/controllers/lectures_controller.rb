@@ -28,8 +28,14 @@ class LecturesController < ApplicationController
   # POST /lectures
   # POST /lectures.json
   def create
+    question_set = QuestionSet.find(lecture_params['question_set_id'])
+    new_question_set = QuestionSet.create!(name: question_set.name + ' (clone)', is_readonly: true)
+    question_set.questions.each do |q|
+      new_question_set.questions << q
+    end
     @lecture = Lecture.new(lecture_params)
-    
+    @lecture.question_set = new_question_set
+
     respond_to do |format|
       if @lecture.save
         # find new lecture_id and course_id, then add to junction table
