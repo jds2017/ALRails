@@ -34,3 +34,15 @@ var initialize_question_view = function() {
   });
   quill.setContents(JSON.parse($('#question-body').text()));
 }
+
+var show_quills = function() {
+  // find divs by class. Get text, set to ""
+  $('.quill-container').each(function() {
+    var text = $(this).text();
+    console.log(text);
+    $(this).text("");
+    var quill = new Quill(this);
+    quill.setContents(JSON.parse(text));
+    $(this).show();
+  });
+}

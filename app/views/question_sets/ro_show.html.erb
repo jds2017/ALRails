@@ -1,7 +1,3 @@
-Questions and answers here! Will need to render quills here
-
-<br>
-<br>
 <table>
 
 <table class="table">
@@ -11,10 +7,10 @@ Questions and answers here! Will need to render quills here
   </tr>
    <% @question_set.questions.each do |question| %>
    	  <tr>
-        <td><div class="quill-container" hidden><%= question.body_as_text %></div></td>
+        <td><div class="quill-container" hidden><%= question.body %></div></td>
         <td><%= question.answers.select { |a| a.is_correct }[0].answer %></td>
       </tr>
     <% end %>
 </table>
 
-<script>showQuills();</script>
+<script>show_quills();</script>
