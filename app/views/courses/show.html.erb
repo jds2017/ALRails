@@ -34,7 +34,7 @@
                                     <%= lecture.title %>
                                 </div>
                                 <div class="panel-body">
-                                    <p><strong>Date:</strong><p>
+                                    <p><strong>Date:</strong> <%= lecture.date_of_use %><p>
                                     <p><strong>Number of Questions:</strong><p>
                                     <p><strong>Tags:</strong><p>
                                     <p><%= button_to "Go to Lecture", lecture, {method: :get, class: "btn btn-default"} %>
