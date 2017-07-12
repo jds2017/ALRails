@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :question_set_id%>
-    <%= form.text_field :question_set_id, id: :lecture_question_set_id, class:"form-control" %>
+    <%= form.select(:question_set_id, QuestionSet.where(is_readonly: false).map {|s| [s, s.id] }, {}, class: 'form-control') %>
   </div>
 
   <%= hidden_field_tag 'course_id', @course_id %>

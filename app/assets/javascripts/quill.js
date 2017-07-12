@@ -36,7 +36,6 @@ var initialize_question_view = function() {
 }
 
 var show_quills = function() {
-  // find divs by class. Get text, set to ""
   $('.quill-container').each(function() {
     var text = $(this).text();
     console.log(text);

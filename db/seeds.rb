@@ -41,7 +41,6 @@ QuestionSetJunction.create question: q1, question_set: set
 QuestionSetJunction.create question: q2, question_set: set
 QuestionSetJunction.create question: q3, question_set: set
 
-# have to change this:
 lecture = Lecture.create title: 'compilers first lecture', question_set: set.readonly_copy
 
 CourseToLectureJunction.create course: compilers, lecture: lecture

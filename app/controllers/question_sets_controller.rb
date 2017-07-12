@@ -4,7 +4,6 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets
   # GET /question_sets.json
   def index
-    # show only those with access
     @question_sets = QuestionSet.all
   end
 
@@ -18,8 +17,7 @@ class QuestionSetsController < ApplicationController
 
   # GET /question_sets/new
   def new
-    # is this needed?
-    @questionrkalhan4_set = QuestionSet.new
+    @question_set = QuestionSet.new
 
     #Get available questions for courses the user is an instructor for.
     #Checkboxes allow the user to select questions
