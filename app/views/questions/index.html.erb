@@ -7,10 +7,10 @@
 
   <input type="text" id="tagSearchInput" onkeyup="questionsTableTagSearch()" class="form-control" placeholder="Search for question tags...">
 
-  <table id="questionTagTable" class="table" >
+  <table id="questionTagTable" class="table table-striped table-bordered table-hover" >
 
     <tr>
-      <th>Body</th>
+      <th>Question</th>
       <th>Tags</th>
       <th colspan="3"></th>
     </tr>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= button_to 'New Question', new_question_path, {class: 'btn btn-primary', method: :get} %>
