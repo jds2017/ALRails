@@ -27,10 +27,6 @@ var display_new_question = function(view) {
 }
 
 var display_next_question = function() {
-  if(question_index === question_set_size) {
-    App.lectureChannel.perform('end_of_lecture');
-    return;
-  }
   App.lectureChannel.perform('question', {index: question_index});
   timer.start();
 }
@@ -45,6 +41,10 @@ var display_answer = function() {
 
 var start_lecture = function() {
   $('#question-release').click(function() {
+    if(question_index === question_set_size) {
+      App.lectureChannel.perform('end_of_lecture');
+      return;
+    }
     display_next_question();
     $('#question-release').prop('disabled', true).css('opacity',0.5);
     setTimeout(function() {
