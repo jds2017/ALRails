@@ -1,12 +1,12 @@
 require 'json'
 
 class Question < ApplicationRecord
-  has_many :answers
+  has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers, allow_destroy: true, :reject_if => proc { |a| a[:answer].blank? }
 
-  has_many :question_set_junctions
+  has_many :question_set_junctions, dependent: :destroy
 
-  has_many :question_to_tag_junctions
+  has_many :question_to_tag_junctions, dependent: :destroy
   has_many :tags, through: :question_to_tag_junctions
 
   validates :course_name, presence: true
