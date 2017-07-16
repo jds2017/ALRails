@@ -23,7 +23,17 @@
     <% @lecture.question_set.questions.each do |question| %>
         <tr>
           <td><div class="quill-container" hidden><%= question.body %></div></td>
-          <td><%= question.answers.select { |a| a.is_correct }[0].answer %></td>
+          <td>
+            <ul>
+              <% question.answers.each do |a| %>
+                <% if a.is_correct %>
+                  <li><b><%= a.answer %></b></li>
+                <% else %>
+                  <li><%= a.answer %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </td>
           <td><%= @lecture.question_average question %>%</td>
         </tr>
       <% end %>
