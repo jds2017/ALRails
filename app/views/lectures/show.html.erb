@@ -12,10 +12,23 @@
 
 
 <% if @lecture.completed %>
-  <p>
-    <strong>View Lecture Results:</strong>
-    <%= link_to 'View', @lecture.question_set %>
-  </p>
+  Overall class accuracy: <%= @lecture.overall_average %> %
+  Your accuracy: <%= @lecture.user_average current_user %> %
+  <table class="table">
+    <tr>
+      <th><strong>Questions:</strong></th>
+      <th><strong>Answer:</strong></th>
+      <th><strong>Average:</strong></th>
+    </tr>
+    <% @lecture.question_set.questions.each do |question| %>
+        <tr>
+          <td><div class="quill-container" hidden><%= question.body %></div></td>
+          <td><%= question.answers.select { |a| a.is_correct }[0].answer %></td>
+          <td><%= @lecture.question_average question %>%</td>
+        </tr>
+      <% end %>
+  </table>
+  <script>show_quills();</script>
 <% else %>
   <p>
     <strong>Start This Lecture:</strong>

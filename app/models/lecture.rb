@@ -13,4 +13,31 @@ class Lecture < ApplicationRecord
     hash.each {|key, value| hash[key] = (value.to_f / @total) }
     return hash
   end
+
+  def question_average(question)
+    total = 0
+    right = 0
+    responses = Response.where(lecture: self, question: question)
+    total = responses.size
+    right_responses = responses.select { |r| r.is_correct? }
+    return 100.0 * right / total    
+  end
+
+  def overall_average
+    total = 0
+    right = 0
+    responses = Response.where(lecture: self)
+    total = responses.size
+    right_responses = responses.select { |r| r.is_correct? }
+    return 100.0 * right / total
+  end
+
+  def user_average(user)
+    total = 0
+    right = 0
+    responses = Response.where(lecture: self, user: user)
+    total = responses.size
+    right_responses = responses.select { |r| r.is_correct? }
+    return 100.0 * right / total
+  end
 end
