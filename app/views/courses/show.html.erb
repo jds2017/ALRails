@@ -69,16 +69,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-3">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Your average
-                            </div>
-                            <div class="panel-body">
-                                Something %
+                    <% unless current_user.courses_as_instructor.include? @course %>
+                        <div class="col-xs-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Your average
+                                </div>
+                                <div class="panel-body">
+                                    Something %
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <% end %>
                 </div>
             </div>
         </div>
