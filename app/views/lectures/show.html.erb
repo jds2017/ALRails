@@ -23,7 +23,20 @@
     <% @lecture.question_set.questions.each do |question| %>
         <tr>
           <td><div class="quill-container" hidden><%= question.body %></div></td>
-          <td><%= question.answers.select { |a| a.is_correct }[0].answer %></td>
+          <td>
+            <ul>
+              <% question.answers.each do |a| %>
+                <li>
+                  <% if a.is_correct %>
+                    <span>&#x2705 <%= a.answer %></span>
+                  <% else %>
+                    Response.where(lecture: @lecture, user: current_user, question: question)
+                    <span>&#x2716 <%= a.answer %></span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </td>
           <td><%= @lecture.question_average question %>%</td>
         </tr>
       <% end %>
