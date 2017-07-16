@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
     end
 
     if current_user.nil?
+      if Rails.env == 'test'
+        session[:username] = User.first.username
+        return
+      end
       session[:username] = User.find_by(username: 'rkalhan4').username
     end
   end
