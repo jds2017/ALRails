@@ -2,5 +2,5 @@
 
 <%= render 'form', question_set: @question_set %>
 
-<%= link_to 'Show', @question_set %> |
-<%= link_to 'Back', question_sets_path %>
+<%= button_to 'Show', @question_set, {class: 'btn btn-primary', method: :get} %>
+<%= button_to 'Back', question_sets_path, {class: 'btn btn-primary', method: :get} %>
