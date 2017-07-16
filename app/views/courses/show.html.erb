@@ -52,6 +52,37 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-12" style="margin-top:10px">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>Performance</h1>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Course average
+                            </div>
+                            <div class="panel-body">
+                                <%= @pct_correct %> %
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Your average
+                            </div>
+                            <div class="panel-body">
+                                Something %
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div>
     <div style="float:left;margin-left:5px">
         <%= button_to "Course Questions", @course, {method: :get, class: "btn btn-primary"}%>

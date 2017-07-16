@@ -17,11 +17,8 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
-    @lecture_ids = CourseToLectureJunction.where(course: @course)
-    @lectures = []
-    @lecture_ids.each do |clj|
-      @lectures.push(Lecture.find(clj.lecture_id))
-    end
+    @pct_correct = @course.pct_correct
+    @lectures = @course.lectures
   end
 
   # GET /courses/new

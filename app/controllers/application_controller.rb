@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     end
 
     if current_user.nil?
-      session[:username] = User.first.username
+      session[:username] = User.find_by(username: 'rkalhan4').username
     end
   end
 end
