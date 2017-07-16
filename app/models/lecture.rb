@@ -20,6 +20,7 @@ class Lecture < ApplicationRecord
     responses = Response.where(lecture: self, question: question)
     total = responses.size
     right_responses = responses.select { |r| r.is_correct? }
+    right = right_responses.size
     return 100.0 * right / total    
   end
 
@@ -29,6 +30,7 @@ class Lecture < ApplicationRecord
     responses = Response.where(lecture: self)
     total = responses.size
     right_responses = responses.select { |r| r.is_correct? }
+    right = right_responses.size
     return 100.0 * right / total
   end
 
@@ -38,6 +40,7 @@ class Lecture < ApplicationRecord
     responses = Response.where(lecture: self, user: user)
     total = responses.size
     right_responses = responses.select { |r| r.is_correct? }
+    right = right_responses.size
     return 100.0 * right / total
   end
 end
