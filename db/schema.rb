@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603151545) do
+ActiveRecord::Schema.define(version: 20170708185734) do
 
   create_table "answers", force: :cascade do |t|
     t.string "answer"
@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 20170603151545) do
 
   create_table "lectures", force: :cascade do |t|
     t.string "title"
-    t.date "date_of_use"
     t.integer "question_set_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
     t.index ["question_set_id"], name: "index_lectures_on_question_set_id"
   end
 

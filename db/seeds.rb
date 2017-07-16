@@ -36,12 +36,12 @@ Answer.create answer: 'false', is_correct: true, question: q2
 Answer.create answer: 'false, you should use a hdl', is_correct: true, question: q3
 Answer.create answer: 'git is handy for logisim backups', is_correct: false, question: q3
 
-set = QuestionSet.create name: 'my first question set', is_readonly: true
+set = QuestionSet.create name: 'my first question set', is_readonly: false
 QuestionSetJunction.create question: q1, question_set: set
 QuestionSetJunction.create question: q2, question_set: set
 QuestionSetJunction.create question: q3, question_set: set
 
-lecture = Lecture.create title: 'compilers first lecture', date_of_use: 'June-3-2017', question_set: set
+lecture = Lecture.create title: 'compilers first lecture', question_set: set.readonly_copy
 
 CourseToLectureJunction.create course: compilers, lecture: lecture
 

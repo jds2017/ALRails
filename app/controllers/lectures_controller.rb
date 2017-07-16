@@ -29,7 +29,8 @@ class LecturesController < ApplicationController
   # POST /lectures.json
   def create
     @lecture = Lecture.new(lecture_params)
-    
+    @lecture.question_set = @lecture.question_set.readonly_copy
+
     respond_to do |format|
       if @lecture.save
         # find new lecture_id and course_id, then add to junction table

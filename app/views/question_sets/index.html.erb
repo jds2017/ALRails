@@ -11,7 +11,7 @@
   </thead>
 
   <tbody>
-    <% @question_sets.each do |question_set| %>
+    <% @question_sets.select{|q| !q.is_readonly}.each do |question_set| %>
       <tr>
         <td><%= question_set.name %></td>
         <td><%= link_to 'Show', question_set %></td>
