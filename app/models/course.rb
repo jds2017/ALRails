@@ -25,6 +25,18 @@ class Course < ApplicationRecord
     return 100.0 * right / total
   end
 
+  def pct_correct_by_user(user)
+    right = 0
+    total = 0
+    self.lectures.each do |lec|
+      responses = Response.where(lecture: lec, user: user)
+      total += responses.size
+      right_responses = responses.select { |r| r.is_correct? }
+      right += right_responses.size
+    end
+    return 100.0 * right / total
+  end
+
   private # student_key generator
     def generate_key
       self.student_key = SecureRandom.urlsafe_base64
