@@ -29,7 +29,7 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <% @lectures.each do |lecture| %>
+                <% @course.lectures.each do |lecture| %>
                     <div class="col-xs-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -69,7 +69,7 @@
                             Course average
                         </div>
                         <div class="panel-body">
-                            <%= @pct_correct %> %
+                            <%= @course.pct_correct %> %
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                                 Your average
                             </div>
                             <div class="panel-body">
-                                Something %
+                                <%= @course.pct_correct_by_user current_user %>
                             </div>
                         </div>
                     </div>
