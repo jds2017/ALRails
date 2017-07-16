@@ -20,7 +20,7 @@
         and allow user to filter those questions by searching tags.-->
   <br>
   <div class="well">
-    <strong>Available Questions:</strong>
+    <strong>Select the questions you would like to include in the set:</strong>
     <div>
     <% if @questions.present? %>
       <!-- add "search bar" for tags and filter questions shown based on
@@ -30,10 +30,10 @@
         <input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" class="form-control" placeholder="Search for question tags...">
       </div>
 
-      <table id="questionTagTable" class="table">
+      <table id="questionTagTable" class="table table-striped">
         <tr>
           <th></th>
-          <th style="min-width:250px">Body</th>
+          <th style="min-width:250px">Question</th>
           <th style="min-width:100px">Tags</th>
         </tr>
         <!-- loop thru questions from controller

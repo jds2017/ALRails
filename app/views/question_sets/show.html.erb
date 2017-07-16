@@ -6,14 +6,15 @@
 </p>
 
 <p>
-  <strong>Is readonly:</strong>
-  <%= @question_set.is_readonly %>
+  <% if @question_set.is_readonly %>
+  This question set can not be edited because it is included in a lecture.
+  <% end %>
 </p>
 
-<table>
+<table class="table table-striped table-bordered table-hover" id="questions-table">
   <tr>
-  	<th><strong>Questions:</strong></th>
-  	<th><strong>Tags:</strong></th>
+  	<th><strong>Question</strong></th>
+  	<th><strong>Tags</strong></th>
   </tr>
    <% @question_set.questions.each do |question|%>
    	<tr>
@@ -23,5 +24,5 @@
     <% end %>
 </table>
 
-<%= link_to 'Edit', edit_question_set_path(@question_set) %> |
-<%= link_to 'Back', question_sets_path %>
+<%= button_to 'Edit', edit_question_set_path(@question_set), {class: 'btn btn-primary', method: :get} %>
+<%= button_to 'Back', question_sets_path, {class: 'btn btn-primary', method: :get} %>
