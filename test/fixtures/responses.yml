@@ -7,7 +7,7 @@ one:
   answer: one
 
 two:
-  lecture: two
+  lecture: one
   user: two
   question: two
   answer: two

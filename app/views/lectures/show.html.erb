@@ -12,10 +12,36 @@
 
 
 <% if @lecture.completed %>
-  <p>
-    <strong>View Lecture Results:</strong>
-    <%= link_to 'View', @lecture.question_set %>
-  </p>
+  Overall class accuracy: <%= @lecture.overall_average %>%
+  <% unless current_user.courses_as_instructor.include? @lecture.course %>
+    Your accuracy: <%= @lecture.user_average current_user %>%
+  <% end %>
+  <table class="table">
+    <tr>
+      <th><strong>Questions:</strong></th>
+      <th><strong>Answer:</strong></th>
+      <th><strong>Average:</strong></th>
+    </tr>
+    <% @lecture.question_set.questions.each do |question| %>
+        <tr>
+          <td><div class="quill-container" hidden><%= question.body %></div></td>
+          <td>
+            <ul>
+              <% question.answers.each do |a| %>
+                <li>
+                  <% if a.is_correct %>
+                    <span>&#x2705 <%= a.answer %></span>
+                  <% else %>
+                    <span>&#x2716 <%= a.answer %></span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </td>
+          <td><%= @lecture.question_average question %>%</td>
+        </tr>
+      <% end %>
+  </table>
 <% else %>
   <p>
     <strong>Start This Lecture:</strong>
@@ -25,3 +51,4 @@
 
 <%= link_to 'Edit', edit_lecture_path(@lecture) %> |
 <%= link_to 'Back', lectures_path %>
+<script>show_quills();</script>

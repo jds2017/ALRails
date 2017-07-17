@@ -10,9 +10,7 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/1
   # GET /question_sets/1.json
   def show
-    if @question_set.is_readonly
-      render :template => "question_sets/ro_show"
-    end
+    
   end
 
   # GET /question_sets/new
