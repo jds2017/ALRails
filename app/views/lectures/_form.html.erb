@@ -17,17 +17,12 @@
   </div>
 
   <div class="field">
-    <%= form.label :date_of_use %>
-    <%= form.date_select :date_of_use, id: :lecture_date_of_use, class:"form-control" %>
+    <%= form.label :question_set_id%>
+    <%= form.select(:question_set_id, QuestionSet.where(is_readonly: false).map {|s| [s, s.id] }, {}, class: 'form-control') %>
   </div>
 
-  <div class="field">
-    <%= form.label :question_set_id%>
-    <%= form.text_field :question_set_id, id: :lecture_question_set_id, class:"form-control" %>
-  </div>
-  
-  <%= hidden_field_tag 'course_id', @course_id %> 
-  
+  <%= hidden_field_tag 'course_id', @course_id %>
+  <div style="margin-top:5px">
     <%= form.submit :class => "btn btn-default" %>
   </div>
 <% end %>

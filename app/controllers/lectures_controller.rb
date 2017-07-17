@@ -13,6 +13,7 @@ class LecturesController < ApplicationController
   # GET /lectures/1.json
   def show
     @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
+    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /lectures/new
@@ -23,6 +24,7 @@ class LecturesController < ApplicationController
 
   # GET /lectures/1/edit
   def edit
+    @course = Course.find_by(id: params[:course_id])
   end
 
   # POST /lectures

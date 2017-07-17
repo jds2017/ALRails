@@ -1,27 +1,29 @@
 <p id="notice"><%= notice %></p>
-<div class="row">
-    <h1 class="page-header"><%= @lecture.title %>
-    </h1>
-</div>
-<div class="col-xs-9">
-    <div class="col-xs-3" style="font-size:12px">
-        <strong>Date:</strong>
-        <%= @lecture.date_of_use %>
-    </div>
-    <div class="col-xs-3" style="font-size:12px">
-        <strong>Question Set:</strong>
-        <%= @lecture.question_set %>
-    </div>
-</div>
-<% if current_user.is_professor %>
-<%= button_to "Start Lecture", @livelecture_uri, {class: "btn btn-primary", method: :get} %>
+
+<p>
+  <strong>Title:</strong>
+  <%= @lecture.title %>
+</p>
+
+<p>
+  <strong>Question set:</strong>
+  <%= @lecture.question_set %>
+</p>
+
+
+<% if @lecture.completed %>
+  <p>
+    <%= button_to 'View Lecture Results', @lecture.question_set, {class: 'btn btn-primary', method: :get} %>
+  </p>
 <% else %>
-<%= button_to "Join Lecture", @livelecture_uri, {class: "btn btn-primary", method: :get} %>
+  <p>
+    <%= button_to 'Start Lecture', @livelecture_uri, {class: 'btn btn-primary', method: :get, params: {lecture: @lecture.id}} %>
+  </p>
 <% end %>
 
-<div style="float:left;margin-left:5px">
-    <%= button_to 'Edit', edit_lecture_path(@lecture), {class: "btn btn-primary", method: :get} %>
+<div style="float:left">
+    <%= button_to "Edit", edit_lecture_path(@lecture), {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
 </div>
 <div style="float:left;margin-left:5px">
-    <%= button_to 'Back', lectures_path, {class: "btn btn-primary", method: :get} %>
+    <%= button_to "Back", @course, {class: 'btn btn-primary', method: :get} %>
 </div>
