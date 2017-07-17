@@ -32,7 +32,6 @@
                   <% if a.is_correct %>
                     <span>&#x2705 <%= a.answer %></span>
                   <% else %>
-                    Response.where(lecture: @lecture, user: current_user, question: question)
                     <span>&#x2716 <%= a.answer %></span>
                   <% end %>
                 </li>
