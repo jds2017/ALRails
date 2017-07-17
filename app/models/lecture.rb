@@ -1,5 +1,8 @@
 class Lecture < ApplicationRecord
   belongs_to :question_set
+
+  has_one :course_to_lecture_junction
+  has_one :course, through: :course_to_lecture_junction
   
   #compute out of all the responses, how many corresponded to each answer
   #returns hash keyed by answer id with value for % responses with that answer id

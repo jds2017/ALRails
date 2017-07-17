@@ -13,7 +13,9 @@
 
 <% if @lecture.completed %>
   Overall class accuracy: <%= @lecture.overall_average %>%
-  Your accuracy: <%= @lecture.user_average current_user %>%
+  <% unless current_user.courses_as_instructor.include? @lecture.course %>
+    Your accuracy: <%= @lecture.user_average current_user %>%
+  <% end %>
   <table class="table">
     <tr>
       <th><strong>Questions:</strong></th>
