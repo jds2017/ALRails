@@ -9,6 +9,8 @@ class Question < ApplicationRecord
   has_many :question_to_tag_junctions, dependent: :destroy
   has_many :tags, through: :question_to_tag_junctions
 
+  has_many :responses, dependent: :destroy
+
   validates :course_name, presence: true
 
   def correct_answers
