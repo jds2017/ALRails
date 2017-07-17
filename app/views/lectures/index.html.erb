@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Date of use</th>
       <th>Question set</th>
       <th colspan="3"></th>
     </tr>
@@ -16,7 +15,6 @@
     <% @lectures.each do |lecture| %>
       <tr>
         <td><%= lecture.title %></td>
-        <td><%= lecture.date_of_use %></td>
         <td><%= lecture.question_set %></td>
         <td><%= link_to 'Show', lecture %></td>
         <td><%= link_to 'Edit', edit_lecture_path(lecture) %></td>
