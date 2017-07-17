@@ -6,19 +6,22 @@
 </p>
 
 <p>
-  <strong>Date of use:</strong>
-  <%= @lecture.date_of_use %>
-</p>
-
-<p>
   <strong>Question set:</strong>
   <%= @lecture.question_set %>
 </p>
 
-<p>
-  <strong>Start This Lecture:</strong>
-  <%= link_to 'Start', @livelecture_uri %>
-</p>
+
+<% if @lecture.completed %>
+  <p>
+    <strong>View Lecture Results:</strong>
+    <%= link_to 'View', @lecture.question_set %>
+  </p>
+<% else %>
+  <p>
+    <strong>Start This Lecture:</strong>
+    <%= link_to 'Start', @livelecture_uri %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_lecture_path(@lecture) %> |
 <%= link_to 'Back', lectures_path %>

@@ -2,10 +2,8 @@
 
 one:
   title: MyString
-  date_of_use: 2017-05-30
   question_set: one
 
 two:
   title: MyString
-  date_of_use: 2017-05-30
   question_set: two

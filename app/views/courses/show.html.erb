@@ -34,9 +34,12 @@
                                     <%= lecture.title %>
                                 </div>
                                 <div class="panel-body">
-                                    <p><strong>Date:</strong><p>
-                                    <p><strong>Number of Questions:</strong><p>
-                                    <p><strong>Tags:</strong><p>
+                                    <% if lecture.completed %>
+                                      <p><strong>Date: <%= lecture.updated_at %></strong><p>
+                                    <% else %>
+                                      <p><strong>Completed: no</strong></p>
+                                    <% end %>
+                                    <p><strong>Number of Questions: <%= lecture.question_set.questions.size %></strong><p>
                                     <p><%= button_to "Go to Lecture", lecture, {method: :get, class: "btn btn-default"} %>
                                 </div>
                             </div>
