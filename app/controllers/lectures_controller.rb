@@ -12,6 +12,7 @@ class LecturesController < ApplicationController
   # GET /lectures/1
   # GET /lectures/1.json
   def show
+    @response_averages = @lecture.response_average
     @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
   end
 

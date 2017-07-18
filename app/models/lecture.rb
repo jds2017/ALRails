@@ -9,15 +9,15 @@ class Lecture < ApplicationRecord
     @answers = q.answers
     @total = @responses.length
     answer_counts = Hash.new()
-    @answers.each { |answer| answer_counts[answer] = 0}
-    @responses.each { |response| answer_counts[response.answer] += 1}
-    answer_counts.each { |answer, count| answer_counts[answer] = (count.to_f / @total) }
+    @answers.each { |answer| answer_counts[answer] = 0} 
+    @responses.each { |response| answer_counts[response.answer] += 1 }
+    answer_counts.each { |answer, count| answer_counts[answer] = 100 * (count.to_f / @total) }
     return answer_counts
   end
 
   def response_average
     questions = self.question_set.questions
-    return questions.map { |q| question_response_average q }
+    return questions.map { |q| [q, question_response_average(q)] }.to_h
   end
 
   def question_average(question)

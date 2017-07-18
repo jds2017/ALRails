@@ -28,13 +28,14 @@
           <td>
             <ul>
               <% question.answers.each do |a| %>
-                <li>
+                <li><span>
                   <% if a.is_correct %>
-                    <span>&#x2705 <%= a.answer %></span>
+                    &#x2705 <%= a.answer %>
                   <% else %>
-                    <span>&#x2716 <%= a.answer %></span>
+                    &#x2716 <%= a.answer %>
                   <% end %>
-                </li>
+                  ( <%= @response_averages[question][a] %> percent chose this)
+                </span></li>
               <% end %>
             </ul>
           </td>
