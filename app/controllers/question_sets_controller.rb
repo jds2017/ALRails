@@ -10,6 +10,7 @@ class QuestionSetsController < ApplicationController
   # GET /question_sets/1
   # GET /question_sets/1.json
   def show
+    
   end
 
   # GET /question_sets/new
@@ -69,7 +70,6 @@ class QuestionSetsController < ApplicationController
   def update
     respond_to do |format|
       @question_set.name = :name
-      @question_set.is_readonly = :is_readonly
       if @question_set.update(question_set_params)
          # delete all from junction table
         QuestionSetJunction.where(question_set_id: @question_set.id).delete_all

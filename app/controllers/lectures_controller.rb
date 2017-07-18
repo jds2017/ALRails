@@ -12,6 +12,7 @@ class LecturesController < ApplicationController
   # GET /lectures/1
   # GET /lectures/1.json
   def show
+    @response_averages = @lecture.response_average
     @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
     @course = Course.find_by(id: params[:course_id])
   end
@@ -31,7 +32,8 @@ class LecturesController < ApplicationController
   # POST /lectures.json
   def create
     @lecture = Lecture.new(lecture_params)
-    
+    @lecture.question_set = @lecture.question_set.readonly_copy
+
     respond_to do |format|
       if @lecture.save
         # find new lecture_id and course_id, then add to junction table

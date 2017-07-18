@@ -10,14 +10,41 @@
   <%= @lecture.question_set %>
 </p>
 
-
 <% if @lecture.completed %>
-  <p>
-    <%= button_to 'View Lecture Results', @lecture.question_set, {class: 'btn btn-primary', method: :get} %>
-  </p>
+  Overall class accuracy: <%= @lecture.overall_average %>%
+  <% unless current_user.courses_as_instructor.include? @lecture.course %>
+    Your accuracy: <%= @lecture.user_average current_user %>%
+  <% end %>
+  <table class="table">
+    <tr>
+      <th><strong>Questions:</strong></th>
+      <th><strong>Answer:</strong></th>
+      <th><strong>Average:</strong></th>
+    </tr>
+    <% @lecture.question_set.questions.each do |question| %>
+        <tr>
+          <td><div class="quill-container" hidden><%= question.body %></div></td>
+          <td>
+            <ul>
+              <% question.answers.each do |a| %>
+                <li><span>
+                  <% if a.is_correct %>
+                    &#x2705 <%= a.answer %>
+                  <% else %>
+                    &#x2716 <%= a.answer %>
+                  <% end %>
+                  ( <%= @response_averages[question][a] %> percent chose this)
+                </span></li>
+              <% end %>
+            </ul>
+          </td>
+          <td><%= @lecture.question_average question %>%</td>
+        </tr>
+      <% end %>
+  </table>
 <% else %>
   <p>
-    <%= button_to 'Start Lecture', @livelecture_uri, {class: 'btn btn-primary', method: :get, params: {lecture: @lecture.id}} %>
+    <%= button_to 'View Lecture Results', @lecture.question_set, {class: 'btn btn-primary', method: :get} %>
   </p>
 <% end %>
 
@@ -27,3 +54,4 @@
 <div style="float:left;margin-left:5px">
     <%= button_to "Back", @course, {class: 'btn btn-primary', method: :get} %>
 </div>
+<script>show_quills();</script>

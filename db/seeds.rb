@@ -28,21 +28,25 @@ QuestionToTagJunction.create question: q2, tag: tag3
 QuestionToTagJunction.create question: q3, tag: tag2
 QuestionToTagJunction.create question: q3, tag: tag4
 
-Answer.create answer: 'true', is_correct: true, question: q1
-wrong = Answer.create answer: 'false', is_correct: false, question: q1
+right1 = Answer.create answer: 'true', is_correct: true, question: q1
+wrong1 = Answer.create answer: 'false', is_correct: false, question: q1
+wrong2 = Answer.create answer: 'only on a tuesday', is_correct: false, question: q2
+right2 = Answer.create answer: 'false', is_correct: true, question: q2
+right3 = Answer.create answer: 'false, you should use a hdl', is_correct: true, question: q3
+wrong3 = Answer.create answer: 'git is handy for logisim backups', is_correct: false, question: q3
 
-Answer.create answer: 'only on a tuesday', is_correct: false, question: q2
-Answer.create answer: 'false', is_correct: true, question: q2
-Answer.create answer: 'false, you should use a hdl', is_correct: true, question: q3
-Answer.create answer: 'git is handy for logisim backups', is_correct: false, question: q3
-
-set = QuestionSet.create name: 'my first question set', is_readonly: true
+set = QuestionSet.create name: 'my first question set', is_readonly: false
 QuestionSetJunction.create question: q1, question_set: set
 QuestionSetJunction.create question: q2, question_set: set
 QuestionSetJunction.create question: q3, question_set: set
 
-lecture = Lecture.create title: 'compilers first lecture', date_of_use: 'June-3-2017', question_set: set
+lecture = Lecture.create title: 'compilers first lecture', question_set: set.readonly_copy
 
 CourseToLectureJunction.create course: compilers, lecture: lecture
 
-Response.create user: student, lecture: lecture, question: q1, answer: wrong
+Response.create user: student, lecture: lecture, question: q1, answer: wrong1
+Response.create user: student, lecture: lecture, question: q2, answer: wrong2
+Response.create user: student, lecture: lecture, question: q3, answer: right3
+Response.create user: student2, lecture: lecture, question: q1, answer: right1
+Response.create user: student2, lecture: lecture, question: q2, answer: right2
+Response.create user: student2, lecture: lecture, question: q3, answer: right3

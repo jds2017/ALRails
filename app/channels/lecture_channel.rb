@@ -61,6 +61,7 @@ class LectureChannel < ApplicationCable::Channel
   end
 
   def end_of_lecture
+    @lecture.update! completed: true
     LectureChannel.broadcast_to(@lecture, {'msg' => 'end_of_lecture'})
   end
 
