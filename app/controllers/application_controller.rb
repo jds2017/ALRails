@@ -8,7 +8,10 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-      User.find_by(username: session[:username])
+      if User.find_by(username: session[:cas_user]).nil?
+          User.create username: session[:cas_user]
+      end
+      User.find_by(username: session[:cas_user])
   end
 
   def require_login
