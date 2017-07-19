@@ -35,14 +35,13 @@ class LecturesController < ApplicationController
   def create
     @lecture = Lecture.new(lecture_params)
     @lecture.question_set = @lecture.question_set.readonly_copy
-
     respond_to do |format|
       if @lecture.save
         # find new lecture_id and course_id, then add to junction table
         @clj = CourseToLectureJunction.new(:course_id => params[:course_id], :lecture_id => @lecture.id)
         @clj.save
-        format.html { redirect_to @lecture, notice: 'Lecture was successfully created.' }
-        format.json { render :show, status: :created, location: @lecture }
+        format.html { redirect_to @course, notice: 'Lecture was successfully created.'}
+        format.json { render :show, status: :created, location: @lecture}
       else
         format.html { render :new }
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
