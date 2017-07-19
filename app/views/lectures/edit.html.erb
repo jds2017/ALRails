@@ -3,7 +3,11 @@
     <%= render 'form', lecture: @lecture %>
     <div style="margin-top:5px">
         <div style="float:left">
-            <%= button_to "Cancel Changes", @lecture, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+            <% if @course.nil? %>
+                <%= button_to "Cancel Changes", @lecture, {class: 'btn btn-primary', method: :get} %>
+            <% else %>
+                <%= button_to "Cancel Changes", @lecture, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+            <% end %>
         </div>
     </div>
 </div>

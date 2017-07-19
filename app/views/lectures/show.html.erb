@@ -46,7 +46,11 @@
     <%= button_to 'View Lecture Results', @lecture.question_set, {class: 'btn btn-primary', method: :get} %>
   </p>
 <div style="float:left">
-    <%= button_to "Edit", edit_lecture_path(@lecture), {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+    <% if @course.nil? %>
+        <%= button_to "Edit", edit_lecture_path(@lecture), {class: 'btn btn-primary', method: :get} %>
+    <% else %>
+        <%= button_to "Edit", edit_lecture_path(@lecture), {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+    <% end %>
 </div>
 <% end %>
 <div style="float:left;margin-left:5px">

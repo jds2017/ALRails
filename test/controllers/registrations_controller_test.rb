@@ -22,7 +22,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       post registrations_url, params: { registration: { student_key: courses(:one).student_key } }
     end
 
-    assert_redirected_to registration_url(Registration.last)
+    assert_redirected_to course_url(Registration.last.course)
   end
 
   test "should show registration" do

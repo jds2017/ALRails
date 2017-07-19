@@ -45,8 +45,13 @@ class RegistrationsController < ApplicationController
     respond_to do |format|
       if @registration.save
         @course = Course.find_by(id: @registration.course_id)
-        format.html { redirect_to @course, notice: 'Registration was successfully created.' }
-        format.json { render :show, status: :created, location: @course }
+        if @course.nil?
+            format.html { redirect_to @registration, notice: 'Lecture was successfully created.'}
+            format.json { render :show, status: :created, location: @registration}
+        else
+            format.html { redirect_to @course, notice: 'Registration was successfully created.' }
+            format.json { render :show, status: :created, location: @course }  
+        end
       else
         format.html { render :new }
         format.json { render json: @registration.errors, status: :unprocessable_entity }

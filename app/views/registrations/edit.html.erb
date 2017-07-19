@@ -28,5 +28,9 @@
   </div>
 <% end %>
 <div style="margin-top:5px">
-  <%= button_to "Back", registrations_path, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+  <% if @course.nil? %>
+    <%= button_to "Back", registrations_path, {class: 'btn btn-primary', method: :get} %>
+  <% else %>
+    <%= button_to "Back", registrations_path, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+  <% end %>
 </div>
