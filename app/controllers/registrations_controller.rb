@@ -13,20 +13,24 @@ class RegistrationsController < ApplicationController
       current_user.courses_as_instructor.each { |c| @registrations += c.registrations }
       @registrations = @registrations.uniq { |r| r.id }
     end
+    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /registrations/1
   # GET /registrations/1.json
   def show
+    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /registrations/new
   def new
     @registration = Registration.new
+    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /registrations/1/edit
   def edit
+    @course = Course.find_by(id: params[:course_id])
   end
 
   # POST /registrations

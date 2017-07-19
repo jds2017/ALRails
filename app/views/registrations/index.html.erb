@@ -33,10 +33,10 @@
                     <td>
                         <div>
                             <div style="float:left;margin-left:5px">
-                                <%= button_to "Show", registration, {class: 'btn btn-primary', method: :get} %>
+                                <%= button_to "Show", registration, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
                             </div>
                             <div style="float:left;margin-left:5px">
-                                <%= button_to "Edit", edit_registration_path(registration), {class: 'btn btn-primary', method: :get} %>
+                                <%= button_to "Edit", edit_registration_path(registration), {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
                             </div>
                             <div style="float:left;margin-left:5px">
                                 <%= button_to "Destroy", registration, {method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'} %>
@@ -48,5 +48,9 @@
         </tbody>
     </table>
 </div>
-
-<%= button_to "Register New User", new_registration_path, {class: 'btn btn-primary', method: :get} %>
+<div style="float:left;margin-left:5px">
+    <%= button_to "Register New User", new_registration_path, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+</div>
+<div style="float:left;margin-left:5px">
+    <%= button_to "Back", @course, {class: 'btn btn-primary', method: :get} %>
+</div>

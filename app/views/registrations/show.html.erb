@@ -1,3 +1,9 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">User Registration</h1>
+    </div>
+</div>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -15,5 +21,9 @@
   <%= @registration.course %>
 </p>
 
-<%= link_to 'Edit', edit_registration_path(@registration) %> |
-<%= link_to 'Back', registrations_path %>
+<div style="float:left">
+    <%= button_to "Edit", edit_registration_path(@registration), {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+</div>
+<div style="float:left;margin-left:5px">
+    <%= button_to "Back", registrations_path, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+</div>
