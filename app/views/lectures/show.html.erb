@@ -28,14 +28,10 @@
           <td>
             <ul>
               <% question.answers.each do |a| %>
-                <li><span>
-                  <% if a.is_correct %>
-                    &#x2705 <%= a.answer %>
-                  <% else %>
-                    &#x2716 <%= a.answer %>
-                  <% end %>
-                  ( <%= @response_averages[question][a] %> percent chose this)
-                </span></li>
+                <li><span class="<%= a.is_correct ? 'answer-correct' : ('answer-incorrect' unless @emoji_map[a].nil? ) %>">
+                  <%="#{@emoji_map[a]} #{a.answer}" %>
+                </span>
+                <span>( <%= @response_averages[question][a] %> percent chose this)</span></li>
               <% end %>
             </ul>
           </td>
