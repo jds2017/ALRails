@@ -6,9 +6,14 @@
 }
 
 .answer-correct {
-  background-color: green;
+  background-color: lightgreen;
 }
 
-.answer-incorrect {
-  background-color: red;
+.answer-correct-bold {
+  background-color: lightgreen;
+  font-weight: bold;
+}
+
+.answer-bold {
+  font-weight: bold;
 }

@@ -28,14 +28,10 @@
           <td>
             <ul>
               <% question.answers.each do |a| %>
-                <li><span>
-                  <% if a.is_correct %>
-                    &#x2705 <%= a.answer %>
-                  <% else %>
-                    &#x2716 <%= a.answer %>
-                  <% end %>
-                  ( <%= @response_averages[question][a] %> percent chose this)
-                </span></li>
+                <li><span class="<%= a.is_correct ? (@emoji_map[a].nil? ? 'answer-correct' : 'answer-correct-bold') : ('answer-bold' unless @emoji_map[a].nil? ) %>">
+                  <%="#{@emoji_map[a]} #{a.answer}" %>
+                </span>
+                <span>( <%= @response_averages[question][a] %> percent chose this)</span></li>
               <% end %>
             </ul>
           </td>
@@ -43,6 +39,9 @@
         </tr>
       <% end %>
   </table>
+  <div style="font-style:italic">
+    *User's responses are in bold.
+  </div>
 <% else %>
   <p>
     <strong>Start This Lecture:</strong>

@@ -13,6 +13,8 @@ class LecturesController < ApplicationController
   # GET /lectures/1.json
   def show
     @response_averages = @lecture.response_average
+    responses = Response.where(lecture: @lecture, user: current_user)
+    @emoji_map = responses.map { |res| [res.answer, (res.is_correct? ? '✅' : '✖')]}.to_h
     @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
   end
 
