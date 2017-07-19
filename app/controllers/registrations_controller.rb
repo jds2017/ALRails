@@ -6,14 +6,19 @@ class RegistrationsController < ApplicationController
   # GET /registrations
   # GET /registrations.json
   def index
+    @course = Course.find_by(id: params[:course_id])
     if current_user.is_admin
       @registrations = Registration.all
     else
-      @registrations = current_user.registrations
-      current_user.courses_as_instructor.each { |c| @registrations += c.registrations }
+      @registrations = []
+      current_user.courses_as_instructor.each do |c|
+        if c.id == @course.id
+            @registrations += c.registrations
+        end
+      end
       @registrations = @registrations.uniq { |r| r.id }
+      @registrations = @registrations.sort_by { |e| e[:role]}
     end
-    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /registrations/1
@@ -39,8 +44,9 @@ class RegistrationsController < ApplicationController
     @registration = new_registration
     respond_to do |format|
       if @registration.save
-        format.html { redirect_to @registration, notice: 'Registration was successfully created.' }
-        format.json { render :show, status: :created, location: @registration }
+        @course = Course.find_by(id: @registration.course_id)
+        format.html { redirect_to @course, notice: 'Registration was successfully created.' }
+        format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new }
         format.json { render json: @registration.errors, status: :unprocessable_entity }
