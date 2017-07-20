@@ -37,7 +37,7 @@
                             </div>
                             <div class="panel-body">
                                 <% if lecture.completed %>
-                                    <p><strong>Date: <%= lecture.updated_at %></strong><p>
+                                    <p><strong>Date: <%= lecture.updated_at.strftime("%B %d, %Y") %></strong><p>
                                 <% else %>
                                     <p><strong>Completed: no</strong></p>
                                 <% end %>
