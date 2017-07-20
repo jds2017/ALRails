@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Question Set Name:</strong>
   <%= @question_set.name %>
 </p>
 
@@ -23,6 +23,11 @@
     </tr>
     <% end %>
 </table>
-
-<%= button_to 'Edit', edit_question_set_path(@question_set), {class: 'btn btn-primary', method: :get} %>
-<%= button_to 'Back', question_sets_path, {class: 'btn btn-primary', method: :get} %>
+<div>
+    <div style="float:left;margin-left:5px">
+        <%= button_to 'Edit', edit_question_set_path(@question_set), {class: 'btn btn-primary', method: :get} %>
+    </div>
+    <div style="float:left;margin-left:5px">
+        <%= button_to 'Back', question_sets_path, {class: 'btn btn-primary', method: :get} %>
+    </div>
+</div>
