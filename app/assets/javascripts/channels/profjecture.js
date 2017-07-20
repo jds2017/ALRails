@@ -44,6 +44,9 @@ var create_start_lecture = function(lecture_id) {
         $('#current-question').empty();
         $('#question-release').empty();
       }
+      if(data.msg === 'timeChange') {
+        edit_timer_receive(data.timeChange);
+      }
     }
   });
 }

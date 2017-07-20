@@ -69,4 +69,9 @@ class LectureChannel < ApplicationCable::Channel
     user_fragment = ApplicationController.renderer.render(partial: 'livelecture/connected_users', locals: {users: @users})
     LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'userlist', 'view' => user_fragment})
   end
+  
+  def edit_timer(data)
+    timeChange = data['timeChange']
+    LectureChannel.broadcast_to(@lecture, {'msg' => 'timeChange', 'timeChange' => timeChange})
+  end
 end

@@ -1,7 +1,8 @@
-var question_seconds = 5;
+var question_seconds = 60;
 var answer_seconds = 5;
 var question_set_size = -1;
 var question_index = 0;
+var timeoutID;
 var timer;
 
 var create_timer = function() {
@@ -47,7 +48,7 @@ var start_lecture = function() {
     }
     display_next_question();
     $('#question-release').prop('disabled', true).css('opacity',0.5);
-    setTimeout(function() {
+    timeoutID = setTimeout(function() {
       display_answer();
     }, 1000*question_seconds);
   });
@@ -76,4 +77,19 @@ var announce_presence = function() {
 var show_correct_answer = function(id) {
   $('.answer-button').prop('disabled', true).css('opacity',0.5);
   $('#answer-' + id).text($('#answer-' + id).text() + "CORRECT");
+}
+
+var edit_timer_send = function() {
+  if (timer.getTimeRemaining() >= 0) {
+    timeChange = parseInt(document.getElementById("timeChange").value);
+    App.lectureChannel.perform('edit_timer', {timeChange: timeChange});
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(function() {
+      display_answer();
+    }, 1000*(timer.getTimeRemaining()+timeChange));
+  }
+}
+
+var edit_timer_receive = function(timeChange) {
+  timer.extendTimer(timeChange);
 }
