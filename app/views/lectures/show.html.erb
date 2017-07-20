@@ -10,18 +10,50 @@
   <%= @lecture.question_set %>
 </p>
 
-
 <% if @lecture.completed %>
-  <p>
-    <strong>View Lecture Results:</strong>
-    <%= link_to 'View', @lecture.question_set %>
-  </p>
+  Overall class accuracy: <%= @lecture.overall_average %>%
+  <% unless current_user.courses_as_instructor.include? @lecture.course %>
+    Your accuracy: <%= @lecture.user_average current_user %>%
+  <% end %>
+  <table class="table">
+    <tr>
+      <th><strong>Questions:</strong></th>
+      <th><strong>Answer:</strong></th>
+      <th><strong>Average:</strong></th>
+    </tr>
+    <% @lecture.question_set.questions.each do |question| %>
+        <tr>
+          <td><div class="quill-container" hidden><%= question.body %></div></td>
+          <td>
+            <ul>
+              <% question.answers.each do |a| %>
+                <li><span class="<%= a.is_correct ? (@emoji_map[a].nil? ? 'answer-correct' : 'answer-correct-bold') : ('answer-bold' unless @emoji_map[a].nil? ) %>">
+                  <%="#{@emoji_map[a]} #{a.answer}" %>
+                </span>
+                <span>( <%= @response_averages[question][a] %> percent chose this)</span></li>
+              <% end %>
+            </ul>
+          </td>
+          <td><%= @lecture.question_average question %>%</td>
+        </tr>
+      <% end %>
+  </table>
+  <div style="font-style:italic">
+    *User's responses are in bold.
+  </div>
 <% else %>
   <p>
-    <strong>Start This Lecture:</strong>
-    <%= link_to 'Start', @livelecture_uri %>
+    <%= button_to 'Start Live Lecture', @livelecture_uri, {class: 'btn btn-primary', method: :get, params: {lecture: @lecture}} %>
   </p>
+<div style="float:left">
+    <% if @course.nil? %>
+        <%= button_to "Edit", edit_lecture_path(@lecture), {class: 'btn btn-primary', method: :get} %>
+    <% else %>
+        <%= button_to "Edit", edit_lecture_path(@lecture), {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+    <% end %>
+</div>
 <% end %>
-
-<%= link_to 'Edit', edit_lecture_path(@lecture) %> |
-<%= link_to 'Back', lectures_path %>
+<div style="float:left;margin-left:5px">
+    <%= button_to "Back", @course, {class: 'btn btn-primary', method: :get} %>
+</div>
+<script>show_quills();</script>
