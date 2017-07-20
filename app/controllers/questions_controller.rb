@@ -27,6 +27,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     #Get tags associated with the question.
+    # TODO this can be deleted
     @tags = []
     QuestionToTagJunction.where(question_id: @question.id).each{|qtj| @tags.push qtj.tag}
   end
@@ -34,6 +35,9 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
+    #TODO: Retrieve the tag string ("malloc, logisim") from the params, split on the string
+    # for each tag, check if it exists first. Create it if not. 
+    # @question.tags = tags (before @question.save)
     @question = Question.new(question_params)
 
     respond_to do |format|
@@ -50,6 +54,7 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
+    #TODO the same thing as in create
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
@@ -83,6 +88,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
+      #TODO: permit the tag string here. 
       params.require(:question).permit(:body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
     end
 end

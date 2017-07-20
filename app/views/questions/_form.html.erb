@@ -46,9 +46,10 @@
 
   <div class="bootstrap-tagsinput">
   <!-- Loop through tags from controller (tags associated with question) and display -->
+  <!-- TODO: give this input a name, so that the form submit will include the tags in the form submission-->
   <!-- Allow user to remove tags. -->
     <!-- allow user to enter tags. -->
-    <input type="text" data-role="tagsinput" value="<%= @question.tags.join(", ") %>">
+    <input  type="text" data-role="tagsinput" value="<%= @question.tags.join(", ") %>">
   </div>
 
   <br>
