@@ -12,11 +12,12 @@ class RegistrationsController < ApplicationController
     else
       @registrations = []
       current_user.courses_as_instructor.each do |c|
-        if c.id == @course.id
-            @registrations += c.registrations
-        end
+        @registrations += c.registrations
       end
       @registrations = @registrations.uniq { |r| r.id }
+      if !@course.nil?
+        @registrations = @registrations.select { |r| r.course == @course }
+      end
       @registrations = @registrations.sort_by { |e| e[:role]}
     end
   end
