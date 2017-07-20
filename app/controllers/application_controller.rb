@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   if Rails.env.production?
     before_action CASClient::Frameworks::Rails::Filter
+  else
+    before_action :require_login
   end
   protect_from_forgery with: :exception
   helper_method :current_user
-
-  before_action :require_login
 
   private
 
