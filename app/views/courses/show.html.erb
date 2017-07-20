@@ -93,4 +93,9 @@
     <div style="float:left;margin-left:5px">
         <%= button_to "Registration", registrations_path, {method: :get, class: "btn btn-primary", params: {course_id: @course.id}}%>
     </div>
+    <% if current_user.courses_as_instructor.include? @course %>
+        <div style="float:left;margin-left:5px">
+            <%= button_to "Gradebook", gradebooks_path, {method: :get, class: "btn btn-primary", params: {id: @course.id}, action: :show}%>
+        </div>
+    <% end %>
 </div>
