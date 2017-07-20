@@ -1,5 +1,6 @@
 class RegistrationsController < ApplicationController
   before_action :find_registration, only: [:show, :edit, :update, :destroy]
+  before_action :find_course
   before_action :validate_read, only: [:show, :edit]
   before_action :validate_modify, only: [:destroy, :update]
 
@@ -9,9 +10,15 @@ class RegistrationsController < ApplicationController
     if current_user.is_admin
       @registrations = Registration.all
     else
-      @registrations = current_user.registrations
-      current_user.courses_as_instructor.each { |c| @registrations += c.registrations }
+      @registrations = []
+      current_user.courses_as_instructor.each do |c|
+        @registrations += c.registrations
+      end
       @registrations = @registrations.uniq { |r| r.id }
+      if !@course.nil?
+        @registrations = @registrations.select { |r| r.course == @course }
+      end
+      @registrations = @registrations.sort_by { |e| e[:role]}
     end
   end
 
@@ -35,8 +42,14 @@ class RegistrationsController < ApplicationController
     @registration = new_registration
     respond_to do |format|
       if @registration.save
-        format.html { redirect_to @registration, notice: 'Registration was successfully created.' }
-        format.json { render :show, status: :created, location: @registration }
+        @course = Course.find_by(id: @registration.course_id)
+        if @course.nil?
+            format.html { redirect_to @registration, notice: 'Lecture was successfully created.'}
+            format.json { render :show, status: :created, location: @registration}
+        else
+            format.html { redirect_to @course, notice: 'Registration was successfully created.' }
+            format.json { render :show, status: :created, location: @course }  
+        end
       else
         format.html { render :new }
         format.json { render json: @registration.errors, status: :unprocessable_entity }
@@ -80,6 +93,10 @@ class RegistrationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def find_registration
       @registration = Registration.find(params[:id])
+    end
+
+    def find_course
+      @course = Course.find_by(id: params[:course_id])
     end
 
     def new_registration

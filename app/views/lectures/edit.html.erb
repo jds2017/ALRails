@@ -1,6 +1,13 @@
 <h1>Editing Lecture</h1>
-
-<%= render 'form', lecture: @lecture %>
-
-<%= link_to 'Show', @lecture %> |
-<%= link_to 'Back', lectures_path %>
+<div>
+    <%= render 'form', lecture: @lecture %>
+    <div style="margin-top:5px">
+        <div style="float:left">
+            <% if @course.nil? %>
+                <%= button_to "Cancel Changes", @lecture, {class: 'btn btn-primary', method: :get} %>
+            <% else %>
+                <%= button_to "Cancel Changes", @lecture, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+            <% end %>
+        </div>
+    </div>
+</div>

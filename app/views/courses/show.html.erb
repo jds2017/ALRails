@@ -42,7 +42,7 @@
                                     <p><strong>Completed: no</strong></p>
                                 <% end %>
                                 <p><strong>Number of Questions: <%= lecture.question_set.questions.size %></strong><p>
-                                <p><%= button_to "Go to Lecture", lecture, {method: :get, class: "btn btn-default"} %>
+                                <p><%= button_to "Go to Lecture", lecture, {method: :get, class: "btn btn-default", params: {course_id: @course.id}} %>
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
 </div>
 <div>
     <div style="float:left;margin-left:5px">
-        <%= button_to "Course Questions", @course, {method: :get, class: "btn btn-primary"}%>
+        <%= button_to "Registration", registrations_path, {method: :get, class: "btn btn-primary", params: {course_id: @course.id}}%>
     </div>
     <div style="float:left;margin-left:5px">
         <%= button_to "Student Breakdown", @course, {method: :get, class: "btn btn-primary"}%>

@@ -1,31 +1,62 @@
 <p id="notice"><%= notice %></p>
+           
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Registrations</h1>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Course
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
 
-<h1>Registrations</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Role</th>
-      <th>User</th>
-      <th>Course</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @registrations.each do |registration| %>
-      <tr>
-        <td><%= registration.role %></td>
-        <td><%= registration.user %></td>
-        <td><%= registration.course %></td>
-        <td><%= link_to 'Show', registration %></td>
-        <td><%= link_to 'Edit', edit_registration_path(registration) %></td>
-        <td><%= link_to 'Destroy', registration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Registration', new_registration_path %>
+        <tbody>
+            <% @registrations.each do |registration| %>
+                <tr>
+                    <td><%= registration.user %></td>
+                    <td><%= registration.role %></td>
+                    <td><%= registration.course %></td>
+                    <td>
+                        <div>
+                            <% if @course.nil? %>
+                                <div style="float:left;margin-left:5px">
+                                    <%= button_to "Show", registration, {class: 'btn btn-primary', method: :get} %>
+                                </div>
+                                <div style="float:left;margin-left:5px">
+                                    <%= button_to "Edit", edit_registration_path(registration), {class: 'btn btn-primary', method: :get} %>
+                                </div>
+                            <% else %>
+                                <div style="float:left;margin-left:5px">
+                                    <%= button_to "Show", registration, {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+                                </div>
+                                <div style="float:left;margin-left:5px">
+                                    <%= button_to "Edit", edit_registration_path(registration), {class: 'btn btn-primary', method: :get, params: {course_id: @course.id}} %>
+                                </div>
+                            <% end %>
+                            <div style="float:left;margin-left:5px">
+                                <%= button_to "Destroy", registration, {method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'} %>
+                            </div>                             
+                        </div>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<div style="float:left;margin-left:5px">
+    <%= button_to "Back", @course, {class: 'btn btn-primary', method: :get} %>
+</div>
