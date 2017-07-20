@@ -1,5 +1,6 @@
 class RegistrationsController < ApplicationController
   before_action :find_registration, only: [:show, :edit, :update, :destroy]
+  before_action :find_course
   before_action :validate_read, only: [:show, :edit]
   before_action :validate_modify, only: [:destroy, :update]
 
@@ -91,6 +92,9 @@ class RegistrationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def find_registration
       @registration = Registration.find(params[:id])
+    end
+
+    def find_course
       @course = Course.find_by(id: params[:course_id])
     end
 

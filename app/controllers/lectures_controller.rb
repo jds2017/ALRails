@@ -2,6 +2,7 @@ require 'uri'
 
 class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy]
+  before_action :set_course
 
   # GET /lectures
   # GET /lectures.json
@@ -16,18 +17,15 @@ class LecturesController < ApplicationController
     responses = Response.where(lecture: @lecture, user: current_user)
     @emoji_map = responses.map { |res| [res.answer, (res.is_correct? ? '✅' : '✖')]}.to_h
     @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
-    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /lectures/new
   def new
     @lecture = Lecture.new
-    @course_id = params[:course_id]
   end
 
   # GET /lectures/1/edit
   def edit
-    @course = Course.find_by(id: params[:course_id])
   end
 
   # POST /lectures
@@ -82,6 +80,10 @@ class LecturesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lecture
       @lecture = Lecture.find(params[:id])
+    end
+
+    def set_course
+      @course = Course.find_by(id: params[:course_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
