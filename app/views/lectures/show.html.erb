@@ -11,9 +11,9 @@
 </p>
 
 <% if @lecture.completed %>
-  Overall class accuracy: <%= @lecture.overall_average %>%
+  Overall class accuracy: <%= number_to_percentage @lecture.overall_average, precision: 2 %>
   <% unless current_user.courses_as_instructor.include? @lecture.course %>
-    Your accuracy: <%= @lecture.user_average current_user %>%
+    Your accuracy: <%= number_to_percentage @lecture.user_average(current_user), precision: 2 %>
   <% end %>
   <table class="table">
     <tr>
