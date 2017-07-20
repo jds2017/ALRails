@@ -8,7 +8,17 @@ You are currently <p id='connection-status'>disconnected</p>
 <div id="countdown"></div>
 
 <% if current_user.is_professor %>
-  <button id='question-release'>Release next question</button>
+  <div>
+    <div style="float:left;width:10%">
+        <input type="number" id="timeChange" value="5" class="form-control">
+    </div>
+    <div styel="float:left;margin-left:5px">
+        <button type="button" class="btn btn-primary"  onclick="edit_timer_send()">Add Time to Timer</button>
+    <div>
+  </div>
+  <div>
+    <button id='question-release' class="btn btn-primary" style="margin-top:5px">Release next question</button>
+  <div>
 <% end %>
 
 <script>
