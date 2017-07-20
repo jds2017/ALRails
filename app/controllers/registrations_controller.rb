@@ -6,7 +6,6 @@ class RegistrationsController < ApplicationController
   # GET /registrations
   # GET /registrations.json
   def index
-    @course = Course.find_by(id: params[:course_id])
     if current_user.is_admin
       @registrations = Registration.all
     else
@@ -25,18 +24,15 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
-    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /registrations/new
   def new
     @registration = Registration.new
-    @course = Course.find_by(id: params[:course_id])
   end
 
   # GET /registrations/1/edit
   def edit
-    @course = Course.find_by(id: params[:course_id])
   end
 
   # POST /registrations
@@ -45,7 +41,6 @@ class RegistrationsController < ApplicationController
     @registration = new_registration
     respond_to do |format|
       if @registration.save
-        @course = Course.find_by(id: @registration.course_id)
         if @course.nil?
             format.html { redirect_to @registration, notice: 'Lecture was successfully created.'}
             format.json { render :show, status: :created, location: @registration}
@@ -96,6 +91,7 @@ class RegistrationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def find_registration
       @registration = Registration.find(params[:id])
+      @course = Course.find_by(id: params[:course_id])
     end
 
     def new_registration
