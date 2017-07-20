@@ -24,6 +24,41 @@
     <%= form.select(:course_name, current_user.courses_as_instructor.map { |c| [c.name, c.name] } ) %>
   </div>
 
+  
+  <div class="bootstrap-tagsinput">
+  <!-- Loop through tags from controller (tags associated with question) and display -->
+  <!-- Allow user to remove tags. -->
+    <% if @tags.present? %>
+      <% @tags.each do |tag| %>
+        <span class="tag label label-info"> <%= tag.to_s %> <span data-role="remove"></span> </span>
+      <% end %>
+    <% end %>
+    <!-- allow user to enter tags. -->
+    <input type="text" data-role="tagsinput">
+  </div>
+
+
+  <!-- TODO: Just listing tags for testing. Need to make prettier for input. Possibly use ntagsinput for bootstrap?-->
+  <div class="field">
+
+    
+    <table id="questionTagsEditTable" class="table">
+      <tr>
+        <th></th>
+        <th>Tag</th>
+      </tr>
+      <% if @tags.present? %>
+        <!-- loop thru tags from controller (tags associated with question) -->
+        <% @tags.each do |tag| %>
+          <tr>
+            <td><%= tag.to_s %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+    
+  </div>
+
   <%= form.fields_for :answers do |answer_form| %>
     <%= answer_form.label :answer %>
     <%= answer_form.text_field :answer %>
@@ -33,6 +68,7 @@
 
     <%= answer_form.label :_destroy %>
     <%= answer_form.check_box :_destroy %>
+    </br> <!-- separates answers on new line.-->
   <% end %>
 
   <br>

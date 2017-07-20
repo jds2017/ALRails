@@ -19,10 +19,16 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     5.times { @question.answers.build }
+    #Get tags associated with the question.
+    @tags = []
+    
   end
 
   # GET /questions/1/edit
   def edit
+    #Get tags associated with the question.
+    @tags = []
+    QuestionToTagJunction.where(question_id: @question.id).each{|qtj| @tags.push qtj.tag}
   end
 
   # POST /questions
