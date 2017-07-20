@@ -19,9 +19,9 @@
       <tr>
         <td><%= question.body_as_text %></td>
         <td><%= question.tags.join(", ") %></td>
-        <td><%= button_to 'Show', question, {class: 'btn btn-default', method: :get} %></td>
-        <td><%= button_to 'Edit', edit_question_path(question), {class: 'btn btn-default', method: :get} %></td>
-        <td><%= button_to 'Destroy', question, class: 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td style="width:10%"><%= button_to 'Show', question, {class: 'btn btn-primary', method: :get} %></td>
+        <td style="width:10%"><%= button_to 'Edit', edit_question_path(question), {class: 'btn btn-primary', method: :get} %></td>
+        <td style="width:10%"><%= button_to 'Destroy', question, class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
 
