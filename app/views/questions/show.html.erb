@@ -1,19 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Body:</strong>
+<div>
+  <h1>Question</h1>
   <div id='question-body' hidden><%= @question.body %></div>
   <div id="editor-container"></div>
-  <% @question.answers.each do |a| %>
-    <br>
-    <% if a.is_correct %>
-      <b><%= a %></b>
-    <% else %>
-      <%= a %>
-    <% end %>
-  <% end %>
-</p>
+</div>
 
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<div>
+  <table class="table table-striped table-bordered table-hover" id="answers-table">
+    <thead>
+      <tr>
+        <th width="100px">Answers</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @question.answers.each do |a| %>
+      <tr>
+        <% if a.is_correct %>
+          <td class="success"><%= a %></td>
+        <% else %>
+          <td><%= a %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= button_to "Edit", edit_question_path(@question), {class: 'btn btn-default', method: :get} %>
+<%= button_to "Back", questions_path, {class: 'btn btn-primary', method: :get} %>
 <script>initialize_question_view()</script>

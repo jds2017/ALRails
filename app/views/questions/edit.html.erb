@@ -1,6 +1,8 @@
 <h1>Editing Question</h1>
 
 <%= render 'form', question: @question %>
-
-<%= link_to 'Show', @question %> |
-<%= link_to 'Back', questions_path %>
+<div style="margin-top:5px">
+    <div style="float:left">
+        <%= button_to "Cancel Changes", questions_path, {class: 'btn btn-primary', method: :get} %>
+    </div>
+</div>

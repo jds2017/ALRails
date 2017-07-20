@@ -16,29 +16,39 @@
     <%= form.text_field :body, id: :question_body %>
   </div>
 
-
-  <div id="editor-container"></div>
-
   <div class="field">
-    <%= form.label :for_course %>
+    <%= form.label :choose_course %>
     <%= form.select(:course_name, current_user.courses_as_instructor.map { |c| [c.name, c.name] } ) %>
   </div>
 
-  <%= form.fields_for :answers do |answer_form| %>
-    <%= answer_form.label :answer %>
-    <%= answer_form.text_field :answer %>
+  <div id="editor-container" width="500px" height="350px"></div>
 
-    <%= answer_form.label :is_correct %>
-    <%= answer_form.check_box :is_correct %>
+  <div class="form-group">
+  <table class="table table-striped table-bordered table-hover" id="answers-table">
+    <thead>
+      <tr>
+        <th class="text-center" width="100px">Correct?</th>
+        <th>Answer</th>
+        <th class="text-center" width="100px">Destroy</th>
+      </tr>
+    </thead>
+    <tbody>
+        <%= form.fields_for :answers do |answer_form| %>
+      <tr>
+        <td class="text-center" width="100px"><%= answer_form.check_box :is_correct %></td>
+        <td><%= answer_form.text_field :answer, class:"form-control" %></td>
+        <td class="text-center" width="100px"><%= answer_form.check_box :_destroy %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
 
-    <%= answer_form.label :_destroy %>
-    <%= answer_form.check_box :_destroy %>
-  <% end %>
 
   <br>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :class => "btn btn-default"%>
   </div>
 <% end %>
 <script>initialize_question_form()</script>
