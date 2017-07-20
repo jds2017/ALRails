@@ -28,13 +28,8 @@
   <div class="bootstrap-tagsinput">
   <!-- Loop through tags from controller (tags associated with question) and display -->
   <!-- Allow user to remove tags. -->
-    <% if @tags.present? %>
-      <% @tags.each do |tag| %>
-        <span class="tag label label-info"> <%= tag.to_s %> <span data-role="remove"></span> </span>
-      <% end %>
-    <% end %>
     <!-- allow user to enter tags. -->
-    <input type="text" data-role="tagsinput">
+    <input type="text" data-role="tagsinput" value="<%= @question.tags.join(", ") %>">
   </div>
 
 
