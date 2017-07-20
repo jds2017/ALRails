@@ -42,6 +42,7 @@ class RegistrationsController < ApplicationController
     @registration = new_registration
     respond_to do |format|
       if @registration.save
+        @course = Course.find_by(id: @registration.course_id)
         if @course.nil?
             format.html { redirect_to @registration, notice: 'Lecture was successfully created.'}
             format.json { render :show, status: :created, location: @registration}
