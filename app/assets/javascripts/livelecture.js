@@ -50,6 +50,7 @@ var start_lecture = function() {
     $('#question-release').prop('disabled', true).css('opacity',0.5);
     timeoutID = setTimeout(function() {
       display_answer();
+      timer.stop();
     }, 1000*question_seconds);
   });
 }
@@ -86,6 +87,7 @@ var edit_timer_send = function() {
     clearTimeout(timeoutID);
     timeoutID = setTimeout(function() {
       display_answer();
+      timer.stop();
     }, 1000*(timer.getTimeRemaining()+timeChange));
   }
 }
