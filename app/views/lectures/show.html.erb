@@ -43,7 +43,7 @@
   </div>
 <% else %>
   <p>
-    <%= button_to 'View Lecture Results', @lecture.question_set, {class: 'btn btn-primary', method: :get} %>
+    <%= button_to 'Start Live Lecture', @livelecture_uri, {class: 'btn btn-primary', method: :get, params: {lecture: @lecture}} %>
   </p>
 <div style="float:left">
     <% if @course.nil? %>
