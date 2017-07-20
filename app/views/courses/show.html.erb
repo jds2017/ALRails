@@ -37,7 +37,7 @@
                             </div>
                             <div class="panel-body">
                                 <% if lecture.completed %>
-                                    <p><strong>Date: <%= lecture.updated_at %></strong><p>
+                                    <p><strong>Date: <%= lecture.updated_at.strftime("%B %d, %Y") %></strong><p>
                                 <% else %>
                                     <p><strong>Completed: no</strong></p>
                                 <% end %>
@@ -92,8 +92,5 @@
 <div>
     <div style="float:left;margin-left:5px">
         <%= button_to "Registration", registrations_path, {method: :get, class: "btn btn-primary", params: {course_id: @course.id}}%>
-    </div>
-    <div style="float:left;margin-left:5px">
-        <%= button_to "Student Breakdown", @course, {method: :get, class: "btn btn-primary"}%>
     </div>
 </div>
