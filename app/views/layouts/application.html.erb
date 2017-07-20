@@ -36,13 +36,10 @@
             <td width="90%" style="text-align:left">
               <a class="navbar-brand">Active Learning</a>
             </td>
-            <td width="3%" style="text-align:right;right-margin:10px">
+            <td width="5%" style="text-align:center">
               <%= current_user.username %>
               <%= current_user.is_admin ? ' [admin]' : '' %>
               <%= current_user.is_professor ? ' [professor]' : '' %>
-            </td>
-            <td width="2%" style="text-align:right;right-margin:10px">
-              <button type="button" class="btn btn-default">Log Out</button>
             </td>
           </tr>
         </table>
@@ -93,7 +90,7 @@
     </nav>
 
     <div id="page-wrapper">
-      <div id="main-container" class="container">
+      <div id="main-container" class="container col-lg-12">
         <%= yield %>
       </div>
     </div>

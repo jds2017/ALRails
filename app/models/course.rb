@@ -8,6 +8,8 @@ class Course < ApplicationRecord
   before_create :generate_key
 
   validates :semester, inclusion: { in: %w(SUMMER FALL SPRING) }
+  validates_format_of :name, :with => /\A[A-Z]{2,4}[0-9]{4}\z/,
+    message: 'name must be a few uppercase letters followed by four digits' 
 
   def to_s
     self.name

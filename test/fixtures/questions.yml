@@ -2,8 +2,8 @@
 
 one:
   body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}'
-  course_name: CourseOne
+  course_name: XX9999
 
 two:
   body: '{"ops":[{"insert":"Who am i?\n"}]}'
-  course_name: CourseOne
+  course_name: XX9999

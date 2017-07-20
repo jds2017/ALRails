@@ -7,10 +7,10 @@
 
   <input type="text" id="tagSearchInput" onkeyup="questionsTableTagSearch()" class="form-control" placeholder="Search for question tags...">
 
-  <table id="questionTagTable" class="table" >
+  <table id="questionTagTable" class="table table-striped table-bordered table-hover" >
 
     <tr>
-      <th>Body</th>
+      <th>Question</th>
       <th>Tags</th>
       <th colspan="3"></th>
     </tr>
@@ -19,9 +19,9 @@
       <tr>
         <td><%= question.body_as_text %></td>
         <td><%= question.tags.join(", ") %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td style="width:10%;vertical-align:middle"><%= button_to 'Show', question, {class: 'btn btn-primary', method: :get} %></td>
+        <td style="width:10%;vertical-align:middle"><%= button_to 'Edit', edit_question_path(question), {class: 'btn btn-primary', method: :get} %></td>
+        <td style="width:10%;vertical-align:middle"><%= button_to 'Destroy', question, class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
 
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= button_to 'New Question', new_question_path, {class: 'btn btn-primary', method: :get} %>
