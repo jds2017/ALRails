@@ -29,6 +29,9 @@ var create_join_lecture = function(lecture_id, username) {
         $('#countdown').empty();
         $('#current-question').empty();
       }
+      if(data.msg === 'timeChange') {
+        edit_timer_receive(data.timeChange);
+      }
     }
   });
 }

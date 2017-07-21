@@ -86,6 +86,9 @@
                     </div>
                 <% end %>
             </div>
+            <div id="flotdiv" class="row" style="height:200px">
+
+            </div>
         </div>
     </div>
 </div>
@@ -93,4 +96,16 @@
     <div style="float:left;margin-left:5px">
         <%= button_to "Registration", registrations_path, {method: :get, class: "btn btn-primary", params: {course_id: @course.id}}%>
     </div>
+    <% if current_user.courses_as_instructor.include? @course %>
+        <div style="float:left;margin-left:5px">
+            <%= button_to "Gradebook", gradebooks_path, {method: :get, class: "btn btn-primary", params: {id: @course.id}, action: :show}%>
+        </div>
+    <% end %>
 </div>
+
+<script>
+    var d1 = <%= @user_data.to_json %>;
+	var d2 = <%= @course_data.to_json %>;
+	$.plot("#flotdiv", [{label: 'You', data: d1}, {label: 'Class', data: d2}], {xaxis: { mode: "time", timeformat: "%b%d"}});
+</script>
+

@@ -1,0 +1,19 @@
+<h3>Gradebook for <%= @course %></h3>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th>Student</th>
+            <% @course.lectures.each do |l| %>
+                <th><%= l.title %></th>
+            <% end %>
+        </thead>
+        <% @course.students.each do |s| %>
+            <tr>
+                <td><%= s %></td>
+                <% @course.lectures.each do |l| %>
+                    <td><%= l.user_average s %></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </table>
+</div>
