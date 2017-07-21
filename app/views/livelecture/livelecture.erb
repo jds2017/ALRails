@@ -48,12 +48,13 @@ You are currently <p id='connection-status'>disconnected</p>
             <button id='question-release' class="btn btn-primary" style="margin-top:15px">Release next question</button>
         </div>
     <% end %>
-</div>
+    </div>
 <% if current_user.is_professor %>
     <div>
         <button type="button" class="btn btn-primary"  onclick="end_lecture()">End Lecture</button>
     </div>
 <% end %>
+</div>
 <script>
 <% if current_user.courses_as_instructor.include? @lecture.question_set.questions[0].course %>
   create_start_lecture("<%= @lecture.id %>");
