@@ -45,10 +45,7 @@
   </div>
 
   <div class="bootstrap-tagsinput" style="width: 100%">
-    <!-- Loop through tags from controller (tags associated with question) and display -->
-  <!-- TODO: give this input a name, so that the form submit will include the tags in the form submission-->
-  <!-- Allow user to remove tags. -->
-    <!-- allow user to enter tags. -->
+    <!--Allow user to view, enter, and remove tags.--> 
     <%= form.label "Tags"%>
     <input name="tags_list" type="text" data-role="tagsinput" value="<%= @question.tags.join(", ") %>"/>
   </div>

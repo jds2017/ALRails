@@ -68,7 +68,6 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    #TODO the same thing as in create
     respond_to do |format|
       if @question.update(question_params)
         # check if there are any tags for the question
@@ -126,7 +125,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      #TODO: permit the tag string here. 
       params.require(:question).permit(:tags_list, :body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
     end
 end
