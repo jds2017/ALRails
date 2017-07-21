@@ -21,7 +21,7 @@
     <%= form.select(:question_set_id, QuestionSet.where(is_readonly: false).map {|s| [s, s.id] }, {}, class: 'form-control') %>
   </div>
 
-  <%= hidden_field_tag 'course_id', @course_id %>
+  <%= hidden_field_tag 'course_id', @course.id %>
   <div style="margin-top:5px">
     <%= form.submit :class => "btn btn-default" %>
   </div>
