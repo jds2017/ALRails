@@ -36,7 +36,7 @@ var display_answer = function() {
   App.lectureChannel.perform('release_answer', {index: question_index});
   setTimeout(function() {
     $('#question-release').prop('disabled', false).css('opacity',1.0);
-    question_index++;
+    //question_index++;
   }, 1000*answer_seconds);
 }
 
@@ -94,4 +94,14 @@ var edit_timer_send = function() {
 
 var edit_timer_receive = function(timeChange) {
   timer.extendTimer(timeChange);
+}
+
+var select_question = function(id) {
+    console.log("New Question ID: " + id);
+    document.getElementById("next-question").innerHTML = "Next Question Index: " + id;
+    question_index = id;
+}
+
+var end_lecture = function() {
+    App.lectureChannel.perform('end_of_lecture');
 }

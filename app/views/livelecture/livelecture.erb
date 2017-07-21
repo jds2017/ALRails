@@ -3,24 +3,57 @@ You are currently <p id='connection-status'>disconnected</p>
 
 <div id="current-question"></div>
 
-<div id="userlist"></div>
+<div class="row">
+    <div class="col-lg-2">
+        <div id="userlist"></div>
 
-<div id="countdown"></div>
+        <div id="countdown"></div>
 
-<% if current_user.is_professor %>
-  <div>
-    <div style="float:left;width:10%">
-        <input type="number" id="timeChange" value="5" class="form-control">
+        <% if current_user.is_professor %>
+            <div>
+                <div>
+                    <input type="number" id="timeChange" value="5" class="form-control">
+                </div>
+                <div style="margin-top:5px">
+                    <button type="button" class="btn btn-primary"  onclick="edit_timer_send()">Add Time to Timer</button>
+                </div>
+            </div>
+        <% end %>
     </div>
-    <div styel="float:left;margin-left:5px">
-        <button type="button" class="btn btn-primary"  onclick="edit_timer_send()">Add Time to Timer</button>
-    <div>
-  </div>
-  <div>
-    <button id='question-release' class="btn btn-primary" style="margin-top:5px">Release next question</button>
-  <div>
-<% end %>
+    <div class="col-lg-10">
+    <% if current_user.is_professor %>
+        <div id="next-question">Next Question Index: 0</div>
+        <input type="text" id="tagSearchInput" onkeyup="questionsTableTagSearch()" class="form-control" placeholder="Search for question tags..." style="margin-top:5px">
 
+        <table id="questionTagTable" class="table table-striped table-bordered table-hover" >
+
+            <tr>
+                <th>Index</th>
+                <th>Question</th>
+                <th>Tags</th>
+                <th colspan="3"></th>
+            </tr>
+
+            <% @questions.each_with_index do |question, id| %>
+                <tr>
+                    <td><%= id %></td>
+                    <td><%= question.body_as_text %></td>
+                    <td><%= question.tags.join(", ") %></td>
+                    <td style="width:10%;vertical-align:middle"><button type="button" class="btn btn-primary"  onclick="select_question(<%= id %>)">Select Question</button></td>
+                </tr>
+            <% end %>
+
+        </table>
+        <div>
+            <button id='question-release' class="btn btn-primary" style="margin-top:15px">Release next question</button>
+        </div>
+    <% end %>
+</div>
+<% if current_user.is_professor %>
+    <div>
+        <button type="button" class="btn btn-primary"  onclick="end_lecture()">End Lecture</button>
+    </div>
+<% end %>
 <script>
 <% if current_user.courses_as_instructor.include? @lecture.question_set.questions[0].course %>
   create_start_lecture("<%= @lecture.id %>");

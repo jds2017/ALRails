@@ -42,7 +42,7 @@ var create_start_lecture = function(lecture_id) {
       if(data.msg === 'end_of_lecture') {
         $('#countdown').empty();
         $('#current-question').empty();
-        $('#question-release').empty();
+        $('#question-release').prop('disabled', true).css('opacity',0.5);
       }
       if(data.msg === 'timeChange') {
         edit_timer_receive(data.timeChange);
