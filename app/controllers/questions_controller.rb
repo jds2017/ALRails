@@ -32,6 +32,18 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
+        # check if there are any tags in the user input; add them to question's tags.
+        if params[:tags_list]
+          tag_names_array = params[:tags_list].split(",")
+          tag_names_array.map! {|tag| tag.strip.downcase}
+          tag_names_array.uniq!
+          @question.tags = []
+          # loop through tags from user input
+          tag_names_array.each do |tagName|
+            @t = Tag.find_or_create_by(tag: tagName)
+            @question.tags.push(@t)
+          end
+        end
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -46,6 +58,18 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
+        # check if there are any tags in the user input; add them to question's tags.
+        if params[:tags_list]
+          tag_names_array = params[:tags_list].split(",")
+          tag_names_array.map! {|tag| tag.strip.downcase}
+          tag_names_array.uniq!
+          @question.tags = []
+          # loop through tags from user input
+          tag_names_array.each do |tagName|
+            @t = Tag.find_or_create_by(tag: tagName)
+            @question.tags.push(@t)
+          end
+        end
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
@@ -77,6 +101,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
+      params.require(:question).permit(:tags_list, :body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
     end
 end

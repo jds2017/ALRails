@@ -27,6 +27,11 @@
   </table>
 </div>
 
+<!-- TODO: might need to be prettier.-->
+<div><b>Tagged: </b><%= @question.tags.join(', ') %></div>
+
+<br> <!-- add a line between tags and button -->
+
 <%= button_to "Edit", edit_question_path(@question), {class: 'btn btn-default', method: :get} %>
 <%= button_to "Back", questions_path, {class: 'btn btn-primary', method: :get} %>
 <script>initialize_question_view()</script>

@@ -44,8 +44,15 @@
   </table>
   </div>
 
+  <div class="bootstrap-tagsinput" style="width: 100%">
+    <!--Allow user to view, enter, and remove tags.--> 
+    <%= form.label "Tags"%>
+    <input name="tags_list" type="text" data-role="tagsinput" value="<%= @question.tags.join(", ") %>"/>
+  </div>
 
-  <br>
+  <br> <!-- bootrstrap-tagsinput is inline-block. gets to next line.-->
+  <br> <!-- adds blank line after tagsinput -->
+
 
   <div class="actions">
     <%= form.submit :class => "btn btn-default"%>
