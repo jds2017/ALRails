@@ -47,6 +47,15 @@ class Lecture < ApplicationRecord
     total = responses.size
     right_responses = responses.select { |r| r.is_correct? }
     right = right_responses.size
-    return 100.0 * right / total
+    average = '%.2f' % (100.0 * right / total)
+    if (average == "NaN")
+        if self.completed?
+            return "Absent"
+        else
+            return "-"
+        end
+    else
+        return average
+    end
   end
 end

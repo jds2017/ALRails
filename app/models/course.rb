@@ -78,6 +78,10 @@ class Course < ApplicationRecord
     end
     return @data
   end
+    
+  def students
+    Registration.where(course: self, role: 'STUDENT').map { |r| r.user }
+  end
 
   private # student_key generator
     def generate_key

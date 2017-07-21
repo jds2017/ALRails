@@ -1,6 +1,6 @@
-compilers = Course.create! year: 2017, semester: 'SUMMER', name: 'CS4240', student_key: '3h535jh-443j4n-fdfd'
-Course.create! year: 2015, semester: 'FALL', name: 'CS3251', student_key: '45j43h5-n32j4-b34jk2'
-Course.create! year: 2014, semester: 'SPRING', name: 'CS2200', student_key: '4jk23=3n423-kj324'
+compilers = Course.create year: 2017, semester: 'SUMMER', name: 'CS4240', student_key: '3h535jh-443j4n-fdfd'
+Course.create year: 2015, semester: 'FALL', name: 'CS3251', student_key: '45j43h5-n32j4-b34jk2'
+Course.create year: 2014, semester: 'SPRING', name: 'CS2200', student_key: '4jk23=3n423-kj324'
 
 
 User.create username: 'jtompkins8', fname: 'john', lname: 'tompkins', is_admin: true
@@ -19,9 +19,9 @@ tag2 = Tag.create tag: 'circuit'
 tag3 = Tag.create tag: 'register allocation'
 tag4 = Tag.create tag: 'logisim'
 
-q1 = Question.create body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}', course_name: 'CS 4240'
-q2 = Question.create body: '{"ops":[{"insert":"register allocation is NP hard\n"}]}', course_name: 'CS 4240'
-q3 = Question.create body: '{"ops":[{"insert":"in logisim, you should backup your work periodically\n"}]}', course_name: 'CS 2200'
+q1 = Question.create body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}', course_name: 'CS4240'
+q2 = Question.create body: '{"ops":[{"insert":"register allocation is NP hard\n"}]}', course_name: 'CS4240'
+q3 = Question.create body: '{"ops":[{"insert":"in logisim, you should backup your work periodically\n"}]}', course_name: 'CS2200'
 
 QuestionToTagJunction.create question: q1, tag: tag
 QuestionToTagJunction.create question: q2, tag: tag3
