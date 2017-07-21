@@ -35,10 +35,11 @@ class QuestionsController < ApplicationController
         # check if there are any tags in the user input; add them to question's tags.
         if params[:tags_list]
           tag_names_array = params[:tags_list].split(",")
+          tag_names_array.uniq!
           @question.tags = []
           # loop through tags from user input
           tag_names_array.each do |tagName|
-            tagName = tagName.strip #remove leading/tailing whitespace
+            tagName = tagName.strip.downcase #remove leading/tailing whitespace and make uppercase
             @t = Tag.find_or_create_by(tag: tagName)
             @question.tags.push(@t)
           end
@@ -60,10 +61,11 @@ class QuestionsController < ApplicationController
         # check if there are any tags in the user input; add them to question's tags.
         if params[:tags_list]
           tag_names_array = params[:tags_list].split(",")
+          tag_names_array.uniq!
           @question.tags = []
           # loop through tags from user input
           tag_names_array.each do |tagName|
-            tagName = tagName.strip #remove leading/tailing whitespace
+            tagName = tagName.strip.downcase #remove leading/tailing whitespace and make uppercase
             @t = Tag.find_or_create_by(tag: tagName)
             @question.tags.push(@t)
           end
