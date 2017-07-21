@@ -34,8 +34,9 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update question" do
-    patch question_url(@question), params: { question: { body: @question.body } }
+    patch question_url(@question), params: { tags_list: 'malloc, malloc', question: { body: @question.body } }
     assert_redirected_to question_url(@question)
+    assert_equal 1, @question.tags.size
   end
 
   test "should destroy question" do
