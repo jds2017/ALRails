@@ -49,7 +49,11 @@ class Lecture < ApplicationRecord
     right = right_responses.size
     average = '%.2f' % (100.0 * right / total)
     if (average == "NaN")
-        return "Absent"
+        if self.completed?
+            return "Absent"
+        else
+            return "-"
+        end
     else
         return average
     end
