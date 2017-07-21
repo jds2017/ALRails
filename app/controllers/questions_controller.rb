@@ -38,6 +38,7 @@ class QuestionsController < ApplicationController
           @question.tags = []
           # loop through tags from user input
           tag_names_array.each do |tagName|
+            tagName = tagName.strip #remove leading/tailing whitespace
             @t = Tag.find_or_create_by(tag: tagName)
             @question.tags.push(@t)
           end
@@ -62,6 +63,7 @@ class QuestionsController < ApplicationController
           @question.tags = []
           # loop through tags from user input
           tag_names_array.each do |tagName|
+            tagName = tagName.strip #remove leading/tailing whitespace
             @t = Tag.find_or_create_by(tag: tagName)
             @question.tags.push(@t)
           end
