@@ -19,17 +19,10 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     5.times { @question.answers.build }
-    #Get tags associated with the question.
-    @tags = []
-    
   end
 
   # GET /questions/1/edit
   def edit
-    #Get tags associated with the question.
-    # TODO this can be deleted
-    @tags = []
-    QuestionToTagJunction.where(question_id: @question.id).each{|qtj| @tags.push qtj.tag}
   end
 
   # POST /questions
@@ -42,6 +35,14 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
+        if params[:tags_list]
+          tags_array = params[:tags_list].split(",")
+          tags_array.each do |tagName|
+            # Check if tag exists, create if not. 
+          end
+          puts params[:tags_list]
+          @question.tags = :tags_list
+        end
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -57,6 +58,24 @@ class QuestionsController < ApplicationController
     #TODO the same thing as in create
     respond_to do |format|
       if @question.update(question_params)
+        if params[:tags_list]
+          tag_names_array = params[:tags_list].split(",")
+          tags = []
+          tag_names_array.each do |tagName|
+            if Tag.exists?(tag: tagName)
+              @t = Tag.where(tag: tagName).first
+            else
+              @t = Tag.new(:tag => tagName)
+              @t.save
+            end
+            tags.push(@t)
+            # @existing_tag = Tag.where(tag: tagName).take
+            puts tags
+            # Check if tag exists, create if not. 
+          end
+          puts tags
+          @question.tags = tags
+        end
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
@@ -89,6 +108,6 @@ class QuestionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       #TODO: permit the tag string here. 
-      params.require(:question).permit(:body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
+      params.require(:question).permit(:tags_list, :body, :course_name, :answers_attributes => [:answer, :id, :_destroy, :is_correct])
     end
 end
