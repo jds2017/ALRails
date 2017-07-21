@@ -11,6 +11,12 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @course_data = @course.timeseries
+    @user_data = @course.timeseries_by_user current_user
+    if @user_data.length > 0
+      lastdate = @course_data.last[0]
+      @user_data << [lastdate, @user_data.last[1]]
+    end
   end
 
   # GET /courses/new

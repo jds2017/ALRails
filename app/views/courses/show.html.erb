@@ -86,6 +86,9 @@
                     </div>
                 <% end %>
             </div>
+            <div id="flotdiv" class="row" style="height:200px">
+
+            </div>
         </div>
     </div>
 </div>
@@ -99,3 +102,10 @@
         </div>
     <% end %>
 </div>
+
+<script>
+    var d1 = <%= @user_data.to_json %>;
+	var d2 = <%= @course_data.to_json %>;
+	$.plot("#flotdiv", [{label: 'You', data: d1}, {label: 'Class', data: d2}], {xaxis: { mode: "time", timeformat: "%b%d"}});
+</script>
+

@@ -44,9 +44,9 @@ lecture = Lecture.create title: 'compilers first lecture', question_set: set.rea
 
 CourseToLectureJunction.create course: compilers, lecture: lecture
 
-Response.create user: student, lecture: lecture, question: q1, answer: wrong1
-Response.create user: student, lecture: lecture, question: q2, answer: wrong2
-Response.create user: student, lecture: lecture, question: q3, answer: right3
-Response.create user: student2, lecture: lecture, question: q1, answer: right1
-Response.create user: student2, lecture: lecture, question: q2, answer: right2
-Response.create user: student2, lecture: lecture, question: q3, answer: right3
+Response.create user: student, lecture: lecture, question: q1, answer: wrong1, created_at: 'July 6 2016'
+Response.create user: student, lecture: lecture, question: q2, answer: wrong2, created_at: 'June 16 2016'
+Response.create user: student, lecture: lecture, question: q3, answer: right3, created_at: 'July 1 2016'
+Response.create user: student2, lecture: lecture, question: q1, answer: right1, created_at: 'July 26 2016'
+Response.create user: student2, lecture: lecture, question: q2, answer: right2, created_at: 'July 4 2016'
+Response.create user: student2, lecture: lecture, question: q3, answer: right3, created_at: 'June 6 2016'

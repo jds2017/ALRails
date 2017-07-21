@@ -39,6 +39,46 @@ class Course < ApplicationRecord
     return 100.0 * right / total
   end
 
+  def timeseries_by_user(user)
+    @data = []
+    current_average = 0.0
+    tally = 0
+    responses = []
+    self.lectures.each do |l|
+      responses << Response.where(lecture: l, user: user)
+    end
+    responses.flatten!
+    responses.sort_by!(&:created_at)
+    responses.each do |r|
+        point = 0
+        point = 1 if r.is_correct?
+        current_average = (current_average * tally + point)/(tally+1)
+        tally += 1
+        @data << [r.created_at.to_time.to_i*1000, current_average*100]
+    end
+    return @data
+  end
+
+  def timeseries
+    @data = []
+    current_average = 0.0
+    tally = 0
+    responses = []
+    self.lectures.each do |l|
+      responses << Response.where(lecture: l)
+    end
+    responses.flatten!
+    responses.sort_by!(&:created_at)
+    responses.each do |r|
+        point = 0
+        point = 1 if r.is_correct?
+        current_average = (current_average * tally + point)/(tally+1)
+        tally += 1
+        @data << [r.created_at.to_time.to_i*1000, current_average*100]
+    end
+    return @data
+  end
+    
   def students
     Registration.where(course: self, role: 'STUDENT').map { |r| r.user }
   end
