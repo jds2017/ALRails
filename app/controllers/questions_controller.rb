@@ -28,20 +28,33 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    #TODO: Retrieve the tag string ("malloc, logisim") from the params, split on the string
-    # for each tag, check if it exists first. Create it if not. 
-    # @question.tags = tags (before @question.save)
     @question = Question.new(question_params)
 
     respond_to do |format|
       if @question.save
+        # check if there are any tags for the question
         if params[:tags_list]
-          tags_array = params[:tags_list].split(",")
-          tags_array.each do |tagName|
-            # Check if tag exists, create if not. 
+          # get names of tags the user wants to add to the question
+          tag_names_array = params[:tags_list].split(",")
+          # tags[] = array for storing Tag instances associated with the names in tag_names_array
+          tags = []
+          # loop through names from user input.
+          tag_names_array.each do |tagName|
+            # check if tag with this tagName already exists
+            if Tag.exists?(tag: tagName)
+              # get the Tag that has this tagName
+              @t = Tag.where(tag: tagName).first
+            else
+              # make a new Tag with this tagName
+              @t = Tag.new(:tag => tagName)
+              @t.save
+            end
+            # add Tag to tags[]
+            tags.push(@t)
           end
-          puts params[:tags_list]
-          @question.tags = :tags_list
+          # set the question's tags to tags[]
+          # this allows for both creation and deletion of QuestionTagJunction instances?
+          @question.tags = tags
         end
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
@@ -58,22 +71,28 @@ class QuestionsController < ApplicationController
     #TODO the same thing as in create
     respond_to do |format|
       if @question.update(question_params)
+        # check if there are any tags for the question
         if params[:tags_list]
+          # get names of tags the user wants to add to the question
           tag_names_array = params[:tags_list].split(",")
+          # tags[] = array for storing Tag instances associated with the names in tag_names_array
           tags = []
+          # loop through names from user input.
           tag_names_array.each do |tagName|
+            # check if tag with this tagName already exists
             if Tag.exists?(tag: tagName)
+              # get the Tag that has this tagName
               @t = Tag.where(tag: tagName).first
             else
+              # make a new Tag with this tagName
               @t = Tag.new(:tag => tagName)
               @t.save
             end
+            # add Tag to tags[]
             tags.push(@t)
-            # @existing_tag = Tag.where(tag: tagName).take
-            puts tags
-            # Check if tag exists, create if not. 
           end
-          puts tags
+          # set the question's tags to tags[]
+          # this allows for both creation and deletion of QuestionTagJunction instances?
           @question.tags = tags
         end
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
