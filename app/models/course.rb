@@ -39,6 +39,10 @@ class Course < ApplicationRecord
     return 100.0 * right / total
   end
 
+  def students
+    Registration.where(course: self, role: 'STUDENT').map { |r| r.user }
+  end
+
   private # student_key generator
     def generate_key
       self.student_key = SecureRandom.urlsafe_base64
