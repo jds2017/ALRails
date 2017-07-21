@@ -32,23 +32,13 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        # check if there are any tags in the params for the question
+        # check if there are any tags in the user input; add them to question's tags.
         if params[:tags_list]
-          # get names of tags the user wants to add to the question
           tag_names_array = params[:tags_list].split(",")
-          # empty question's tag array.
           @question.tags = []
-          # loop through names from user input.
+          # loop through tags from user input
           tag_names_array.each do |tagName|
-            # check if tag with this tagName already exists
-            if Tag.exists?(tag: tagName)
-              # get the Tag that has this tagName
-              @t = Tag.where(tag: tagName).first
-            else
-              # make a new Tag with this tagName
-              @t = Tag.create(:tag => tagName)
-            end
-            # add Tag to question.tags ->  allows for both creation and deletion of QuestionTagJunction instances
+            @t = Tag.find_or_create_by(tag: tagName)
             @question.tags.push(@t)
           end
         end
@@ -66,23 +56,13 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        # check if there are any tags in the params for the question
+        # check if there are any tags in the user input; add them to question's tags.
         if params[:tags_list]
-          # get names of tags the user wants to add to the question
           tag_names_array = params[:tags_list].split(",")
-          # empty question's tag array.
           @question.tags = []
-          # loop through names from user input.
+          # loop through tags from user input
           tag_names_array.each do |tagName|
-            # check if tag with this tagName already exists
-            if Tag.exists?(tag: tagName)
-              # get the Tag that has this tagName
-              @t = Tag.where(tag: tagName).first
-            else
-              # make a new Tag with this tagName
-              @t = Tag.create(:tag => tagName)
-            end
-            # add Tag to question.tags ->  allows for both creation and deletion of QuestionTagJunction instances
+            @t = Tag.find_or_create_by(tag: tagName)
             @question.tags.push(@t)
           end
         end
