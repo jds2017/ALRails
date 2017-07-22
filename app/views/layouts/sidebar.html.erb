@@ -1,0 +1,38 @@
+<div class="navbar-default sidebar" role="navigation">
+  <div class="sidebar-nav navbar-collapse">
+    <ul class="nav in" id="side-menu">
+      <% if current_user.is_admin %>
+        <li class="active">
+          <%= link_to "Users", :controller => :users, :action => :index %>
+        </li>
+      <% else %>
+        <li>
+          <a href="#"></i>Courses<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+          <% current_user.courses.each do |course| %>
+            <li>
+              <%= link_to course.name, course, { method: :get, controller: :course} %>
+            </li>
+          <% end %>
+          <% if current_user.is_professor %>
+            <li>
+            <!--<i class="fa fa-edit fa-fw"></i>-->
+              <%= link_to "Create New Course", new_course_path, {method: :get, controller: :course} %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "Register New Course", :controller => :registrations, :action => :new %>
+            </li>
+          <% end %>
+        </ul>
+        </li>
+        <li>
+          <%= link_to "Questions", :controller => :questions, :action => :index %>
+        </li>
+        <li>
+          <%= link_to "Question Sets", :controller => :question_sets, :action => :index %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
