@@ -4,10 +4,7 @@ You are currently <p id='connection-status'>disconnected</p>
 <div id="current-question"></div>
 
 <div class="row">
-    <div class="col-lg-2">
-        <div id="userlist"></div>
-    </div>
-    <div class="col-lg-10">
+    <div class="col-lg-12">
     <% if current_user.is_professor %>
         <div id="next-question">Next Question Index: 0</div>
         <input type="text" id="tagSearchInput" onkeyup="questionsTableTagSearch()" class="form-control" placeholder="Search for question tags..." style="margin-top:5px">

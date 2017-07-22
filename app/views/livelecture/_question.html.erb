@@ -1,10 +1,17 @@
-Current Question:
-<div id="question-body" hidden><%= question.body %></div>
-<div id="editor-container"></div>
+<div class="row">
 
-Answers:
-<ul id="answers">
-  <% question.answers.each do |answer| %>
-    <li><button class="answer-button" data-qid='<%= question.id %>' data-id='<%= answer.id %>'>Answer</button><div id='answer-<%= answer.id %>'><%= answer.answer %></div></li>
-  <% end %>
-</ul>
+  <div class="col-md-10">
+    Current Question:
+    <div id="question-body" hidden><%= question.body %></div>
+    <div id="editor-container"></div>
+  </div>
+
+  <div class="col-md-2">
+    Answers:
+    <ul id="answers">
+      <% question.answers.each do |answer| %>
+        <li><button class="answer-button" data-qid='<%= question.id %>' data-id='<%= answer.id %>'>Answer</button><div id='answer-<%= answer.id %>'><%= answer.answer %></div></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
