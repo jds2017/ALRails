@@ -6,9 +6,9 @@ Features:
 ------
 - Live Lectures: Professors can manage lecture questions all from a browser
 - Reusable question sets
-- Login via Georgia Tech's Single Sign-On service: students and professors can use theor gatech credentials
+- Login via Georgia Tech's Single Sign-On service: students and professors can use their gatech credentials
 - Adds a Teaching Assistant (TA) role so that TAs can help manage courses by creating questions and question sets
-- Statistics at the course and user level
+- Statistics at the course, lecture, and user level
 
 Known Issues:
 -------
