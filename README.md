@@ -2,6 +2,20 @@
 
 Active Learning on Rails
 
+Release Notes:
+-------
+ALRails Version 7501.0
+
+FEATURES:
+- Live Lectures: Professors can manage lecture questions all from a browser
+- Reusable question sets
+- Login via Georgia Tech's Single Sign-On service: students and professors can use theor gatech credentials
+- Adds a Teaching Assistant (TA) role so that TAs can help manage courses by creating questions and question sets
+- Statistics at the course and user level
+
+KNOWN BUGS:
+- App is not "hardened" from all unauthorized actions. FOr example, a user may be able to look at a question from another class if they are able to guess the URL
+
 Installation:
 -------
 First ensure that you have a newer version (> 2.4) of ruby installed.
