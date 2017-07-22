@@ -78,7 +78,7 @@ var announce_presence = function() {
 
 var show_correct_answer = function(id) {
   $('.answer-button').prop('disabled', true).css('opacity',0.5);
-  $('#answer-' + id).text($('#answer-' + id).text() + "CORRECT");
+  $('#answer-' + id).text($('#answer-' + id).text() + " - Correct");
 }
 
 var edit_timer_send = function() {
