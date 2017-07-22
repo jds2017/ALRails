@@ -9,6 +9,13 @@
         <% if controller_name == 'livelecture' %>
           <li>
             <%= link_to "Exit Lecture", :controller => :courses, :action => :index %>
+            <li><div id="countdown"></div></li>
+            <% if current_user.is_professor %>
+              <div hidden id="countdown-ctl">
+                <div class="countdown-ctl" ><input type="number" id="timeChange" value="5" class="form-control"></div>
+                <div class="countdown-ctl" style="margin-top:5px"><button type="button" class="btn btn-primary"  onclick="edit_timer_send()">Add Time to Timer</button></div>
+              </div>
+            <% end %>
           </li>
         <% else %>
           <li>

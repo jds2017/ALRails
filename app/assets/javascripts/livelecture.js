@@ -29,6 +29,7 @@ var display_new_question = function(view) {
 
 var display_next_question = function() {
   App.lectureChannel.perform('question', {index: question_index});
+  $("#countdown-ctl").show();
   timer.start();
 }
 

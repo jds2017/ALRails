@@ -6,19 +6,6 @@ You are currently <p id='connection-status'>disconnected</p>
 <div class="row">
     <div class="col-lg-2">
         <div id="userlist"></div>
-
-        <div id="countdown"></div>
-
-        <% if current_user.is_professor %>
-            <div>
-                <div>
-                    <input type="number" id="timeChange" value="5" class="form-control">
-                </div>
-                <div style="margin-top:5px">
-                    <button type="button" class="btn btn-primary"  onclick="edit_timer_send()">Add Time to Timer</button>
-                </div>
-            </div>
-        <% end %>
     </div>
     <div class="col-lg-10">
     <% if current_user.is_professor %>
