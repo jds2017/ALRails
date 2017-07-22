@@ -69,7 +69,11 @@
                             Course average
                         </div>
                         <div class="panel-body">
-                            <%= number_to_percentage @course.pct_correct, precision: 2 %>
+                            <% if @course.has_completed_lectures %>
+                                <%= number_to_percentage @course.pct_correct, precision: 2 %>
+                            <% else %>
+                                ---
+                            <% end %>  
                         </div>
                     </div>
                 </div>
@@ -80,7 +84,11 @@
                                 Your average
                             </div>
                             <div class="panel-body">
-                                <%= number_to_percentage @course.pct_correct_by_user(current_user), precision: 2 %>
+                                <% if @course.has_completed_lectures %>
+                                    <%= number_to_percentage @course.pct_correct_by_user(current_user), precision: 2 %>
+                                <% else %>
+                                    ---
+                                <% end %>  
                             </div>
                         </div>
                     </div>
