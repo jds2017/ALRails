@@ -19,7 +19,12 @@ class LectureChannel < ApplicationCable::Channel
   def response(data)
     question_id = data['question_id']
     answer_id = data['answer_id']
-    Response.create! lecture: @lecture, user: current_user, question_id: question_id.to_i, answer_id: answer_id.to_i
+    @response = Response.where(lecture: @lecture, user: current_user, question_id: question_id.to_i)
+    if @response.empty?
+        Response.create! lecture: @lecture, user: current_user, question_id: question_id.to_i, answer_id: answer_id.to_i
+    else
+        @response.update(answer_id: answer_id.to_i)
+    end
     LectureChannel.broadcast_to("leader_#{@lecture.id}", {'msg' => 'answer', 'answer' => answer_id})
   end
 
