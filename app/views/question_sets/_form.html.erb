@@ -35,6 +35,7 @@
           <th></th>
           <th style="min-width:250px">Question</th>
           <th style="min-width:100px">Tags</th>
+          <th style="min-width:100px">Course</th>
         </tr>
         <!-- loop thru questions from controller
               (questions associated with courses the current_user is
@@ -44,6 +45,7 @@
             <td><%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%></td>
             <td><%= question.body_as_text %></td>
             <td><%= question.tags.join(", ") %></td>
+            <td><%= question.course_name %></td>
           </tr>
         <% end %>
       </table>
