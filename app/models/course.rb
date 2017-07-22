@@ -83,6 +83,16 @@ class Course < ApplicationRecord
     Registration.where(course: self, role: 'STUDENT').map { |r| r.user }
   end
 
+  def has_completed_lectures
+    completed = false
+    self.lectures.each do |l|
+      if l.completed
+        completed = true
+      end
+    end
+    return completed
+  end
+
   private # student_key generator
     def generate_key
       self.student_key = SecureRandom.urlsafe_base64
