@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       if Rails.env == 'test'
         session[:cas_user] = User.find_by(is_admin: true).username
       else
-        session[:cas_user] = User.find_by(username: 'rkalhan4').username
+        session[:cas_user] = 'rkalhan4'
       end
     end
   end
