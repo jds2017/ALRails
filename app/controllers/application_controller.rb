@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   if Rails.env.production?
     before_action CASClient::Frameworks::Rails::Filter
   else
-    before_action :require_login
+    before_action :development_login
   end
   protect_from_forgery with: :exception
   helper_method :current_user
@@ -20,19 +20,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_login
+  def development_login
     if params['un']
       cookies.signed[:username] = params['un']
       session[:username] = params['un']
-      return
-    end
-
-    if current_user.nil?
+    else
       if Rails.env == 'test'
         session[:username] = User.first.username
-        return
+      else
+        session[:username] = User.find_by(username: 'rkalhan4').username
       end
-      session[:username] = User.find_by(username: 'rkalhan4').username
     end
   end
 end
