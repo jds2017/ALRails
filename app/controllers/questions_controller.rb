@@ -22,50 +22,44 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
-    respond_to do |format|
-      if @question.save
-        if params[:tags_list]
-          tag_names_array = params[:tags_list].split(",")
-          tag_names_array.map! {|tag| tag.strip.downcase}
-          tag_names_array.uniq!
-          @question.tags = []
-          tag_names_array.each do |tagName|
-            @t = Tag.find_or_create_by(tag: tagName)
-            @question.tags.push(@t)
-          end
+    if @question.save
+      if params[:tags_list]
+        tag_names_array = params[:tags_list].split(",")
+        tag_names_array.map! {|tag| tag.strip.downcase}
+        tag_names_array.uniq!
+        @question.tags = []
+        tag_names_array.each do |tagName|
+          @t = Tag.find_or_create_by(tag: tagName)
+          @question.tags.push(@t)
         end
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-      else
-        format.html { render :new }
       end
+      redirect_to @question, notice: 'Question was successfully created.' 
+    else
+      render :new 
     end
   end
 
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        if params[:tags_list]
-          tag_names_array = params[:tags_list].split(",")
-          tag_names_array.map! {|tag| tag.strip.downcase}
-          tag_names_array.uniq!
-          @question.tags = []
-          tag_names_array.each do |tagName|
-            @t = Tag.find_or_create_by(tag: tagName)
-            @question.tags.push(@t)
-          end
+    if @question.update(question_params)
+      if params[:tags_list]
+        tag_names_array = params[:tags_list].split(",")
+        tag_names_array.map! {|tag| tag.strip.downcase}
+        tag_names_array.uniq!
+        @question.tags = []
+        tag_names_array.each do |tagName|
+          @t = Tag.find_or_create_by(tag: tagName)
+          @question.tags.push(@t)
         end
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-      else
-        format.html { render :edit }
       end
+      redirect_to @question, notice: 'Question was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @question.destroy
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
-    end
+    redirect_to questions_url, notice: 'Question was successfully destroyed.'
   end
 
   private

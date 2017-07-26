@@ -29,44 +29,38 @@ class QuestionSetsController < ApplicationController
     @question_set = QuestionSet.new(question_set_params)
     @question_set.is_readonly = false
 
-    respond_to do |format|
-      if @question_set.save
-        if params[:question_ids]
-          params[:question_ids].each do |id|
-            @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
-            @j.save
-          end
+    if @question_set.save
+      if params[:question_ids]
+        params[:question_ids].each do |id|
+          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+          @j.save
         end
-        format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
-      else
-        format.html { render :new }
       end
+      redirect_to @question_set, notice: 'Question set was successfully created.' 
+    else
+      render :new 
     end
   end
 
   def update
-    respond_to do |format|
-      @question_set.name = :name
-      if @question_set.update(question_set_params)
-        QuestionSetJunction.where(question_set_id: @question_set.id).delete_all
-        if params[:question_ids]
-          params[:question_ids].each do |id|
-            @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
-            @j.save
-          end
+    @question_set.name = :name
+    if @question_set.update(question_set_params)
+      QuestionSetJunction.where(question_set_id: @question_set.id).delete_all
+      if params[:question_ids]
+        params[:question_ids].each do |id|
+          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
+          @j.save
         end
-        format.html { redirect_to @question_set, notice: 'Question set was successfully updated.' }
-      else
-        format.html { render :edit }
       end
+      redirect_to @question_set, notice: 'Question set was successfully updated.' 
+    else
+      render :edit 
     end
   end
 
   def destroy
     @question_set.destroy
-    respond_to do |format|
-      format.html { redirect_to question_sets_url, notice: 'Question set was successfully destroyed.' }
-    end
+    redirect_to question_sets_url, notice: 'Question set was successfully destroyed.' 
   end
 
   private

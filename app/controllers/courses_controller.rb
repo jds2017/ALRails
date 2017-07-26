@@ -23,33 +23,27 @@ class CoursesController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      if @course.save
-        if current_user.is_professor
-          Registration.create! user: current_user, course: @course, role: 'INSTRUCTOR'
-        end
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-      else
-        format.html { render :new }
+    if @course.save
+      if current_user.is_professor
+        Registration.create! user: current_user, course: @course, role: 'INSTRUCTOR'
       end
+      redirect_to @course, notice: 'Course was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @course.update(course_params)
+      redirect_to @course, notice: 'Course was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @course.destroy
-    respond_to do |format|
-      format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
-    end
+    redirect_to courses_url, notice: 'Course was successfully destroyed.' 
   end
 
   private

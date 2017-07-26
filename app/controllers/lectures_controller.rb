@@ -25,36 +25,30 @@ class LecturesController < ApplicationController
   def create
     @lecture = Lecture.new(lecture_params)
     @lecture.question_set = @lecture.question_set.readonly_copy
-    respond_to do |format|
-      if @lecture.save
-        @clj = CourseToLectureJunction.new(:course_id => params[:course_id], :lecture_id => @lecture.id)
-        @clj.save
-        if @course.nil?
-            format.html { redirect_to @lecture, notice: 'Lecture was successfully created.'}
-        else
-            format.html { redirect_to @course, notice: 'Lecture was successfully created.'}
-        end
+    if @lecture.save
+      @clj = CourseToLectureJunction.new(:course_id => params[:course_id], :lecture_id => @lecture.id)
+      @clj.save
+      if @course.nil?
+          redirect_to @lecture, notice: 'Lecture was successfully created.'
       else
-        format.html { render :new }
+          redirect_to @course, notice: 'Lecture was successfully created.'
       end
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @lecture.update(lecture_params)
-        format.html { redirect_to @lecture, notice: 'Lecture was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @lecture.update(lecture_params)
+      redirect_to @lecture, notice: 'Lecture was successfully updated.' 
+    else
+      render :edit 
     end
   end
 
   def destroy
     @lecture.destroy
-    respond_to do |format|
-      format.html { redirect_to lectures_url, notice: 'Lecture was successfully destroyed.' }
-    end
+    redirect_to lectures_url, notice: 'Lecture was successfully destroyed.' 
   end
 
   private

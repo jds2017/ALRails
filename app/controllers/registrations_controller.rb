@@ -32,35 +32,29 @@ class RegistrationsController < ApplicationController
 
   def create
     @registration = new_registration
-    respond_to do |format|
-      if @registration.save
-        @course = Course.find_by(id: @registration.course_id)
-        if @course.nil?
-            format.html { redirect_to @registration, notice: 'Lecture was successfully created.'}
-        else
-            format.html { redirect_to @course, notice: 'Registration was successfully created.' }
-        end
+    if @registration.save
+      @course = Course.find_by(id: @registration.course_id)
+      if @course.nil?
+        redirect_to @registration, notice: 'Lecture was successfully created.' 
       else
-        format.html { render :new }
+        redirect_to @course, notice: 'Registration was successfully created.' 
       end
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @registration.update(update_params)
-        format.html { redirect_to @registration, notice: 'Registration was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @registration.update(update_params)
+      redirect_to @registration, notice: 'Registration was successfully updated.' 
+    else
+      render :edit
     end
   end
 
   def destroy
     @registration.destroy
-    respond_to do |format|
-      format.html { redirect_to registrations_url, notice: 'Registration was successfully destroyed.' }
-    end
+    redirect_to registrations_url, notice: 'Registration was successfully destroyed.'
   end
 
   private
