@@ -24,26 +24,25 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show question" do
-    get question_url(@question)
+    get question_url(@question, params: {un: 'leahy'})
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_question_url(@question)
+    get edit_question_url(@question, params: {un: 'leahy'})
     assert_response :success
   end
 
   test "should update question" do
-    patch question_url(@question), params: { tags_list: 'malloc, malloc', question: { body: @question.body } }
+    patch question_url(@question), params: { un: 'leahy', tags_list: 'malloc, malloc', question: { body: @question.body } }
     assert_redirected_to question_url(@question)
     assert_equal 1, @question.tags.size
   end
 
   test "should destroy question" do
     assert_difference('Question.count', -1) do
-      delete question_url(@question)
+      delete question_url(@question, params: {un: 'leahy'})
     end
-
     assert_redirected_to questions_url
   end
 end

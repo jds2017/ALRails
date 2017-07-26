@@ -63,8 +63,13 @@ class QuestionsController < ApplicationController
   end
 
   private
+    def teaches_question
+      current_user.courses_as_instructor.map {|c| c.name }.include? @question.course_name
+    end
+
     def set_question
       @question = Question.find(params[:id])
+      raise unless teaches_question
     end
 
     def set_answers
