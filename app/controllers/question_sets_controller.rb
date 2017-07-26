@@ -38,10 +38,8 @@ class QuestionSetsController < ApplicationController
           end
         end
         format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
-        format.json { render :show, status: :created, location: @question_set }
       else
         format.html { render :new }
-        format.json { render json: @question_set.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,10 +56,8 @@ class QuestionSetsController < ApplicationController
           end
         end
         format.html { redirect_to @question_set, notice: 'Question set was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question_set }
       else
         format.html { render :edit }
-        format.json { render json: @question_set.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,7 +66,6 @@ class QuestionSetsController < ApplicationController
     @question_set.destroy
     respond_to do |format|
       format.html { redirect_to question_sets_url, notice: 'Question set was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

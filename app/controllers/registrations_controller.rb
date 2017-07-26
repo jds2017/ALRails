@@ -37,39 +37,29 @@ class RegistrationsController < ApplicationController
         @course = Course.find_by(id: @registration.course_id)
         if @course.nil?
             format.html { redirect_to @registration, notice: 'Lecture was successfully created.'}
-            format.json { render :show, status: :created, location: @registration}
         else
             format.html { redirect_to @course, notice: 'Registration was successfully created.' }
-            format.json { render :show, status: :created, location: @course }  
         end
       else
         format.html { render :new }
-        format.json { render json: @registration.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /registrations/1
-  # PATCH/PUT /registrations/1.json
   def update
     respond_to do |format|
       if @registration.update(update_params)
         format.html { redirect_to @registration, notice: 'Registration was successfully updated.' }
-        format.json { render :show, status: :ok, location: @registration }
       else
         format.html { render :edit }
-        format.json { render json: @registration.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /registrations/1
-  # DELETE /registrations/1.json
   def destroy
     @registration.destroy
     respond_to do |format|
       format.html { redirect_to registrations_url, notice: 'Registration was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -82,7 +72,6 @@ class RegistrationsController < ApplicationController
       raise unless current_user.courses_as_instructor.include?(@registration.course)
     end
 
-    # Use callbacks to share common setup or constraints between actions.
     def find_registration
       @registration = Registration.find(params[:id])
     end
@@ -97,7 +86,6 @@ class RegistrationsController < ApplicationController
       return @registration
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def registration_params
       params.require(:registration).permit(:student_key)
     end

@@ -27,19 +27,15 @@ class LecturesController < ApplicationController
     @lecture.question_set = @lecture.question_set.readonly_copy
     respond_to do |format|
       if @lecture.save
-        # find new lecture_id and course_id, then add to junction table
         @clj = CourseToLectureJunction.new(:course_id => params[:course_id], :lecture_id => @lecture.id)
         @clj.save
         if @course.nil?
             format.html { redirect_to @lecture, notice: 'Lecture was successfully created.'}
-            format.json { render :show, status: :created, location: @lecture}
         else
             format.html { redirect_to @course, notice: 'Lecture was successfully created.'}
-            format.json { render :show, status: :created, location: @course}      
         end
       else
         format.html { render :new }
-        format.json { render json: @lecture.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -48,10 +44,8 @@ class LecturesController < ApplicationController
     respond_to do |format|
       if @lecture.update(lecture_params)
         format.html { redirect_to @lecture, notice: 'Lecture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lecture }
       else
         format.html { render :edit }
-        format.json { render json: @lecture.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,7 +54,6 @@ class LecturesController < ApplicationController
     @lecture.destroy
     respond_to do |format|
       format.html { redirect_to lectures_url, notice: 'Lecture was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
