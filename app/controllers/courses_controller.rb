@@ -23,10 +23,9 @@ class CoursesController < ApplicationController
   end
 
   def create
+    raise unless current_user.is_professor
     if @course.save
-      if current_user.is_professor
-        Registration.create! user: current_user, course: @course, role: 'INSTRUCTOR'
-      end
+      Registration.create! user: current_user, course: @course, role: 'INSTRUCTOR'
       redirect_to @course, notice: 'Course was successfully created.'
     else
       render :new
@@ -34,6 +33,7 @@ class CoursesController < ApplicationController
   end
 
   def update
+    raise unless (current_user.is_professor && current_user.teaches?(@course))
     if @course.update(course_params)
       redirect_to @course, notice: 'Course was successfully updated.'
     else
@@ -42,6 +42,7 @@ class CoursesController < ApplicationController
   end
 
   def destroy
+    raise unless (current_user.is_professor && current_user.teaches?(@course))
     @course.destroy
     redirect_to courses_url, notice: 'Course was successfully destroyed.' 
   end

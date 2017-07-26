@@ -15,15 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def development_login
-    if params['un']
-      session[:cas_user] = params['un']
-    else
-      if Rails.env == 'test'
-        session[:cas_user] = User.find_by(is_admin: true).username
-      else
-        session[:cas_user] = 'rkalhan4'
-      end
-    end
+    session[:cas_user] = params['un']
   end
 
   def create_user

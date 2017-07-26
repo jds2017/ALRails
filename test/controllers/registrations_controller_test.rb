@@ -2,7 +2,6 @@ require 'test_helper'
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    get '/courses?un=john'
     @registration = registrations(:one)
     @registration.role = 'STUDENT'
   end
@@ -26,17 +25,16 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show registration" do
-    get registration_url(@registration)
+    get registration_url(@registration), params: {un: 'leahy'}
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_registration_url(@registration)
+    get edit_registration_url(@registration), params: {un: 'leahy'}
     assert_response :success
   end
 
   test "should update registration" do
-    controller.session[:username] = 'comeon'
     patch registration_url(@registration), params: { un: 'leahy', registration: {role: 'INSTRUCTOR'} }
     assert_redirected_to registration_url(@registration)
   end
