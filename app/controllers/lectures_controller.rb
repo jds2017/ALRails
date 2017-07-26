@@ -4,14 +4,10 @@ class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy]
   before_action :set_course
 
-  # GET /lectures
-  # GET /lectures.json
   def index
     @lectures = Lecture.all
   end
 
-  # GET /lectures/1
-  # GET /lectures/1.json
   def show
     @response_averages = @lecture.response_average
     responses = Response.where(lecture: @lecture, user: current_user)
@@ -19,17 +15,13 @@ class LecturesController < ApplicationController
     @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
   end
 
-  # GET /lectures/new
   def new
     @lecture = Lecture.new
   end
 
-  # GET /lectures/1/edit
   def edit
   end
 
-  # POST /lectures
-  # POST /lectures.json
   def create
     @lecture = Lecture.new(lecture_params)
     @lecture.question_set = @lecture.question_set.readonly_copy
@@ -52,8 +44,6 @@ class LecturesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lectures/1
-  # PATCH/PUT /lectures/1.json
   def update
     respond_to do |format|
       if @lecture.update(lecture_params)
@@ -66,8 +56,6 @@ class LecturesController < ApplicationController
     end
   end
 
-  # DELETE /lectures/1
-  # DELETE /lectures/1.json
   def destroy
     @lecture.destroy
     respond_to do |format|
@@ -77,7 +65,6 @@ class LecturesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_lecture
       @lecture = Lecture.find(params[:id])
     end
@@ -86,7 +73,6 @@ class LecturesController < ApplicationController
       @course = Course.find_by(id: params[:course_id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def lecture_params
       params.require(:lecture).permit(:title, :date_of_use, :question_set_id)
     end

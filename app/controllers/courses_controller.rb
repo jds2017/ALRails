@@ -2,14 +2,10 @@ class CoursesController < ApplicationController
   before_action :find_course, only: [:show, :edit, :update, :destroy]
   before_action :new_course, only: [:create]
 
-  # GET /courses
-  # GET /courses.json
   def index
     @courses = current_user.courses
   end
 
-  # GET /courses/1
-  # GET /courses/1.json
   def show
     @course_data = @course.timeseries
     @user_data = @course.timeseries_by_user current_user
@@ -19,17 +15,13 @@ class CoursesController < ApplicationController
     end
   end
 
-  # GET /courses/new
   def new
     @course = Course.new
   end
 
-  # GET /courses/1/edit
   def edit
   end
 
-  # POST /courses
-  # POST /courses.json
   def create
     respond_to do |format|
       if @course.save
@@ -45,8 +37,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /courses/1
-  # PATCH/PUT /courses/1.json
   def update
     respond_to do |format|
       if @course.update(course_params)
@@ -59,8 +49,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # DELETE /courses/1
-  # DELETE /courses/1.json
   def destroy
     @course.destroy
     respond_to do |format|
@@ -70,7 +58,6 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def find_course
       @course = Course.find(params[:id])
     end
@@ -79,7 +66,6 @@ class CoursesController < ApplicationController
       @course = Course.new(course_params)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).permit(:year, :semester, :name)
     end

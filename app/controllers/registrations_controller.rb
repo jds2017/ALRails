@@ -4,8 +4,6 @@ class RegistrationsController < ApplicationController
   before_action :validate_read, only: [:show, :edit]
   before_action :validate_modify, only: [:destroy, :update]
 
-  # GET /registrations
-  # GET /registrations.json
   def index
     if current_user.is_admin
       @registrations = Registration.all
@@ -22,22 +20,16 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  # GET /registrations/1
-  # GET /registrations/1.json
   def show
   end
 
-  # GET /registrations/new
   def new
     @registration = Registration.new
   end
 
-  # GET /registrations/1/edit
   def edit
   end
 
-  # POST /registrations
-  # POST /registrations.json
   def create
     @registration = new_registration
     respond_to do |format|
