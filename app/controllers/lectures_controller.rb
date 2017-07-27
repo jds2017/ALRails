@@ -4,10 +4,6 @@ class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy]
   before_action :set_course
 
-  def index
-    @lectures = Lecture.all
-  end
-
   def show
     @response_averages = @lecture.response_average
     responses = Response.where(lecture: @lecture, user: current_user)
@@ -20,19 +16,15 @@ class LecturesController < ApplicationController
   end
 
   def edit
+    raise unless current_user.courses.include? @lecture.course
   end
 
   def create
     @lecture = Lecture.new(lecture_params)
     @lecture.question_set = @lecture.question_set.readonly_copy
+    @course.lectures.push @lecture
     if @lecture.save
-      @clj = CourseToLectureJunction.new(:course_id => params[:course_id], :lecture_id => @lecture.id)
-      @clj.save
-      if @course.nil?
-          redirect_to @lecture, notice: 'Lecture was successfully created.'
-      else
-          redirect_to @course, notice: 'Lecture was successfully created.'
-      end
+      redirect_to @course, notice: 'Lecture was successfully created.'
     else
       render :new
     end

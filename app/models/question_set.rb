@@ -6,7 +6,6 @@ class QuestionSet < ApplicationRecord
     set = QuestionSet.new(name: self.name + ' (clone)')
     set.is_readonly = true
     set.questions = self.questions
-    set.save!
     set
   end
 
