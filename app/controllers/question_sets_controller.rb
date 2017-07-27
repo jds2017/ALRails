@@ -2,10 +2,13 @@ class QuestionSetsController < ApplicationController
   before_action :set_question_set, only: [:show, :edit, :update, :destroy]
 
   def index
-    @question_sets = QuestionSet.all
+    names = current_user.courses_as_instructor.map { |c| c.name }
+    @question_sets = QuestionSet.all.select { |qs| names.include? qs.course_name }
   end
 
   def show
+    raise unless teaches_set
+    @question_set.questions.first.course_name
   end
 
   def new
@@ -27,15 +30,10 @@ class QuestionSetsController < ApplicationController
 
   def create
     @question_set = QuestionSet.new(question_set_params)
+    @question_set.questions = params[:question_ids].map{|p| Question.find(p)}
+    raise unless teaches_set
     @question_set.is_readonly = false
-
     if @question_set.save
-      if params[:question_ids]
-        params[:question_ids].each do |id|
-          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
-          @j.save
-        end
-      end
       redirect_to @question_set, notice: 'Question set was successfully created.' 
     else
       render :new 
@@ -43,15 +41,9 @@ class QuestionSetsController < ApplicationController
   end
 
   def update
-    @question_set.name = :name
+    @question_set.questions = params[:question_ids].map{|p| Question.find(p)}
+    raise unless teaches_set
     if @question_set.update(question_set_params)
-      QuestionSetJunction.where(question_set_id: @question_set.id).delete_all
-      if params[:question_ids]
-        params[:question_ids].each do |id|
-          @j = QuestionSetJunction.new(:question_id => id, :question_set_id => @question_set.id)
-          @j.save
-        end
-      end
       redirect_to @question_set, notice: 'Question set was successfully updated.' 
     else
       render :edit 
@@ -59,11 +51,17 @@ class QuestionSetsController < ApplicationController
   end
 
   def destroy
+    raise unless teaches_set
     @question_set.destroy
     redirect_to question_sets_url, notice: 'Question set was successfully destroyed.' 
   end
 
   private
+    def teaches_set
+      course_name = @question_set.course_name
+      current_user.courses_as_instructor.map {|c| c.name }.include? course_name
+    end
+
     def set_question_set
       @question_set = QuestionSet.find(params[:id])
     end

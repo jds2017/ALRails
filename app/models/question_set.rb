@@ -13,4 +13,8 @@ class QuestionSet < ApplicationRecord
   def to_s
     self.name
   end
+
+  def course_name
+    questions.first&.course_name
+  end
 end

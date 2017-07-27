@@ -21,6 +21,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    raise unless teaches_question
 
     if @question.save
       if params[:tags_list]
