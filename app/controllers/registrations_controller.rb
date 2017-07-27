@@ -1,26 +1,19 @@
 class RegistrationsController < ApplicationController
   before_action :find_registration, only: [:show, :edit, :update, :destroy]
   before_action :find_course
-  before_action :validate_read, only: [:show, :edit]
-  before_action :validate_modify, only: [:destroy, :update]
 
   def index
-    if current_user.is_admin
-      @registrations = Registration.all
-    else
-      @registrations = []
-      current_user.courses_as_instructor.each do |c|
+    @registrations = []
+    current_user.courses_as_instructor.each do |c|
+      if c == @course
         @registrations += c.registrations
       end
-      @registrations = @registrations.uniq { |r| r.id }
-      if !@course.nil?
-        @registrations = @registrations.select { |r| r.course == @course }
-      end
-      @registrations = @registrations.sort_by { |e| e[:role]}
     end
+    @registrations = @registrations.sort_by { |e| e[:role]}
   end
 
   def show
+    raise unless current_user.teaches? @registration.course
   end
 
   def new
@@ -28,23 +21,25 @@ class RegistrationsController < ApplicationController
   end
 
   def edit
+    raise unless current_user.teaches? @registration.course
   end
 
   def create
+    course = Course.find_by(student_key: registration_params[:student_key])
+    if already_registered?
+      redirect_to course, notice: 'You are already registered.' 
+      return
+    end
     @registration = new_registration
     if @registration.save
-      @course = Course.find_by(id: @registration.course_id)
-      if @course.nil?
-        redirect_to @registration, notice: 'Lecture was successfully created.' 
-      else
-        redirect_to @course, notice: 'Registration was successfully created.' 
-      end
+      redirect_to course, notice: 'Registration was successfully created.' 
     else
       render :new
     end
   end
 
   def update
+    raise unless current_user.is_professor? && current_user.teaches?(@registration.course)
     if @registration.update(update_params)
       redirect_to @registration, notice: 'Registration was successfully updated.' 
     else
@@ -53,19 +48,12 @@ class RegistrationsController < ApplicationController
   end
 
   def destroy
+    raise unless current_user.is_professor? && current_user.teaches?(@registration.course)
     @registration.destroy
     redirect_to registrations_url, notice: 'Registration was successfully destroyed.'
   end
 
   private
-    def validate_read
-      raise unless current_user.courses.include?(@registration.course)
-    end
-
-    def validate_modify
-      raise unless current_user.courses_as_instructor.include?(@registration.course)
-    end
-
     def find_registration
       @registration = Registration.find(params[:id])
     end
@@ -74,10 +62,14 @@ class RegistrationsController < ApplicationController
       @course = Course.find_by(id: params[:course_id])
     end
 
+    def already_registered?
+      course = Course.find_by(student_key: registration_params[:student_key])
+      Registration.exists? user: current_user, course: course
+    end
+
     def new_registration
-      course = Course.where(student_key: registration_params[:student_key])
-      @registration = Registration.new({user: current_user, course: course[0], role: "STUDENT"})
-      return @registration
+      course = Course.find_by(student_key: registration_params[:student_key])
+      Registration.new({user: current_user, course: course, role: "STUDENT"})
     end
 
     def registration_params
