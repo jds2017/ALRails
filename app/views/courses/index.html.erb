@@ -52,5 +52,6 @@
         </tbody>
     </table>
 </div>
-
-<%= button_to "Create Course", new_course_path, {class: 'btn btn-primary', method: :get} %>
+<% if current_user.is_professor %>
+    <%= button_to "Create Course", new_course_path, {class: 'btn btn-primary', method: :get} %>
+<% end %>
