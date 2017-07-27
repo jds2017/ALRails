@@ -17,6 +17,7 @@ class CoursesController < ApplicationController
   end
 
   def new
+    raise unless current_user.is_professor
     @course = Course.new
   end
 
