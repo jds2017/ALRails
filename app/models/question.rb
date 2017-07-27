@@ -1,6 +1,9 @@
 require 'json'
 
 class Question < ApplicationRecord
+  validates :body, :course, presence: true
+  validates :course_name, presence: true
+
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers, allow_destroy: true, :reject_if => proc { |a| a[:answer].blank? }
 
@@ -11,7 +14,6 @@ class Question < ApplicationRecord
 
   has_many :responses, dependent: :destroy
 
-  validates :course_name, presence: true
 
   def correct_answers
     answers.find_all { |a| a.is_correct }

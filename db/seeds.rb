@@ -21,7 +21,7 @@ tag4 = Tag.create tag: 'logisim'
 
 q1 = Question.create body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}', course_name: 'CS4240'
 q2 = Question.create body: '{"ops":[{"insert":"register allocation is NP hard\n"}]}', course_name: 'CS4240'
-q3 = Question.create body: '{"ops":[{"insert":"in logisim, you should backup your work periodically\n"}]}', course_name: 'CS2200'
+q3 = Question.create body: '{"ops":[{"insert":"in logisim, you should backup your work periodically\n"}]}', course_name: 'CS4240'
 
 QuestionToTagJunction.create question: q1, tag: tag
 QuestionToTagJunction.create question: q2, tag: tag3
@@ -35,12 +35,12 @@ right2 = Answer.create answer: 'false', is_correct: true, question: q2
 right3 = Answer.create answer: 'false, you should use a hdl', is_correct: true, question: q3
 wrong3 = Answer.create answer: 'git is handy for logisim backups', is_correct: false, question: q3
 
-set = QuestionSet.create name: 'my first question set', is_readonly: false
+set = QuestionSet.create name: 'my first question set', is_readonly: false, course_name: 'CS4240'
 QuestionSetJunction.create question: q1, question_set: set
 QuestionSetJunction.create question: q2, question_set: set
 QuestionSetJunction.create question: q3, question_set: set
 
-lecture = Lecture.create title: 'compilers first lecture', question_set: set.readonly_copy
+lecture = Lecture.create title: 'compilers first lecture', question_set: set.readonly_copy, course: compilers
 
 CourseToLectureJunction.create course: compilers, lecture: lecture
 

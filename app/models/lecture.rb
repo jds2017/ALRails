@@ -1,9 +1,11 @@
 class Lecture < ApplicationRecord
+  validates :course, :question_set, presence: true
   belongs_to :question_set
 
   has_one :course_to_lecture_junction
   has_one :course, through: :course_to_lecture_junction
-  
+  belongs_to :question_set
+
   def question_response_average(q)
     @responses = Response.where(question: q, lecture: self)
     @answers = q.answers
