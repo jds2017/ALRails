@@ -1,5 +1,5 @@
 class Course < ApplicationRecord
-  has_many :registrations
+  has_many :registrations, dependent: :destroy
   has_many :users, through: :registrations
   has_many :questions, foreign_key: 'course_name', primary_key: 'name'
   has_many :course_to_lecture_junctions
