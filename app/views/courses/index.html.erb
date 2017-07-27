@@ -56,4 +56,6 @@
 </div>
 <% if current_user.is_professor %>
     <%= button_to "Create Course", new_course_path, {class: 'btn btn-primary', method: :get} %>
+<% else %>
+    <%= button_to "Register for a Course", new_registration_path, {class: 'btn btn-primary', method: :get} %>
 <% end %>
