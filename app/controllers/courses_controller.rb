@@ -7,6 +7,7 @@ class CoursesController < ApplicationController
   end
 
   def show
+    raise unless current_user.courses.include? @course
     @course_data = @course.timeseries
     @user_data = @course.timeseries_by_user current_user
     if @user_data.length > 0
@@ -20,6 +21,7 @@ class CoursesController < ApplicationController
   end
 
   def edit
+    raise unless current_user.teaches? @course
   end
 
   def create
