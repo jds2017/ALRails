@@ -25,7 +25,6 @@ class LecturesController < ApplicationController
     @lecture = Lecture.new(lecture_params)
     @lecture.question_set = @lecture.question_set.readonly_copy
     @lecture.course = @course
-    @course.lectures.push @lecture
     if @lecture.save
       redirect_to @course, notice: 'Lecture was successfully created.'
     else
