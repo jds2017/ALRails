@@ -4,7 +4,7 @@ Course.create year: 2014, semester: 'SPRING', name: 'CS2200', student_key: '4jk2
 
 
 User.create username: 'jtompkins8', fname: 'john', lname: 'tompkins', is_admin: true
-User.create username: 'rkalhan4', fname: 'robert', lname: 'kalhan', is_admin: false, is_professor: true
+rkal = User.create username: 'rkalhan4', fname: 'robert', lname: 'kalhan', is_admin: false, is_professor: true
 student = User.create username: 'smaer', fname: 'sally', lname: 'maer', is_admin: false
 student2 = User.create username: 'srunner', fname: 'steve', lname: 'runner', is_admin: false
 prof = User.create username: 'testprof', fname: 'test', lname: 'prof', is_admin: false, is_professor: true
@@ -12,7 +12,7 @@ prof = User.create username: 'testprof', fname: 'test', lname: 'prof', is_admin:
 Registration.create role: 'STUDENT', user: student, course: Course.where(name: 'CS4240').first
 Registration.create role: 'STUDENT', user: student2, course: Course.where(name: 'CS4240').first
 Registration.create role: 'INSTRUCTOR', user: User.where(username: 'rkalhan4').first, course: Course.where(name: 'CS4240').first
-Registration.create role: 'INSTRUCTOR', user: prof, course: Course.where(name: "CS2200").first
+Registration.create role: 'INSTRUCTOR', user: rkal, course: Course.where(name: "CS2200").first
 
 tag = Tag.create tag: 'malloc'
 tag2 = Tag.create tag: 'circuit'
@@ -21,7 +21,12 @@ tag4 = Tag.create tag: 'logisim'
 
 q1 = Question.create body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}', course_name: 'CS4240'
 q2 = Question.create body: '{"ops":[{"insert":"register allocation is NP hard\n"}]}', course_name: 'CS4240'
-q3 = Question.create body: '{"ops":[{"insert":"in logisim, you should backup your work periodically\n"}]}', course_name: 'CS4240'
+q3 = Question.create body: '{"ops":[{"insert":"A block is chunk of code for which there is only one flow of execution\n"}]}', course_name: 'CS4240'
+
+q4 = Question.create body: '{"ops":[{"insert":"something about snoopy caches\n"}]}', course_name: 'CS2200'
+set = QuestionSet.create name: 'I hate my 2200 students', is_readonly: false, course_name: 'CS2200'
+QuestionSetJunction.create question: q4, question_set: set
+
 
 QuestionToTagJunction.create question: q1, tag: tag
 QuestionToTagJunction.create question: q2, tag: tag3
