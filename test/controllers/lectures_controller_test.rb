@@ -29,13 +29,13 @@ class LecturesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update lecture" do
-    patch lecture_url(@lecture), params: { un: 'leahy', lecture: { question_set_id: @lecture.question_set_id, title: @lecture.title } }
+    patch lecture_url(@lecture), params: { un: 'leahy', course_id: courses(:one).id, lecture: { question_set_id: @lecture.question_set_id, title: @lecture.title } }
     assert_redirected_to lecture_url(@lecture)
   end
 
   test "should destroy lecture" do
     assert_difference('Lecture.count', -1) do
-      delete lecture_url(@lecture, params: {un: 'leahy'})
+      delete lecture_url(@lecture, params: {un: 'leahy', course_id: courses(:one).id})
     end
     assert_redirected_to lectures_url
   end
