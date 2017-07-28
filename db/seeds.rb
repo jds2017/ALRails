@@ -3,10 +3,10 @@ Course.create year: 2015, semester: 'FALL', name: 'CS3251', student_key: '45j43h
 Course.create year: 2014, semester: 'SPRING', name: 'CS2200', student_key: '4jk23=3n423-kj324'
 
 
-User.create username: 'jtompkins8', fname: 'john', lname: 'tompkins', is_admin: true
-rkal = User.create username: 'rkalhan4', fname: 'robert', lname: 'kalhan', is_admin: false, is_professor: true
-student = User.create username: 'smaer', fname: 'sally', lname: 'maer', is_admin: false
-student2 = User.create username: 'srunner', fname: 'steve', lname: 'runner', is_admin: false
+User.create username: 'jtompkins8', fname: 'john', lname: 'tompkins', is_admin: true, is_professor: false
+rkal = User.create username: 'rkalhan4', fname: 'robert', lname: 'kalhan', is_admin: true, is_professor: true
+student = User.create username: 'smaer', fname: 'sally', lname: 'maer', is_admin: false, is_professor: false
+student2 = User.create username: 'srunner', fname: 'steve', lname: 'runner', is_admin: false, is_professor: false
 prof = User.create username: 'testprof', fname: 'test', lname: 'prof', is_admin: false, is_professor: true
 
 Registration.create role: 'STUDENT', user: student, course: Course.where(name: 'CS4240').first

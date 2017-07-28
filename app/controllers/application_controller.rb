@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   def create_user
     cookies.signed[:username] = session[:cas_user]
     if User.find_by(username: session[:cas_user]).nil?
-      User.create username: session[:cas_user]
+      User.create!(username: session[:cas_user], is_admin: false, is_professor: false)
     end
   end
 end
