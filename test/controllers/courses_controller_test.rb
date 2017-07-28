@@ -12,7 +12,7 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_course_url
+    get new_course_url, params: {un: 'leahy'}
     assert_response :success
   end
 
@@ -24,12 +24,12 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show course" do
-    get course_url(@course)
+    get course_url(@course, params: {un: 'leahy'})
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_course_url(@course)
+    get edit_course_url(@course, params: {un: 'leahy'})
     assert_response :success
   end
 

@@ -13,6 +13,7 @@ class LecturesController < ApplicationController
   end
 
   def new
+    raise unless current_user.courses.include? @course
     @lecture = Lecture.new
   end
 
