@@ -49,10 +49,13 @@ networking_lecture = Lecture.create title: 'midterm review', question_set: netwo
 
 users = []
 10.times.each do |i|
-  user = User.create! username: "gtid-#{i}", is_admin: false, is_professor: false
+  user = User.create! username: "fakestudent-#{i}", is_admin: false, is_professor: false
   Registration.create! role: 'STUDENT', user: user, course: compilers
   compilers_lecture.question_set.questions.each do |q|
     Response.create! user: user, lecture: compilers_lecture, question: q, answer: q.answers.sample, created_at: "#{['JUNE', 'JULY'].sample} #{rand(1..30)} 2016"
+  end
+  networking_lecture.question_set.questions.each do |q|
+    Response.create! user: user, lecture: networking_lecture, question: q, answer: q.answers.sample, created_at: "#{['JUNE', 'JULY'].sample} #{rand(1..30)} 2016"
   end
   users << user
 end
