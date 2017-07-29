@@ -3,13 +3,13 @@ networking = Course.create! year: 2015, semester: 'FALL', name: 'CS3251'
 systems = Course.create! year: 2014, semester: 'SPRING', name: 'CS2200'
 
 leahy = User.create! username: 'leahy', is_admin: true, is_professor: true
-sweat = User.create! username: 'sweat', is_admin: false, is_professor: true
+mary = User.create! username: 'mhb6', is_admin: false, is_professor: true
 john = User.create! username: 'jtompkins8', is_admin: false, is_professor: false
 
 Registration.create! role: 'INSTRUCTOR', user: john, course: compilers
 Registration.create! role: 'INSTRUCTOR', user: john, course: networking 
-Registration.create! role: 'INSTRUCTOR', user: sweat, course: networking
-Registration.create! role: 'INSTRUCTOR', user: sweat, course: compilers
+Registration.create! role: 'INSTRUCTOR', user: mary, course: networking
+Registration.create! role: 'INSTRUCTOR', user: mary, course: compilers
 Registration.create! role: 'INSTRUCTOR', user: leahy, course: systems
 
 malloc = Question.create! body: '{"ops":[{"insert":"an implementation of malloc can be found in glibc\n"}]}', course_name: 'CS4240'
