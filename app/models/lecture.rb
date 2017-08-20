@@ -45,12 +45,12 @@ class Lecture < ApplicationRecord
     end
   end
 
-  private
-
   def response_average
     questions = self.question_set.questions
     return questions.map { |q| [q, question_response_average(q)] }.to_h
   end
+
+  private
 
   def question_response_average(q)
     @responses = Response.where(question: q, lecture: self)
