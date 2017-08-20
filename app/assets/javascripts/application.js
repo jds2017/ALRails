@@ -16,6 +16,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-tagsinput
 //= require_tree .
+//= require_tree ../../../vendor/assets/javascripts/.
+
 
 $(document).ready(function() {
   $(window).keydown(function(event){

@@ -3,7 +3,9 @@
 one:
   name: MyString
   is_readonly: false
+  course_name: XX9999
 
 two:
   name: MyString
   is_readonly: false
+  course_name: XX9999

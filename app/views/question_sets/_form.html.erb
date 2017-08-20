@@ -2,7 +2,6 @@
   <% if question_set.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(question_set.errors.count, "error") %> prohibited this question_set from being saved:</h2>
-
       <ul>
       <% question_set.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -16,18 +15,14 @@
     <%= form.text_field :name, id: :question_set_name, class: 'form-control' %>
   </div>
 
-  <!-- check if current_user's courses have any questions
-        and allow user to filter those questions by searching tags.-->
   <br>
     <strong>Select the questions you would like to include in the set:</strong>
   <div class="well">
     <div>
     <% if @questions.present? %>
-      <!-- add "search bar" for tags and filter questions shown based on
-            tag entered -->
       <div class="form-group input-group" >
         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-        <input type="text" id="tagSearchInput" onkeyup="qSetQuestionTagSearch()" class="form-control" placeholder="Search for question tags...">
+        <input type="text" id="tagSearchInput" onkeyup="questionsTableTagSearch(2, 3)" class="form-control" placeholder="Search for question tags...">
       </div>
 
       <table id="questionTagTable" class="table table-striped">
@@ -37,9 +32,6 @@
           <th style="min-width:100px">Tags</th>
           <th style="min-width:100px">Course</th>
         </tr>
-        <!-- loop thru questions from controller
-              (questions associated with courses the current_user is
-              a professor or assistant for) -->
         <% @questions.each do |question| %>
           <tr>
             <td><%= check_box_tag 'question_ids[]', question.id, !@unselected_questions.include?(question), :id => 'question_ids_#{question.id}' -%></td>
@@ -50,12 +42,14 @@
         <% end %>
       </table>
     <% else %>
-      <!-- current_user's courses do not have any questions -->
       <p>There are no questions associated with the courses you teach. Please create a question to add to the question set.</p>
     <% end %>
     </div>
   </div>
 
+  <% if params[:course_name] %>
+    <input type="hidden" name="question_set[course_name]" value="<%= params[:course_name] %>">
+  <% end %>
 
   <div class="actions">
     <%= form.submit class: "btn btn-default" %>

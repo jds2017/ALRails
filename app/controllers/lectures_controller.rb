@@ -4,80 +4,51 @@ class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy]
   before_action :set_course
 
-  # GET /lectures
-  # GET /lectures.json
-  def index
-    @lectures = Lecture.all
-  end
-
-  # GET /lectures/1
-  # GET /lectures/1.json
   def show
+    raise unless current_user.courses.include? @lecture.course
     @response_averages = @lecture.response_average
     responses = Response.where(lecture: @lecture, user: current_user)
     @emoji_map = responses.map { |res| [res.answer, (res.is_correct? ? '✅' : '✖')]}.to_h
     @livelecture_uri = URI.encode "/livelecture/show?lecture=#{params[:id]}"
   end
 
-  # GET /lectures/new
   def new
+    raise unless current_user.courses.include? @course
     @lecture = Lecture.new
   end
 
-  # GET /lectures/1/edit
   def edit
+    raise unless current_user.courses.include? @lecture.course
   end
 
-  # POST /lectures
-  # POST /lectures.json
   def create
+    raise unless current_user.teaches? @course
     @lecture = Lecture.new(lecture_params)
     @lecture.question_set = @lecture.question_set.readonly_copy
-    respond_to do |format|
-      if @lecture.save
-        # find new lecture_id and course_id, then add to junction table
-        @clj = CourseToLectureJunction.new(:course_id => params[:course_id], :lecture_id => @lecture.id)
-        @clj.save
-        if @course.nil?
-            format.html { redirect_to @lecture, notice: 'Lecture was successfully created.'}
-            format.json { render :show, status: :created, location: @lecture}
-        else
-            format.html { redirect_to @course, notice: 'Lecture was successfully created.'}
-            format.json { render :show, status: :created, location: @course}      
-        end
-      else
-        format.html { render :new }
-        format.json { render json: @lecture.errors, status: :unprocessable_entity }
-      end
+    @lecture.course = @course
+    if @lecture.save
+      redirect_to @course, notice: 'Lecture was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /lectures/1
-  # PATCH/PUT /lectures/1.json
   def update
-    respond_to do |format|
-      if @lecture.update(lecture_params)
-        format.html { redirect_to @lecture, notice: 'Lecture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lecture }
-      else
-        format.html { render :edit }
-        format.json { render json: @lecture.errors, status: :unprocessable_entity }
-      end
+    raise unless current_user.teaches? @course
+    if @lecture.update(lecture_params)
+      redirect_to @lecture, notice: 'Lecture was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /lectures/1
-  # DELETE /lectures/1.json
   def destroy
+    raise unless current_user.teaches? @course
     @lecture.destroy
-    respond_to do |format|
-      format.html { redirect_to lectures_url, notice: 'Lecture was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to lectures_url, notice: 'Lecture was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_lecture
       @lecture = Lecture.find(params[:id])
     end
@@ -86,7 +57,6 @@ class LecturesController < ApplicationController
       @course = Course.find_by(id: params[:course_id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def lecture_params
       params.require(:lecture).permit(:title, :date_of_use, :question_set_id)
     end

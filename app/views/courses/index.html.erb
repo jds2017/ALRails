@@ -39,12 +39,14 @@
                             <div style="float:left;margin-left:5px">
                                 <%= button_to "Show", course, {class: 'btn btn-primary', method: :get} %>
                             </div>
-                            <div style="float:left;margin-left:5px">
-                                <%= button_to "Edit", edit_course_path(course), {class: 'btn btn-primary', method: :get} %>
-                            </div>
-                            <div style="float:left;margin-left:5px">
-                                <%= button_to "Destroy", course, {method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'} %>
-                            </div>
+                            <% if current_user.teaches? course %>
+                                <div style="float:left;margin-left:5px">
+                                    <%= button_to "Edit", edit_course_path(course), {class: 'btn btn-primary', method: :get} %>
+                                </div>
+                                <div style="float:left;margin-left:5px">
+                                    <%= button_to "Destroy", course, {method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'} %>
+                                </div>
+                            <% end %>
                         </div>
                     </td>
                 </tr>
@@ -52,5 +54,8 @@
         </tbody>
     </table>
 </div>
-
-<%= button_to "Create Course", new_course_path, {class: 'btn btn-primary', method: :get} %>
+<% if current_user.is_professor %>
+    <%= button_to "Create Course", new_course_path, {class: 'btn btn-primary', method: :get} %>
+<% else %>
+    <%= button_to "Register for a Course", new_registration_path, {class: 'btn btn-primary', method: :get} %>
+<% end %>

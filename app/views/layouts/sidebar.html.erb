@@ -5,47 +5,46 @@
         <li class="active">
           <%= link_to "Users", :controller => :users, :action => :index %>
         </li>
+      <% end %>
+      <% if controller_name == 'livelecture' %>
+        <li style="padding-left: 5px;">
+          <%= link_to "Exit Lecture", Lecture.find(params[:lecture]).course %>
+          <li><div id="countdown"></div></li>
+          <% if current_user.is_professor %>
+            <div style="padding-left: 5px;" hidden id="countdown-ctl">
+              <div class="countdown-ctl" ><input type="number" id="timeChange" value="5" class="form-control"></div>
+              <div class="countdown-ctl" style="margin-top:5px"><button type="button" class="btn btn-primary"  onclick="edit_timer_send()">Add Time to Timer</button></div>
+            </div>
+            <div style="padding-left: 5px;" id="userlist"></div>
+          <% end %>
+        </li>
       <% else %>
-        <% if controller_name == 'livelecture' %>
-          <li style="padding-left: 5px;">
-            <%= link_to "Exit Lecture", Lecture.find(params[:lecture]).course %>
-            <li><div id="countdown"></div></li>
-            <% if current_user.is_professor %>
-              <div style="padding-left: 5px;" hidden id="countdown-ctl">
-                <div class="countdown-ctl" ><input type="number" id="timeChange" value="5" class="form-control"></div>
-                <div class="countdown-ctl" style="margin-top:5px"><button type="button" class="btn btn-primary"  onclick="edit_timer_send()">Add Time to Timer</button></div>
-              </div>
-              <div style="padding-left: 5px;" id="userlist"></div>
+        <li>
+          <a href="#">Courses<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <% current_user.courses.each do |course| %>
+              <li>
+                <%= link_to course.name, course, { method: :get, controller: :course} %>
+              </li>
             <% end %>
-          </li>
-        <% else %>
-          <li>
-            <a href="#"></i>Courses<span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <% current_user.courses.each do |course| %>
-                <li>
-                  <%= link_to course.name, course, { method: :get, controller: :course} %>
-                </li>
-              <% end %>
-              <% if current_user.is_professor %>
-                <li>
-                <!--<i class="fa fa-edit fa-fw"></i>-->
-                  <%= link_to "Create New Course", new_course_path, {method: :get, controller: :course} %>
-                </li>
-              <% else %>
-                <li>
-                  <%= link_to "Register New Course", :controller => :registrations, :action => :new %>
-                </li>
-              <% end %>
-            </ul>
-          </li>
-          <li>
-            <%= link_to "Questions", :controller => :questions, :action => :index %>
-          </li>
-          <li>
-            <%= link_to "Question Sets", :controller => :question_sets, :action => :index %>
-          </li>
-        <% end %>
+            <% if current_user.is_professor %>
+              <li>
+              <!--<i class="fa fa-edit fa-fw"></i>-->
+                <%= link_to "Create New Course", new_course_path, {method: :get, controller: :course} %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to "Register New Course", :controller => :registrations, :action => :new %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <%= link_to "Questions", :controller => :questions, :action => :index %>
+        </li>
+        <li>
+          <%= link_to "Question Sets", :controller => :question_sets, :action => :index %>
+        </li>
       <% end %>
     </ul>
   </div>

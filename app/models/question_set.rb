@@ -1,12 +1,13 @@
 class QuestionSet < ApplicationRecord
-  has_many :question_set_junctions
+  validates :course_name, presence: true
+  has_many :question_set_junctions, :dependent => :destroy
   has_many :questions, through: :question_set_junctions
 
   def readonly_copy
     set = QuestionSet.new(name: self.name + ' (clone)')
     set.is_readonly = true
+    set.course_name = self.course_name
     set.questions = self.questions
-    set.save!
     set
   end
 

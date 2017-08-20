@@ -6,9 +6,8 @@
 </p>
 
 <p>
-  <% if @question_set.is_readonly %>
-  This question set can not be edited because it is included in a lecture.
-  <% end %>
+  <strong>For use in:</strong>
+  <%= @question_set.course_name %>
 </p>
 
 <table class="table table-striped table-bordered table-hover" id="questions-table">

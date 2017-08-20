@@ -1,4 +1,6 @@
 class Response < ApplicationRecord
+  validates :lecture, :user, :question, :answer, presence: true
+
   belongs_to :lecture
   belongs_to :user
   belongs_to :question
