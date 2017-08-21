@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 
   def development_login
     session[:cas_user] = params['un'] if params['un']
+    session[:cas_user] = 'testuser' if session[:cas_user].nil?
   end
 
   def create_user

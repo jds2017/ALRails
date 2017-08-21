@@ -12,7 +12,6 @@ Features:
 
 Known Issues:
 -------
-- App is not "hardened" from all unauthorized actions. For example, if a user guesses a URL to a resource they shouldn't have access to, they may be able to see it. Because our app is not storing passwords or other such sensitive information, it is not that big of an issue.
 - Performance testing was not performed. We do not know how the app will handle when the database grows to be very large or has many concurrent users requesting pages.
 
 Installation:
